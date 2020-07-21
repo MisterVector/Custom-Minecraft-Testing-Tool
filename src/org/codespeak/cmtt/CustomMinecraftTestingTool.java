@@ -12,6 +12,12 @@ import javafx.stage.Stage;
  */
 public class CustomMinecraftTestingTool extends Application {
     
+    private static CustomMinecraftTestingTool instance = null;
+    
+    public CustomMinecraftTestingTool() {
+        instance = this;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
@@ -27,6 +33,14 @@ public class CustomMinecraftTestingTool extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    /**
+     * Gets an instance of this class
+     * @return instance of this class
+     */
+    public static CustomMinecraftTestingTool getInstance() {
+        return instance;
     }
     
 }
