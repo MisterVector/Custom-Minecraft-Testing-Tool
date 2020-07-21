@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.scenes.SceneTypes;
+import org.codespeak.cmtt.util.SceneUtil;
 
 /**
  *
@@ -20,11 +22,7 @@ public class CustomMinecraftTestingTool extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
+        stage = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_TITLE).getStage();
         stage.show();
     }
 

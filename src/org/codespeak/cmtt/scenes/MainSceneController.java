@@ -1,4 +1,4 @@
-package org.codespeak.cmtt;
+package org.codespeak.cmtt.scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
