@@ -2,11 +2,64 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="org.codespeak.cmtt.MainSceneController">
+<AnchorPane id="AnchorPane" prefHeight="384.0" prefWidth="493.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.MainSceneController">
     <children>
-        <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <MenuBar prefHeight="25.0" prefWidth="493.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Quit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutX="7.0" layoutY="25.0" prefHeight="143.0" prefWidth="486.0">
+         <children>
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" text="Server Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="14.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="JVM Flags" />
+            <Button layoutX="173.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Servers" />
+            <Button layoutX="332.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Custom Server Types" />
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="62.0" prefHeight="20.0" prefWidth="458.0" text="Manage JVM flags, servers and custom server types">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="7.0" layoutY="168.0" prefHeight="393.0" prefWidth="486.0">
+         <children>
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" text="Profile Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="56.0" prefHeight="20.0" prefWidth="458.0" text="Manage server and plugin development profiles">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ListView layoutX="14.0" layoutY="86.0" prefHeight="216.0" prefWidth="458.0" />
+            <Button layoutX="14.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Open Profile" />
+            <Button layoutX="257.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Add Plugin Profile" />
+            <Button layoutX="14.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Add Server Profile" />
+            <Button layoutX="257.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Delete Profile" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
