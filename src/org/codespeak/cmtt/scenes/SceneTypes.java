@@ -7,7 +7,8 @@ package org.codespeak.cmtt.scenes;
  */
 public enum SceneTypes {
     
-    MAIN("MainScene.fxml");
+    MAIN("MainScene.fxml"),
+    JVM_FLAGS_SCENE("JVMFlagsScene.fxml");
     
     private final String fxmlName;
     

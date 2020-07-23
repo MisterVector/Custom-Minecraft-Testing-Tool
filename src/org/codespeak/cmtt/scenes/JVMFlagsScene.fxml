@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="602.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.JVMFlagsSceneController">
+   <children>
+      <Label alignment="TOP_CENTER" layoutX="12.0" layoutY="14.0" prefHeight="35.0" prefWidth="476.0" text="JVM Flags Profile Management">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="65.0" text="Profile Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="101.0" text="JVM Flags">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ListView fx:id="profileList" layoutX="21.0" layoutY="258.0" prefHeight="239.0" prefWidth="462.0" />
+      <TextField fx:id="profileNameInput" layoutX="118.0" layoutY="63.0" prefHeight="25.0" prefWidth="362.0" />
+      <Button layoutX="252.0" layoutY="508.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Edit Profile" />
+      <Button layoutX="137.0" layoutY="508.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
+      <Button layoutX="374.0" layoutY="568.0" mnemonicParsing="false" onAction="#onCloseWindowButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close Window" />
+      <Button layoutX="18.0" layoutY="508.0" mnemonicParsing="false" onAction="#onAddProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Add Profile" />
+      <TextArea fx:id="flagsStringInput" layoutX="18.0" layoutY="131.0" prefHeight="112.0" prefWidth="462.0" />
+      <Button fx:id="cancelEditButton" disable="true" layoutX="374.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
+   </children>
+</AnchorPane>

@@ -1,11 +1,13 @@
 package org.codespeak.cmtt.scenes;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import org.codespeak.cmtt.util.SceneUtil;
 
 /**
  * Controller for the main scene
@@ -14,18 +16,15 @@ import javafx.scene.control.Label;
  */
 public class MainSceneController implements Initializable {
     
-    @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
+
+    @FXML
+    public void onJVMFlagsButtonClick(ActionEvent event) throws IOException {
+        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS_SCENE, "JVM Flags Management").getStage();
+        stage.show();
+    }
     
 }
