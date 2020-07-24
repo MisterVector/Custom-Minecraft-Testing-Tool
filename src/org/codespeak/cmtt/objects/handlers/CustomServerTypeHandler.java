@@ -86,9 +86,6 @@ public class CustomServerTypeHandler {
         if (dataJson.has("custom_server_types")) {
             JSONArray customServerTypesJson = dataJson.getJSONArray("custom_server_types");
 
-            System.out.println(customServerTypesJson.length()
-            );
-            
             for (int i = 0; i < customServerTypesJson.length(); i++) {
                 JSONObject customServerTypeJson = customServerTypesJson.getJSONObject(i);
                 customServerTypes.add(CustomServerType.fromJSON(customServerTypeJson));
