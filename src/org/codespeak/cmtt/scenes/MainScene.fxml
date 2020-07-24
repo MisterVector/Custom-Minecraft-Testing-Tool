@@ -34,7 +34,7 @@
             </Label>
             <Button layoutX="14.0" layoutY="105.0" mnemonicParsing="false" onAction="#onJVMFlagsButtonClick" prefHeight="25.0" prefWidth="215.0" text="JVM Flags" />
             <Button layoutX="257.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Server Profiles" />
-            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="62.0" prefHeight="20.0" prefWidth="458.0" text="Manage JVM flags and server profiles">
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="62.0" prefHeight="20.0" prefWidth="458.0" text="Manage JVM flags and server profiles for plugin development">
                <font>
                   <Font size="14.0" />
                </font>
