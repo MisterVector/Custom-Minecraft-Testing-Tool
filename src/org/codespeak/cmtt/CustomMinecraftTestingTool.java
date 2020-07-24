@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.handlers.CustomServerTypeHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.scenes.SceneTypes;
 import org.codespeak.cmtt.util.SceneUtil;
@@ -67,7 +66,6 @@ public class CustomMinecraftTestingTool extends Application {
                 JSONObject json = new JSONObject(jsonString);
                 
                 JVMFlagsProfileHandler.loadProfilesFromJSON(json);
-                CustomServerTypeHandler.loadCustomServerTypesFromJSON(json);
             } catch (IOException ex) {
                 
             }
@@ -81,7 +79,6 @@ public class CustomMinecraftTestingTool extends Application {
         JSONObject json = new JSONObject();
         
         JVMFlagsProfileHandler.saveProfilesToJSON(json);
-        CustomServerTypeHandler.saveCustomServerTypesToJSON(json);
         
         PrintWriter writer = new PrintWriter(new FileOutputStream(new File(Configuration.DATA_FILE)));
         writer.write(json.toString(4));
