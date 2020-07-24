@@ -26,5 +26,11 @@ public class MainSceneController implements Initializable {
         Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS_SCENE, "JVM Flags Management").getStage();
         stage.show();
     }
+
+    @FXML
+    public void onCustomServerTypesButtonClick(ActionEvent event) throws IOException {
+        Stage stage = SceneUtil.getScene(SceneTypes.CUSTOM_SERVER_MANAGEMENT, "Custom Server Management").getStage();
+        stage.show();
+    }
     
 }
