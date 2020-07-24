@@ -23,7 +23,7 @@ public class MainSceneController implements Initializable {
 
     @FXML
     public void onJVMFlagsButtonClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS_SCENE, "JVM Flags Management").getStage();
+        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Management").getStage();
         stage.show();
     }
 
