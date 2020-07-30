@@ -1,9 +1,10 @@
-package org.codespeak.cmtt.objects;
+package org.codespeak.cmtt.profiles;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.objects.ServerTypes;
 import org.json.JSONObject;
 
 /**

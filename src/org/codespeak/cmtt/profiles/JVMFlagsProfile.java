@@ -1,4 +1,4 @@
-package org.codespeak.cmtt.objects;
+package org.codespeak.cmtt.profiles;
 
 import org.json.JSONObject;
 

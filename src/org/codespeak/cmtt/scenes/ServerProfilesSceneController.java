@@ -19,7 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.ServerProfile;
+import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.util.AlertUtil;

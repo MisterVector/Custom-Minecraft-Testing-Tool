@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.codespeak.cmtt.objects.JVMFlagsProfile;
+import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

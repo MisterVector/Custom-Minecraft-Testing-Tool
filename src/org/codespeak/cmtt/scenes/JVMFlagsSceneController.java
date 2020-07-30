@@ -17,7 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.JVMFlagsProfile;
+import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;
