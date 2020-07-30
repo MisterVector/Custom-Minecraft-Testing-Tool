@@ -11,10 +11,8 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class ServerProfile {
+public class ServerProfile extends Profile {
    
-    private final int id;
-    private String name;
     private String minecraftVersion;
     private ServerTypes serverType;
     private String customPluginsArgument;
@@ -25,38 +23,14 @@ public class ServerProfile {
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
                          String customPluginsArgument, String customWorldsArgument, Path updatePath,
                          boolean autoUpdate) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
+
         this.minecraftVersion = minecraftVersion;
         this.updatePath = updatePath;
         this.autoUpdate = autoUpdate;
         this.serverType = serverType;
         this.customPluginsArgument = customPluginsArgument;
         this.customWorldsArgument = customWorldsArgument;
-    }
-    
-    /**
-     * Gets the ID of this server profile
-     * @return ID of this server profile
-     */
-    public int getId() {
-        return id;
-    }
-    
-    /**
-     * Gets the name of this server profile
-     * @return name of this server profile
-     */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * Sets the name of this server profile
-     * @param name name of this server profile
-     */
-    public void setName(String name) {
-        this.name = name;
     }
     
     /**
@@ -162,6 +136,8 @@ public class ServerProfile {
      * @return path to the folder for this server profile
      */
     public Path getProfileLocation() {
+        int id = super.getId();
+        
         return Paths.get(Configuration.SERVERS_FOLDER + File.separator + id);
     }
     
@@ -170,11 +146,15 @@ public class ServerProfile {
      * @return path to the server.jar file for this server profile
      */
     public Path getServerLocation() {
+        int id = super.getId();
+        
         return Paths.get(Configuration.SERVERS_FOLDER + File.separator + id + File.separator + "server.jar");
     }
     
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
+        int id = super.getId();
+        String name = super.getName();
         
         json.put("id", id);
         json.put("name", name);

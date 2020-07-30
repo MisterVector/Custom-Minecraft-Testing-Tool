@@ -7,40 +7,14 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class JVMFlagsProfile {
+public class JVMFlagsProfile extends Profile {
 
-    private final int id;
-    private String name;
     private String flagsString;
     
     public JVMFlagsProfile(int id, String name, String flagsString) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
+        
         this.flagsString = flagsString;
-    }
-    
-    /**
-     * Gets the ID of this JVM flags profile
-     * @return ID of this JVM flags profile
-     */
-    public int getId() {
-        return id;
-    }
-    
-    /**
-     * Gets the name of this JVM flags profile
-     * @return name of this JVM flags profile
-     */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * Sets the name of this JVM flags profile
-     * @param name name of this JVM flags profile
-     */
-    public void setName(String name) {
-        this.name = name;
     }
     
     /**
@@ -65,6 +39,8 @@ public class JVMFlagsProfile {
      */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
+        int id = super.getId();
+        String name = super.getName();
         
         json.put("id", id);
         json.put("name", name);
