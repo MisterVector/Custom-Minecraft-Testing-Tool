@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
+import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.scenes.SceneTypes;
 import org.codespeak.cmtt.util.SceneUtil;
 import org.json.JSONObject;
@@ -42,6 +43,12 @@ public class CustomMinecraftTestingTool extends Application {
     public static void main(String[] args) {
         loadData();
 
+        File serversFolder = new File(Configuration.SERVERS_FOLDER);
+        
+        if (!serversFolder.exists()) {
+            serversFolder.mkdir();
+        }
+        
         launch(args);
     }
     
@@ -66,6 +73,7 @@ public class CustomMinecraftTestingTool extends Application {
                 JSONObject json = new JSONObject(jsonString);
                 
                 JVMFlagsProfileHandler.loadProfilesFromJSON(json);
+                ServerProfileHandler.loadProfilesFromJSON(json);
             } catch (IOException ex) {
                 
             }
@@ -79,6 +87,7 @@ public class CustomMinecraftTestingTool extends Application {
         JSONObject json = new JSONObject();
         
         JVMFlagsProfileHandler.saveProfilesToJSON(json);
+        ServerProfileHandler.saveProfilesToJSON(json);
         
         PrintWriter writer = new PrintWriter(new FileOutputStream(new File(Configuration.DATA_FILE)));
         writer.write(json.toString(4));

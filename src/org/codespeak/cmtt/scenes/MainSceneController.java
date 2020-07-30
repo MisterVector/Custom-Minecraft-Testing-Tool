@@ -27,4 +27,10 @@ public class MainSceneController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    public void onServerProfilesButtonClick(ActionEvent event) throws IOException {
+        Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profiles Management").getStage();
+        stage.show();
+    }
+    
 }
