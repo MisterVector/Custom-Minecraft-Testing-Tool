@@ -16,24 +16,24 @@ public abstract class Profile {
     }
     
     /**
-     * Gets the ID of this server profile
-     * @return ID of this server profile
+     * Gets the ID of this profile
+     * @return ID of this profile
      */
     public int getId() {
         return id;
     }
     
     /**
-     * Gets the name of this server profile
-     * @return name of this server profile
+     * Gets the name of this profile
+     * @return name of this profile
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Sets the name of this server profile
-     * @param name name of this server profile
+     * Sets the name of this profile
+     * @param name name of this profile
      */
     public void setName(String name) {
         this.name = name;
