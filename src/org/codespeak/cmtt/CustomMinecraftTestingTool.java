@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.scenes.SceneTypes;
@@ -49,6 +50,12 @@ public class CustomMinecraftTestingTool extends Application {
             serversFolder.mkdir();
         }
         
+        File pluginDevelopmentFolder = new File(Configuration.PLUGIN_DEVELOPMENT_FOLDER);
+        
+        if (!pluginDevelopmentFolder.exists()) {
+            pluginDevelopmentFolder.mkdirs();
+        }
+        
         launch(args);
     }
     
@@ -74,6 +81,7 @@ public class CustomMinecraftTestingTool extends Application {
                 
                 JVMFlagsProfileHandler.loadProfilesFromJSON(json);
                 ServerProfileHandler.loadProfilesFromJSON(json);
+                DevelopmentProfileHandler.loadProfilesFromJSON(json);
             } catch (IOException ex) {
                 
             }
@@ -88,6 +96,7 @@ public class CustomMinecraftTestingTool extends Application {
         
         JVMFlagsProfileHandler.saveProfilesToJSON(json);
         ServerProfileHandler.saveProfilesToJSON(json);
+        DevelopmentProfileHandler.saveProfilesToJSON(json);
         
         PrintWriter writer = new PrintWriter(new FileOutputStream(new File(Configuration.DATA_FILE)));
         writer.write(json.toString(4));
