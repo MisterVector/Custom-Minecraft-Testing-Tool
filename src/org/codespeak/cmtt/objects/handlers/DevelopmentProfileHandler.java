@@ -48,6 +48,21 @@ public class DevelopmentProfileHandler {
         return null;
     }
     
+    /**
+     * Gets a development profile by name
+     * @param name name of development profile
+     * @return development profile
+     */
+    public static DevelopmentProfile getProfile(String name) {
+        for (DevelopmentProfile developmentProfile : developmentProfiles) {
+            if (developmentProfile.getName().equalsIgnoreCase(name)) {
+                return developmentProfile;
+            }
+        }
+        
+        return null;
+    }
+    
     public static DevelopmentProfile deleteProfile(int ID) {
         return null;
     }

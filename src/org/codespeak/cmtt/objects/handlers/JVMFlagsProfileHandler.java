@@ -46,6 +46,21 @@ public class JVMFlagsProfileHandler {
         
         return null;
     }
+
+    /**
+     * Gets a JVM flags profile by its name
+     * @param name name of JVM flags profile
+     * @return JVM flags profile
+     */
+    public static JVMFlagsProfile getProfile(String name) {
+        for (JVMFlagsProfile profile : profiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
+            }
+        }
+        
+        return null;
+    }
     
     /**
      * Removes a JVM flags profile by its ID

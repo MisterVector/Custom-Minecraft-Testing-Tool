@@ -25,6 +25,7 @@ import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
+import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
 import org.codespeak.cmtt.profiles.Plugin;
@@ -277,6 +278,15 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         
         if (plugins.isEmpty()) {
             Alert alert = AlertUtil.createAlert("You must add at least one plugin.");
+            alert.show();
+            
+            return;
+        }
+
+        DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
+        
+        if (existingProfile != null && existingProfile != editedPluginDevelopmentProfile) {
+            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
             alert.show();
             
             return;

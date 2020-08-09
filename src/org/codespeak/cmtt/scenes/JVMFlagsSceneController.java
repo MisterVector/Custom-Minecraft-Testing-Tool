@@ -74,6 +74,15 @@ public class JVMFlagsSceneController implements Initializable {
             
             return;
         }
+
+        JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
+        
+        if (existingProfile != null && existingProfile != editedProfile) {
+            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
+            alert.show();
+            
+            return;
+        }
         
         if (isEditMode) {
             String oldProfileName = editedProfile.getName();

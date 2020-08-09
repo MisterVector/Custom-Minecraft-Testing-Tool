@@ -62,6 +62,21 @@ public class ServerProfileHandler {
     }
     
     /**
+     * Gets a server profile by its name
+     * @param name name of server profile
+     * @return server profile
+     */
+    public static ServerProfile getProfile(String name) {
+        for (ServerProfile profile : serverProfiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
      * Deletes a server profile from its ID
      * @param id ID of server profile
      * @return Server Profile object of deleted profile

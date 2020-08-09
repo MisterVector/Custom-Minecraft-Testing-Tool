@@ -189,6 +189,15 @@ public class AddEditServerProfileSceneController implements Initializable {
             }
         }
         
+        ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
+        
+        if (existingProfile != null && existingProfile != editedServerProfile) {
+            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
+            alert.show();
+            
+            return;
+        }
+        
         ServerProfile profile = null;
         
         if (editMode) {
