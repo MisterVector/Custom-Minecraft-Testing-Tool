@@ -137,9 +137,7 @@ public class ServerProfile extends Profile {
      * @return path to the folder for this server profile
      */
     public Path getProfileLocation() {
-        int id = super.getId();
-        
-        return Paths.get(Configuration.SERVERS_FOLDER + File.separator + id);
+        return Paths.get(Configuration.SERVERS_FOLDER + File.separator + super.getId());
     }
     
     /**
@@ -147,9 +145,7 @@ public class ServerProfile extends Profile {
      * @return path to the server.jar file for this server profile
      */
     public Path getServerLocation() {
-        int id = super.getId();
-        
-        return Paths.get(Configuration.SERVERS_FOLDER + File.separator + id + File.separator + "server.jar");
+        return getProfileLocation().resolve("server.jar");
     }
     
     public JSONObject toJSON() {
