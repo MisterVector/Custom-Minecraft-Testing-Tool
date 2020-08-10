@@ -179,7 +179,7 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
         }
         
         if (json.has("server_profile")) {
-            serverProfile = ServerProfileHandler.fromID(json.getInt("server_profile"));
+            serverProfile = ServerProfileHandler.getProfile(json.getInt("server_profile"));
         }
         
         if (json.has("separate_worlds")) {

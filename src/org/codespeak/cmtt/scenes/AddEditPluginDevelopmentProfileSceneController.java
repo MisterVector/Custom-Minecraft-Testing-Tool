@@ -310,7 +310,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         }
         
         int serverProfileId = serverProfileIDNameMap.get(serverProfileName);
-        ServerProfile serverProfile = ServerProfileHandler.fromID(serverProfileId);
+        ServerProfile serverProfile = ServerProfileHandler.getProfile(serverProfileId);
         PluginDevelopmentProfile profile = null;
         
         if (editMode) {

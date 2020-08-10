@@ -38,7 +38,7 @@ public class DevelopmentProfileHandler {
      * @param ID ID of development profile
      * @return development profile represented by its ID
      */
-    public static DevelopmentProfile fromID(int ID) {
+    public static DevelopmentProfile getProfile(int ID) {
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
             if (developmentProfile.getId() == ID) {
                 return developmentProfile;

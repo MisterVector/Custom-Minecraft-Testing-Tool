@@ -107,7 +107,7 @@ public class ServerProfilesSceneController implements Initializable {
         
         String profileName = profileList.getItems().get(selectedIndex);
         int profileId = idNameMap.get(profileName);
-        ServerProfile profile = ServerProfileHandler.fromID(profileId);
+        ServerProfile profile = ServerProfileHandler.getProfile(profileId);
         
         StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Edit Server Profile");
         AddEditServerProfileSceneController controller = stageController.getController();

@@ -51,7 +51,7 @@ public class ServerProfileHandler {
      * @param id ID of server profile
      * @return server profile from its ID
      */
-    public static ServerProfile fromID(int id) {
+    public static ServerProfile getProfile(int id) {
         for (ServerProfile profile : serverProfiles) {
             if (profile.getId() == id) {
                 return profile;
