@@ -1,9 +1,8 @@
 package org.codespeak.cmtt.scenes;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +28,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class JVMFlagsSceneController implements Initializable {
 
-    private Map<String, Integer> idNameMap = new HashMap<String, Integer>();
+    private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private JVMFlagsProfile editedProfile = null;
     private int editedIndex = -1;
     private boolean isEditMode = false;
@@ -39,20 +38,29 @@ public class JVMFlagsSceneController implements Initializable {
     @FXML private ListView<String> profileList;
     @FXML private Button cancelEditButton;
     
+    private JVMFlagsProfile getJVMFlagsProfile(String name) {
+        for (JVMFlagsProfile jvmFlagsProfile : availableJVMFlagsProfiles) {
+            if (jvmFlagsProfile.getName().equalsIgnoreCase(name)) {
+                return jvmFlagsProfile;
+            }
+        }
+        
+        return null;
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        List<JVMFlagsProfile> profiles = JVMFlagsProfileHandler.getProfiles();
+        List<JVMFlagsProfile> jvmFlagsProfiles = JVMFlagsProfileHandler.getProfiles();
         ObservableList<String> items = profileList.getItems();
         
-        for (JVMFlagsProfile profile : profiles) {
-            int id = profile.getId();
+        for (JVMFlagsProfile profile : jvmFlagsProfiles) {
             String name = profile.getName();
             
-            items.add(profile.getName());
-            idNameMap.put(name, id);
+            items.add(name);
+            availableJVMFlagsProfiles.add(profile);
         }
     }    
     
@@ -85,13 +93,6 @@ public class JVMFlagsSceneController implements Initializable {
         }
         
         if (isEditMode) {
-            String oldProfileName = editedProfile.getName();
-            
-            if (!oldProfileName.equals(profileName)) {
-                idNameMap.remove(oldProfileName);
-                idNameMap.put(profileName, editedProfile.getId());
-            }
-            
             editedProfile.setName(profileName);
             editedProfile.setFlagsString(flagsString);
             
@@ -102,19 +103,10 @@ public class JVMFlagsSceneController implements Initializable {
             editedIndex = -1;
             isEditMode = false;
         } else {
-            for (String existingProfileName : idNameMap.keySet()) {
-                if (existingProfileName.equalsIgnoreCase(profileName)) {
-                    Alert alert = AlertUtil.createAlert("That profile name already exists.");
-                    alert.show();
-                    
-                    return;
-                }
-            }
-            
             JVMFlagsProfile profile = JVMFlagsProfileHandler.addProfile(profileName, flagsString);
 
             profileList.getItems().add(profileName);
-            idNameMap.put(profileName, profile.getId());
+            availableJVMFlagsProfiles.add(profile);
         }
         
         profileNameInput.clear();
@@ -147,12 +139,12 @@ public class JVMFlagsSceneController implements Initializable {
         if (button == ButtonType.YES) {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
-            int id = idNameMap.get(profileName);
+            JVMFlagsProfile profile = getJVMFlagsProfile(profileName);
 
-            JVMFlagsProfileHandler.deleteProfile(id);
+            JVMFlagsProfileHandler.deleteProfile(profile.getId());
             
             items.remove(selectedIndex);
-            idNameMap.remove(profileName);
+            availableJVMFlagsProfiles.remove(profile);
         }
     }
     
@@ -168,8 +160,7 @@ public class JVMFlagsSceneController implements Initializable {
         }
 
         String profileName = profileList.getItems().get(selectedIndex);
-        int id = idNameMap.get(profileName);
-        editedProfile = JVMFlagsProfileHandler.getProfile(id);
+        editedProfile = getJVMFlagsProfile(profileName);
         
         profileNameInput.setText(profileName);
         flagsStringInput.setText(editedProfile.getFlagsString());

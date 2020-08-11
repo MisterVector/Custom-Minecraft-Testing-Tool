@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -32,25 +33,34 @@ import org.codespeak.cmtt.util.SceneUtil;
  */
 public class ServerProfilesSceneController implements Initializable {
 
-    private Map<String, Integer> idNameMap = new HashMap<String, Integer>();
+    private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> profileList;
+    
+    private ServerProfile getServerProfile(String profileName) {
+        for (ServerProfile serverProfile : availableServerProfiles) {
+            if (serverProfile.getName().equalsIgnoreCase(profileName)) {
+                return serverProfile;
+            }
+        }
+        
+        return null;
+    }
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        List<ServerProfile> profiles = ServerProfileHandler.getProfiles();
+        List<ServerProfile> serverProfiles = ServerProfileHandler.getProfiles();
         ObservableList<String> items = profileList.getItems();
         
-        for (ServerProfile profile : profiles) {
-            int id = profile.getId();
+        for (ServerProfile profile : serverProfiles) {
             String profileName = profile.getName();
             
             items.add(profileName);
-            idNameMap.put(profileName, id);
+            availableServerProfiles.add(profile);
         }
     }    
     
@@ -61,24 +71,13 @@ public class ServerProfilesSceneController implements Initializable {
      */
     public void finishAddEditServerProfile(ServerProfile profile, boolean editMode) {
         ObservableList<String> items = profileList.getItems();
+        String profileName = profile.getName();
         
         if (editMode) {
-            String oldProfileName = items.get(currentlySelectedIndex);
-            int id = profile.getId();
-            String profileName = profile.getName();
-            
-            if (!oldProfileName.equals(profileName)) {
-                idNameMap.remove(oldProfileName);
-                idNameMap.put(profileName, id);
-                
-                items.set(currentlySelectedIndex, profileName);
-            }
+            items.set(currentlySelectedIndex, profileName);
         } else {
-            int id = profile.getId();
-            String profileName = profile.getName();
-            
             items.add(profileName);
-            idNameMap.put(profileName, id);
+            availableServerProfiles.add(profile);
         }
     }
     
@@ -106,8 +105,7 @@ public class ServerProfilesSceneController implements Initializable {
         currentlySelectedIndex = selectedIndex;
         
         String profileName = profileList.getItems().get(selectedIndex);
-        int profileId = idNameMap.get(profileName);
-        ServerProfile profile = ServerProfileHandler.getProfile(profileId);
+        ServerProfile profile = getServerProfile(profileName);
         
         StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Edit Server Profile");
         AddEditServerProfileSceneController controller = stageController.getController();
@@ -138,10 +136,10 @@ public class ServerProfilesSceneController implements Initializable {
         if (result == ButtonType.YES) {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
-            int profileId = idNameMap.get(profileName);
-
-            ServerProfile profile = ServerProfileHandler.deleteProfile(profileId);
+            ServerProfile profile = getServerProfile(profileName);
             Path profileFolder = profile.getProfileLocation();
+            
+            ServerProfileHandler.deleteProfile(profile.getId());
             
             Files.walk(profileFolder)
              .sorted(Comparator.reverseOrder())
@@ -149,7 +147,7 @@ public class ServerProfilesSceneController implements Initializable {
              .forEach(File::delete);
 
             items.remove(selectedIndex);
-            idNameMap.remove(profileName);
+            availableServerProfiles.remove(profile);
         }
     }
     

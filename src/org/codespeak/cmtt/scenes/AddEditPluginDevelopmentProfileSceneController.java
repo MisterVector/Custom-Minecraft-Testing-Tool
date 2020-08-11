@@ -42,8 +42,8 @@ import org.codespeak.cmtt.util.StringUtil;
 public class AddEditPluginDevelopmentProfileSceneController implements Initializable {
 
     private MainSceneController controller = null;
-    private Map<String, Integer> jvmFlagsProfileIDNameMap = new HashMap<String, Integer>();
-    private Map<String, Integer> serverProfileIDNameMap = new HashMap<String, Integer>();
+    private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
+    private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
     private List<Plugin> deletedPlugins = new ArrayList<Plugin>();
     private PluginDevelopmentProfile editedPluginDevelopmentProfile = null;
@@ -59,6 +59,26 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
     @FXML CheckBox separateWorldsCheck;
     @FXML ListView<String> pluginList;
 
+    private JVMFlagsProfile getJVMFlagsProfile(String name) {
+        for (JVMFlagsProfile jvmFlagsProfile : availableJVMFlagsProfiles) {
+            if (jvmFlagsProfile.getName().equalsIgnoreCase(name)) {
+                return jvmFlagsProfile;
+            }
+        }
+        
+        return null;
+    }
+    
+    private ServerProfile getServerProfile(String name) {
+        for (ServerProfile serverProfile : availableServerProfiles) {
+            if (serverProfile.getName().equalsIgnoreCase(name)) {
+                return serverProfile;
+            }
+        }
+        
+        return null;
+    }
+    
     private Plugin getPlugin(String pluginName) {
         for (Plugin plugin : plugins) {
             if (plugin.getFileName().equals(pluginName)) {
@@ -91,22 +111,20 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         ObservableList<String> jvmFlagsProfileItems = jvmFlagsProfileChoice.getItems();
         
         for (JVMFlagsProfile profile : jvmFlagsProfiles) {
-            int id = profile.getId();
             String profileName = profile.getName();
             
             jvmFlagsProfileItems.add(profileName);
-            jvmFlagsProfileIDNameMap.put(profileName, id);
+            availableJVMFlagsProfiles.add(profile);
         }
         
         List<ServerProfile> serverProfiles = ServerProfileHandler.getProfiles();
         ObservableList<String> serverProfileItems = serverProfilesChoice.getItems();
         
-        for (ServerProfile serverProfile : serverProfiles) {
-            int id = serverProfile.getId();
-            String profileName = serverProfile.getName();
+        for (ServerProfile profile : serverProfiles) {
+            String profileName = profile.getName();
             
             serverProfileItems.add(profileName);
-            serverProfileIDNameMap.put(profileName, id);
+            availableServerProfiles.add(profile);
         }
     }    
     
@@ -170,8 +188,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             return;
         }
         
-        int id = jvmFlagsProfileIDNameMap.get(jvmFlagsProfileName);
-        JVMFlagsProfile profile = JVMFlagsProfileHandler.getProfile(id);
+        JVMFlagsProfile profile = getJVMFlagsProfile(jvmFlagsProfileName);
         String existingJVMFlagsString = jvmFlagsStringInput.getText();
         
         if (!existingJVMFlagsString.endsWith(" ")) {
@@ -309,8 +326,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             }
         }
         
-        int serverProfileId = serverProfileIDNameMap.get(serverProfileName);
-        ServerProfile serverProfile = ServerProfileHandler.getProfile(serverProfileId);
+        ServerProfile serverProfile = getServerProfile(serverProfileName);
         PluginDevelopmentProfile profile = null;
         
         if (editMode) {
