@@ -69,13 +69,13 @@ public class MainSceneController implements Initializable {
             pluginDevelopmentProfileItems.add(profileName);
         }
     }
-    
+
     @FXML
-    public void onJVMFlagsButtonClick(ActionEvent event) throws IOException {
+    public void onJVMFlagsMenuClick(ActionEvent event) throws IOException {
         Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Management").getStage();
         stage.show();
     }
-
+    
     @FXML
     public void onServerProfilesButtonClick(ActionEvent event) throws IOException {
         Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profiles Management").getStage();
