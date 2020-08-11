@@ -45,9 +45,9 @@
             </Label>
             <ListView fx:id="pluginDevelopmentProfileList" layoutX="14.0" layoutY="86.0" prefHeight="216.0" prefWidth="458.0" />
             <Button layoutX="14.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Open Profile" />
+            <Button layoutX="257.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Delete Profile" />
             <Button layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="215.0" text="Add Plugin Development Profile" />
             <Button layoutX="257.0" layoutY="356.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Add Server Development Profile" />
-            <Button layoutX="257.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Delete Profile" />
          </children>
       </AnchorPane>
     </children>

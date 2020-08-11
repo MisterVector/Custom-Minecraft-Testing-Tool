@@ -58,15 +58,15 @@
          <font>
             <Font size="14.0" />
          </font></CheckBox>
-      <Button layoutX="491.0" layoutY="320.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Add Plugin" />
-      <Button layoutX="610.0" layoutY="320.0" mnemonicParsing="false" onAction="#onEditPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Edit Plugin" />
-      <Button layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Delete Plugin" />
-      <ListView fx:id="pluginList" layoutX="492.0" layoutY="92.0" prefHeight="213.0" prefWidth="339.0" />
       <Label alignment="TOP_CENTER" layoutX="491.0" layoutY="60.0" prefHeight="27.0" prefWidth="339.0" text="Plugin List">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <ListView fx:id="pluginList" layoutX="492.0" layoutY="92.0" prefHeight="213.0" prefWidth="339.0" />
+      <Button layoutX="491.0" layoutY="320.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Add Plugin" />
+      <Button layoutX="610.0" layoutY="320.0" mnemonicParsing="false" onAction="#onEditPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Edit Plugin" />
+      <Button layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Delete Plugin" />
       <Button layoutX="662.0" layoutY="446.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="759.0" layoutY="446.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
    </children>
