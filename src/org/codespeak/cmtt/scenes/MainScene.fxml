@@ -21,6 +21,7 @@
             <Menu mnemonicParsing="false" text="Profile">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#onJVMFlagsMenuClick" text="JVM Flags ..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onServersMenuItemClick" text="Servers ..." />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -30,22 +31,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane layoutX="7.0" layoutY="25.0" prefHeight="143.0" prefWidth="486.0">
-         <children>
-            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" text="Server Management">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Button layoutX="20.0" layoutY="105.0" mnemonicParsing="false" onAction="#onServerProfilesButtonClick" prefHeight="25.0" prefWidth="452.0" text="Server Profiles" />
-            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="62.0" prefHeight="20.0" prefWidth="458.0" text="Manage server profiles for plugin development">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="7.0" layoutY="168.0" prefHeight="393.0" prefWidth="486.0">
+      <AnchorPane layoutX="4.0" layoutY="25.0" prefHeight="393.0" prefWidth="486.0">
          <children>
             <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" text="Development Profile Management">
                <font>
