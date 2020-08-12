@@ -72,8 +72,8 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
     public List<Plugin> getPlugins() {
         List<Plugin> ret = new ArrayList<Plugin>();
         
-        for (Plugin pluginProfile : plugins) {
-            ret.add(pluginProfile.copy());
+        for (Plugin plugin : plugins) {
+            ret.add(plugin.copy());
         }
         
         return ret;
@@ -121,8 +121,8 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
         JSONObject json = new JSONObject();
         JSONArray pluginsJson = new JSONArray();
         
-        for (Plugin pluginProfile : plugins) {
-            pluginsJson.put(pluginProfile.toJSON());
+        for (Plugin plugin : plugins) {
+            pluginsJson.put(plugin.toJSON());
         }
         
         int id = super.getId();
@@ -156,7 +156,7 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
         String jvmFlagsString = "";
         ServerProfile serverProfile = null;
         boolean separateWorlds = false;
-        List<Plugin> pluginProfiles = new ArrayList<Plugin>();
+        List<Plugin> plugins = new ArrayList<Plugin>();
         
         if (json.has("id")) {
             id = json.getInt("id");
@@ -187,16 +187,16 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
         }
         
         if (json.has("plugins")) {
-            JSONArray pluginProfilesJson = json.getJSONArray("plugins");
+            JSONArray pluginsJson = json.getJSONArray("plugins");
             
-            for (int i = 0; i < pluginProfilesJson.length(); i++) {
-                JSONObject obj = pluginProfilesJson.getJSONObject(i);
-                pluginProfiles.add(Plugin.fromJSON(obj));
+            for (int i = 0; i < pluginsJson.length(); i++) {
+                JSONObject obj = pluginsJson.getJSONObject(i);
+                plugins.add(Plugin.fromJSON(obj));
             }
         }
         
         return new PluginDevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, separateWorlds, pluginProfiles);
+                                            serverProfile, separateWorlds, plugins);
     }
     
 }

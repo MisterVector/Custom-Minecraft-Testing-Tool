@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="177.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditPluginSceneController">
    <children>
-      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="548.0" text="Add Plugin Profile">
+      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="548.0" text="Add Plugin">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
