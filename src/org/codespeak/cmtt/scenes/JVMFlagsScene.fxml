@@ -29,9 +29,9 @@
       <TextArea fx:id="flagsStringInput" layoutX="18.0" layoutY="131.0" prefHeight="112.0" prefWidth="462.0" />
       <ListView fx:id="profileList" layoutX="21.0" layoutY="258.0" prefHeight="239.0" prefWidth="462.0" />
       <Button layoutX="18.0" layoutY="508.0" mnemonicParsing="false" onAction="#onAddProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Add Profile" />
-      <Button layoutX="137.0" layoutY="508.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
-      <Button layoutX="252.0" layoutY="508.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Edit Profile" />
-      <Button fx:id="cancelEditButton" disable="true" layoutX="374.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
+      <Button layoutX="135.0" layoutY="509.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Edit Profile" />
+      <Button fx:id="cancelEditButton" disable="true" layoutX="252.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
+      <Button layoutX="374.0" layoutY="509.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
       <Button layoutX="374.0" layoutY="568.0" mnemonicParsing="false" onAction="#onCloseWindowButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close Window" />
    </children>
 </AnchorPane>

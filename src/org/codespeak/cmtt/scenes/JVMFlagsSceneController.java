@@ -114,6 +114,40 @@ public class JVMFlagsSceneController implements Initializable {
     }
     
     @FXML
+    public void onEditProfileButtonClick(ActionEvent event) {
+        int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
+        
+        if (selectedIndex < 0) {
+            Alert alert = AlertUtil.createAlert("Select a JVM Flags profile first.");
+            alert.show();
+            
+            return;
+        }
+
+        String profileName = profileList.getItems().get(selectedIndex);
+        editedProfile = getJVMFlagsProfile(profileName);
+        
+        profileNameInput.setText(profileName);
+        flagsStringInput.setText(editedProfile.getFlagsString());
+        
+        isEditMode = true;
+        editedIndex = selectedIndex;
+        cancelEditButton.setDisable(false);
+    }
+    
+    @FXML
+    public void onCancelEditButtonClick(ActionEvent event) {
+        profileNameInput.clear();
+        flagsStringInput.clear();
+        
+        editedProfile = null;
+        editedIndex = -1;
+        isEditMode = false;
+        
+        cancelEditButton.setDisable(true);
+    }
+    
+    @FXML
     public void onDeleteProfileButtonClick(ActionEvent event) {
         if (isEditMode) {
             Alert alert = AlertUtil.createAlert("Cancel edit first before deleting a profile.");
@@ -146,40 +180,6 @@ public class JVMFlagsSceneController implements Initializable {
             items.remove(selectedIndex);
             availableJVMFlagsProfiles.remove(profile);
         }
-    }
-    
-    @FXML
-    public void onEditProfileButtonClick(ActionEvent event) {
-        int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
-        
-        if (selectedIndex < 0) {
-            Alert alert = AlertUtil.createAlert("Select a JVM Flags profile first.");
-            alert.show();
-            
-            return;
-        }
-
-        String profileName = profileList.getItems().get(selectedIndex);
-        editedProfile = getJVMFlagsProfile(profileName);
-        
-        profileNameInput.setText(profileName);
-        flagsStringInput.setText(editedProfile.getFlagsString());
-        
-        isEditMode = true;
-        editedIndex = selectedIndex;
-        cancelEditButton.setDisable(false);
-    }
-    
-    @FXML
-    public void onCancelEditButtonClick(ActionEvent event) {
-        profileNameInput.clear();
-        flagsStringInput.clear();
-        
-        editedProfile = null;
-        editedIndex = -1;
-        isEditMode = false;
-        
-        cancelEditButton.setDisable(true);
     }
     
     @FXML
