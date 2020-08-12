@@ -39,20 +39,20 @@
                </font>
             </Label>
             <ListView fx:id="pluginDevelopmentProfileList" layoutX="14.0" layoutY="61.0" prefHeight="216.0" prefWidth="502.0" />
-            <Button layoutX="14.0" layoutY="291.0" mnemonicParsing="false" onAction="#onAddPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
-            <Button layoutX="144.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
-            <Button layoutX="275.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
-            <Button layoutX="402.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="14.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="139.0" layoutY="291.0" mnemonicParsing="false" onAction="#onAddPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
+            <Button layoutX="269.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
+            <Button layoutX="400.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
             <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="336.0" prefHeight="35.0" prefWidth="502.0" text="Server Development Profiles">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <ListView fx:id="pluginDevelopmentProfileList1" layoutX="14.0" layoutY="384.0" prefHeight="216.0" prefWidth="502.0" />
-            <Button layoutX="14.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
-            <Button layoutX="144.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
-            <Button layoutX="275.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
-            <Button layoutX="402.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="14.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="139.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
+            <Button layoutX="269.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
+            <Button layoutX="400.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
          </children>
       </AnchorPane>
     </children>
