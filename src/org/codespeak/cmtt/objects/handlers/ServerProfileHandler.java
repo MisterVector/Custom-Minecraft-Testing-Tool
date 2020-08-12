@@ -21,29 +21,14 @@ public class ServerProfileHandler {
     private static int nextID = 1;
     
     /**
-     * Adds a new server profile and returns it
-     * @param profileName name of the server profile
-     * @param minecraftVersion version of the minecraft server this
-     * server supports
-     * @param serverType type of server
-     * @param customPluginsArgument name of the argument used to change the
-     * plugins folder
-     * @param customWorldsArgument name of the argument used to change the
-     * worlds folder
-     * @param updatePath path where the server will be updated
-     * @param autoUpdate whether the server will auto-update when ran
-     * @return a ServerProfile object
+     * Adds a server profile to the list
+     * @param profile profile to add
      */
-    public static ServerProfile addProfile(String profileName, String minecraftVersion, ServerTypes serverType,
-                                                 String customPluginsArgument, String customWorldsArgument, Path updatePath,
-                                                 boolean autoUpdate) {
-        ServerProfile profile = new ServerProfile(nextID, profileName, minecraftVersion, serverType,
-                                                        customPluginsArgument, customWorldsArgument, updatePath,
-                                                        autoUpdate);
+    public static void addProfile(ServerProfile profile) {
+        profile.setId(nextID);
+
         serverProfiles.add(profile);
         nextID++;
-        
-        return profile;
     }
     
     /**

@@ -21,16 +21,15 @@ public class DevelopmentProfileHandler {
     private static int nextDevelopmentProfileID = 1;
     private static int nextPluginID = 1;
     
-    // TODO: Don't do this. Instead, pass in a DevelopmentProfile object and set its ID later
-    public static PluginDevelopmentProfile addPluginDevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                                   ServerProfile serverProfile, boolean separateWorlds, List<Plugin> pluginProfiles) {
-        PluginDevelopmentProfile profile = new PluginDevelopmentProfile(nextDevelopmentProfileID, name, lowerMemory, upperMemory, jvmFlagsString,
-                                                                        serverProfile, separateWorlds, pluginProfiles);
+    /**
+     * Adds a development profile to the list
+     * @param profile profile to add
+     */
+    public static void addDevelopmentProfile(DevelopmentProfile profile) {
+        profile.setId(nextDevelopmentProfileID);
+        
         nextDevelopmentProfileID++;
-        
         developmentProfiles.add(profile);
-        
-        return profile;
     }
     
     /**

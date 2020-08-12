@@ -103,7 +103,9 @@ public class JVMFlagsSceneController implements Initializable {
             editedIndex = -1;
             isEditMode = false;
         } else {
-            JVMFlagsProfile profile = JVMFlagsProfileHandler.addProfile(profileName, flagsString);
+            JVMFlagsProfile profile = new JVMFlagsProfile(profileName, flagsString);
+            
+            JVMFlagsProfileHandler.addProfile(profile);
 
             profileList.getItems().add(profileName);
             availableJVMFlagsProfiles.add(profile);

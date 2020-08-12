@@ -19,17 +19,14 @@ public class JVMFlagsProfileHandler {
     private static int nextID = 1;
     
     /**
-     * Creates a new JVM flags profile and returns it
-     * @param name name of the JVM flags profile
-     * @param flagsString JVM flags string
-     * @return newly created JVM flags profile object
+     * Adds a JVM flags profile to the list
+     * @param profile profile to add
      */
-    public static JVMFlagsProfile addProfile(String name, String flagsString) {
-        JVMFlagsProfile profile = new JVMFlagsProfile(nextID, name, flagsString);
+    public static void addProfile(JVMFlagsProfile profile) {
+        profile.setId(nextID);
+        
         profiles.add(profile);
         nextID++;
-
-        return profile;
     }
     
     /**

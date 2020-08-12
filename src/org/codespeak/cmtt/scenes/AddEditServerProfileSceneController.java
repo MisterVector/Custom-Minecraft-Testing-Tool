@@ -225,10 +225,10 @@ public class AddEditServerProfileSceneController implements Initializable {
                 
                 return;
             }
+            
+            profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
+                                        customWorldsArgument, serverUpdatePath, autoUpdate);
 
-            profile = ServerProfileHandler.addProfile(profileName, minecraftVersion, serverType,
-                                                                    customPluginsArgument, customWorldsArgument,
-                                                                    serverUpdatePath, autoUpdate);
             Path profileFolder = profile.getProfileLocation();
             Path profileServerFile = profile.getServerLocation();
             
