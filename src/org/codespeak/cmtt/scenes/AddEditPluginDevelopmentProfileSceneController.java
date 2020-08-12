@@ -309,22 +309,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             return;
         }
 
-        List<String> unique = new ArrayList<String>();
-        String[] parts = jvmFlagsString.trim().split(" ");
-        
-        jvmFlagsString = "";
-        
-        for (String part : parts) {
-            if (!unique.contains(part)) {
-                unique.add(part);
-                
-                if (!jvmFlagsString.isEmpty()) {
-                    jvmFlagsString += " ";
-                }
-                
-                jvmFlagsString += part;
-            }
-        }
+        jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
         
         ServerProfile serverProfile = getServerProfile(serverProfileName);
         PluginDevelopmentProfile profile = null;
