@@ -21,6 +21,12 @@ public class ServerProfile extends Profile {
     private Path updatePath;
     private boolean autoUpdate;
     
+    public ServerProfile(String name, String minecraftVersion, ServerTypes serverType,
+                         String customPluginsArgument, String customWorldsArgument, Path updatePath,
+                         boolean autoUpdate) {
+        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, updatePath, autoUpdate);
+    }
+    
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
                          String customPluginsArgument, String customWorldsArgument, Path updatePath,
                          boolean autoUpdate) {

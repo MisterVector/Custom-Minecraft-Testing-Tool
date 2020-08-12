@@ -7,7 +7,7 @@ package org.codespeak.cmtt.profiles;
  */
 public abstract class Profile {
 
-    private final int id;
+    private int id;
     private String name;
     
     public Profile(int id, String name) {
@@ -21,6 +21,14 @@ public abstract class Profile {
      */
     public int getId() {
         return id;
+    }
+    
+   /**
+   * Sets the ID of this profile
+   * @param id ID of this profile
+   */
+   public void setId(int id) {
+        this.id = id;
     }
     
     /**

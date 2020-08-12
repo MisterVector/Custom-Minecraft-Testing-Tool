@@ -21,9 +21,13 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
     private boolean separateWorlds;    
     private List<Plugin> plugins;
     
-    public PluginDevelopmentProfile(int id, String name, String lowerMemory, String upperMemory,
-                                     String jvmFlagsString, ServerProfile serverProfile, boolean separateWorlds,
-                                     List<Plugin> plugins) {
+    public PluginDevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
+                                    ServerProfile serverProfile, boolean separateWorlds, List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, plugins);
+    }
+    
+    public PluginDevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
+                                     ServerProfile serverProfile, boolean separateWorlds, List<Plugin> plugins) {
         super(id, name, lowerMemory, upperMemory, jvmFlagsString);
         
         this.serverProfile = serverProfile;

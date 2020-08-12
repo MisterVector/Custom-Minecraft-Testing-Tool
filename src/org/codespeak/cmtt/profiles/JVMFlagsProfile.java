@@ -11,6 +11,10 @@ public class JVMFlagsProfile extends Profile {
 
     private String flagsString;
     
+    public JVMFlagsProfile(String name, String flagsString) {
+        this(-1, name, flagsString);
+    }
+
     public JVMFlagsProfile(int id, String name, String flagsString) {
         super(id, name);
         
