@@ -2,6 +2,7 @@ package org.codespeak.cmtt.scenes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +25,21 @@ import org.codespeak.cmtt.util.SceneUtil;
  * @author Vector
  */
 public class MainSceneController implements Initializable {
-    
-    private Map<String, Integer> pluginDevelopmentProfileIDNameMap = new HashMap<String, Integer>();
+
+    private List<DevelopmentProfile> availableDevelopmentProfiles = new ArrayList<DevelopmentProfile>();
     private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> pluginDevelopmentProfileList;
+    
+    private DevelopmentProfile getDevelopmentProfile(String profileName, DevelopmentType dt) {
+        for (DevelopmentProfile developmentProfile : availableDevelopmentProfiles) {
+            if (developmentProfile.getDevelopmentType() == dt && developmentProfile.getName().equalsIgnoreCase(profileName)) {
+                return developmentProfile;
+            }
+        }
+        
+        return null;
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,16 +47,16 @@ public class MainSceneController implements Initializable {
         ObservableList<String> pluginDevelopmentProfileItems = pluginDevelopmentProfileList.getItems();
         
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            int id = developmentProfile.getId();
             String profileName = developmentProfile.getName();
 
             switch (developmentProfile.getDevelopmentType()) {
                 case PLUGIN:
                     pluginDevelopmentProfileItems.add(profileName);
-                    pluginDevelopmentProfileIDNameMap.put(profileName, id);                
                     
                     break;
             }
+            
+            availableDevelopmentProfiles.add(developmentProfile);
         }
     }    
 
@@ -57,22 +68,14 @@ public class MainSceneController implements Initializable {
     public void finishAddEditDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
         ObservableList<String> pluginDevelopmentProfileItems = pluginDevelopmentProfileList.getItems();
         String profileName = developmentProfile.getName();
-        int id = developmentProfile.getId();
         
         if (editMode) {
-            String currentProfileName = pluginDevelopmentProfileItems.get(currentlySelectedIndex);
-            
-            if (!currentProfileName.equals(profileName)) {
-                pluginDevelopmentProfileIDNameMap.remove(currentProfileName);
-                pluginDevelopmentProfileIDNameMap.put(profileName, id);
-            }
-            
             pluginDevelopmentProfileItems.set(currentlySelectedIndex, profileName);
             
             currentlySelectedIndex = -1;
         } else {
-            pluginDevelopmentProfileIDNameMap.put(profileName, id);
             pluginDevelopmentProfileItems.add(profileName);
+            availableDevelopmentProfiles.add(developmentProfile);
         }
     }
 
