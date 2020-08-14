@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
+import org.codespeak.cmtt.profiles.DevelopmentType;
 import org.codespeak.cmtt.util.SceneUtil;
 
 /**
@@ -25,7 +26,7 @@ import org.codespeak.cmtt.util.SceneUtil;
 public class MainSceneController implements Initializable {
     
     private Map<String, Integer> pluginDevelopmentProfileIDNameMap = new HashMap<String, Integer>();
-    private int currentlySelectedPluginDevelopmentProfileIndex = -1;
+    private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> pluginDevelopmentProfileList;
     
@@ -37,33 +38,38 @@ public class MainSceneController implements Initializable {
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
             int id = developmentProfile.getId();
             String profileName = developmentProfile.getName();
-            
-            pluginDevelopmentProfileItems.add(profileName);
-            pluginDevelopmentProfileIDNameMap.put(profileName, id);
+
+            switch (developmentProfile.getDevelopmentType()) {
+                case PLUGIN:
+                    pluginDevelopmentProfileItems.add(profileName);
+                    pluginDevelopmentProfileIDNameMap.put(profileName, id);                
+                    
+                    break;
+            }
         }
     }    
 
     /**
-     * Finishes adding or editing a plugin development profile
-     * @param developmentProfile
-     * @param editMode 
+     * Finishes adding or editing a development profile
+     * @param developmentProfile development profile to add or edit
+     * @param editMode whether the development profile is edited
      */
-    public void finishAddEditPluginDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
+    public void finishAddEditDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
         ObservableList<String> pluginDevelopmentProfileItems = pluginDevelopmentProfileList.getItems();
         String profileName = developmentProfile.getName();
         int id = developmentProfile.getId();
         
         if (editMode) {
-            String currentProfileName = pluginDevelopmentProfileItems.get(currentlySelectedPluginDevelopmentProfileIndex);
+            String currentProfileName = pluginDevelopmentProfileItems.get(currentlySelectedIndex);
             
             if (!currentProfileName.equals(profileName)) {
                 pluginDevelopmentProfileIDNameMap.remove(currentProfileName);
                 pluginDevelopmentProfileIDNameMap.put(profileName, id);
             }
             
-            pluginDevelopmentProfileItems.set(currentlySelectedPluginDevelopmentProfileIndex, profileName);
+            pluginDevelopmentProfileItems.set(currentlySelectedIndex, profileName);
             
-            currentlySelectedPluginDevelopmentProfileIndex = -1;
+            currentlySelectedIndex = -1;
         } else {
             pluginDevelopmentProfileIDNameMap.put(profileName, id);
             pluginDevelopmentProfileItems.add(profileName);

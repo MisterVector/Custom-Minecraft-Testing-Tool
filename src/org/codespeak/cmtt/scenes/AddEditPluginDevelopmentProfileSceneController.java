@@ -340,7 +340,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             profileLocation.toFile().mkdirs();
         }
         
-        controller.finishAddEditPluginDevelopmentProfile(profile, editMode);
+        controller.finishAddEditDevelopmentProfile(profile, editMode);
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
