@@ -12,6 +12,7 @@ public enum SceneTypes {
     SERVER_PROFILES("ServerProfilesScene.fxml"),
     ADD_EDIT_SERVER_PROFILE("AddEditServerProfileScene.fxml"),
     ADD_EDIT_PLUGIN_DEVELOPMENT_PROFILE("AddEditPluginDevelopmentProfileScene.fxml"),
+    ADD_EDIT_SERVER_DEVELOPMENT_PROFILE("AddEditServerDevelopmentProfileScene.fxml"),
     ADD_EDIT_PLUGIN("AddEditPluginScene.fxml");
     
     private final String fxmlName;

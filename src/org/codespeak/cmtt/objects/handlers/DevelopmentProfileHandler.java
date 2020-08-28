@@ -2,10 +2,12 @@ package org.codespeak.cmtt.objects.handlers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
 import org.codespeak.cmtt.profiles.Plugin;
+import org.codespeak.cmtt.profiles.ServerDevelopmentProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,8 +64,18 @@ public class DevelopmentProfileHandler {
         return null;
     }
     
-    public static DevelopmentProfile deleteProfile(int ID) {
-        return null;
+    /**
+     * Deletes the specified development profile by its ID
+     * @param ID ID of development profile
+     */
+    public static void deleteProfile(int ID) {
+        for (Iterator<DevelopmentProfile> it = developmentProfiles.iterator(); it.hasNext();) {
+            DevelopmentProfile profile = it.next();
+            
+            if (profile.getId() == ID) {
+                it.remove();
+            }
+        }
     }
     
     /**
@@ -99,13 +111,25 @@ public class DevelopmentProfileHandler {
         nextIDsJson.put("plugin", nextPluginID);
 
         JSONArray pluginDevelopmentProfilesJson = new JSONArray();
+        JSONArray serverDevelopmentProfilesJson = new JSONArray();
         
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            pluginDevelopmentProfilesJson.put(developmentProfile.toJSON());
+            JSONObject profileJson = developmentProfile.toJSON();
             
+            switch (developmentProfile.getDevelopmentType()) {
+                case PLUGIN:
+                    pluginDevelopmentProfilesJson.put(profileJson);
+                    
+                    break;
+                case SERVER:
+                    serverDevelopmentProfilesJson.put(profileJson);
+                    
+                    break;
+            }
         }
         
         json.put("plugin_development_profiles", pluginDevelopmentProfilesJson);
+        json.put("server_development_profiles", serverDevelopmentProfilesJson);
     }
     
     /**
@@ -131,6 +155,15 @@ public class DevelopmentProfileHandler {
             for (int i = 0; i < pluginDevelopmentProfilesJson.length(); i++) {
                 JSONObject obj = pluginDevelopmentProfilesJson.getJSONObject(i);
                 developmentProfiles.add(PluginDevelopmentProfile.fromJSON(obj));
+            }
+        }
+        
+        if (json.has("server_development_profiles")) {
+            JSONArray serverDevelopmentProfilesJson = json.getJSONArray("server_development_profiles");
+            
+            for (int i = 0; i < serverDevelopmentProfilesJson.length(); i++) {
+                JSONObject obj = serverDevelopmentProfilesJson.getJSONObject(i);
+                developmentProfiles.add(ServerDevelopmentProfile.fromJSON(obj));
             }
         }
     }

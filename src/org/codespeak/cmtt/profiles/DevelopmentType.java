@@ -7,7 +7,8 @@ package org.codespeak.cmtt.profiles;
  */
 public enum DevelopmentType {
     
-    PLUGIN(1);
+    PLUGIN(1),
+    SERVER(2);
     
     private final int typeId;
     

@@ -15,6 +15,7 @@ public class Configuration {
     public static final String SERVERS_FOLDER = "servers";
     public static final String PROFILES_FOLDER = "profiles";
     public static final String PLUGIN_DEVELOPMENT_FOLDER = PROFILES_FOLDER + File.separator + "plugin_development";
+    public static final String SERVER_DEVELOPMENT_FOLDER = PROFILES_FOLDER + File.separator + "server_development";
     public static final String DATA_FILE = "data.json";
     
 }

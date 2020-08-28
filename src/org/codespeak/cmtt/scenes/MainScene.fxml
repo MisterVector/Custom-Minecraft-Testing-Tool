@@ -48,11 +48,11 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <ListView fx:id="pluginDevelopmentProfileList1" layoutX="14.0" layoutY="384.0" prefHeight="216.0" prefWidth="502.0" />
+            <ListView fx:id="serverDevelopmentProfileList" layoutX="14.0" layoutY="384.0" prefHeight="216.0" prefWidth="502.0" />
             <Button layoutX="14.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
-            <Button layoutX="139.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
-            <Button layoutX="269.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
-            <Button layoutX="400.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
+            <Button layoutX="139.0" layoutY="613.0" mnemonicParsing="false" onAction="#onAddServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
+            <Button layoutX="269.0" layoutY="613.0" mnemonicParsing="false" onAction="#onEditServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
+            <Button layoutX="400.0" layoutY="613.0" mnemonicParsing="false" onAction="#onDeleteServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
          </children>
       </AnchorPane>
     </children>
