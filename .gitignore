@@ -29,5 +29,6 @@ target/
 
 # Other Stuff
 /extra/
+/profiles/
 /servers/
 data.json
