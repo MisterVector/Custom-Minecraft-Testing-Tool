@@ -240,11 +240,14 @@ public class MainSceneController implements Initializable {
         
         String profileName = serverDevelopmentProfileList.getItems().remove(selectedIndex);
         ServerDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.SERVER);
+        Path profileLocation = profile.getLocation();
         
-        Files.walk(profile.getLocation())
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
+        if (profileLocation.toFile().exists()) {
+            Files.walk(profile.getLocation())
+                 .sorted(Comparator.reverseOrder())
+                 .map(Path::toFile)
+                 .forEach(File::delete);
+        }
                 
         DevelopmentProfileHandler.deleteProfile(profile.getId());
         
