@@ -279,13 +279,6 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             return;
         }
 
-        if (StringUtil.isNullOrEmpty(jvmFlagsString)) {
-            Alert alert = AlertUtil.createAlert("JVM flags string is blank.");
-            alert.show();
-            
-            return;
-        }
-        
         if (StringUtil.isNullOrEmpty(serverProfileName)) {
             Alert alert = AlertUtil.createAlert("Server profile has not been chosen.");
             alert.show();
@@ -309,7 +302,9 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             return;
         }
 
-        jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
+        if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
+            jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
+        }
         
         ServerProfile serverProfile = getServerProfile(serverProfileName);
         PluginDevelopmentProfile profile = null;

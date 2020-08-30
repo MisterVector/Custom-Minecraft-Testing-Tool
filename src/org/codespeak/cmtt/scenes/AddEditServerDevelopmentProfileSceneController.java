@@ -160,21 +160,16 @@ public class AddEditServerDevelopmentProfileSceneController implements Initializ
             return;
         }
         
-        if (StringUtil.isNullOrEmpty(jvmFlagsString)) {
-            Alert alert = AlertUtil.createAlert("JVM flags string is blank.");
-            alert.show();
-            
-            return;
-        }
-        
         if (serverPath == null) {
             Alert alert = AlertUtil.createAlert("Server file has not been chosen.");
             alert.show();
             
             return;
         }
-        
-        jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
+
+        if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
+            jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
+        }
         
         ServerDevelopmentProfile profile = null;
         
