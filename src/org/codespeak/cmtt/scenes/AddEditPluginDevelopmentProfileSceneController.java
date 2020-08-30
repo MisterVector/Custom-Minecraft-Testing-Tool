@@ -146,6 +146,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         upperMemoryInput.setText(pluginDevelopmentProfile.getUpperMemory());
         jvmFlagsStringInput.setText(pluginDevelopmentProfile.getJVMFlagsString());
         separateWorldsCheck.setSelected(pluginDevelopmentProfile.isSeparateWorlds());
+        serverProfilesChoice.getSelectionModel().select(pluginDevelopmentProfile.getServerProfile().getName());
         plugins = pluginDevelopmentProfile.getPlugins();
         
         ObservableList<String> pluginItems = pluginList.getItems();
