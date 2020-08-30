@@ -97,9 +97,13 @@ public class MainSceneController implements Initializable {
                     
                     break;
             }
+
+            developmentProfile.update();
             
             currentlySelectedIndex = -1;
         } else {
+            DevelopmentProfileHandler.addDevelopmentProfile(developmentProfile);
+            
             switch (developmentType) {
                 case PLUGIN:
                     pluginDevelopmentProfileItems.add(profileName);
@@ -112,6 +116,8 @@ public class MainSceneController implements Initializable {
                     break;
             }
             
+            developmentProfile.finishSetup();
+
             availableDevelopmentProfiles.add(developmentProfile);
         }
     }
@@ -177,17 +183,9 @@ public class MainSceneController implements Initializable {
         
         String profileName = pluginDevelopmentProfileList.getItems().remove(selectedIndex);
         PluginDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.PLUGIN);
-        Path profileLocation = profile.getLocation();
-        
-        if (profileLocation.toFile().exists()) {
-            Files.walk(profile.getLocation())
-                 .sorted(Comparator.reverseOrder())
-                 .map(Path::toFile)
-                 .forEach(File::delete);
-        }
-                
+
+        profile.remove();
         DevelopmentProfileHandler.deleteProfile(profile.getId());
-        
         availableDevelopmentProfiles.remove(profile);
     }
     
@@ -240,17 +238,9 @@ public class MainSceneController implements Initializable {
         
         String profileName = serverDevelopmentProfileList.getItems().remove(selectedIndex);
         ServerDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.SERVER);
-        Path profileLocation = profile.getLocation();
         
-        if (profileLocation.toFile().exists()) {
-            Files.walk(profile.getLocation())
-                 .sorted(Comparator.reverseOrder())
-                 .map(Path::toFile)
-                 .forEach(File::delete);
-        }
-                
+        profile.remove();
         DevelopmentProfileHandler.deleteProfile(profile.getId());
-        
         availableDevelopmentProfiles.remove(profile);
     }
     

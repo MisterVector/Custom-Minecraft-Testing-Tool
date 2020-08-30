@@ -332,12 +332,6 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             profile = editedPluginDevelopmentProfile;
         } else {
             profile = new PluginDevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, plugins);
-            
-            DevelopmentProfileHandler.addDevelopmentProfile(profile);
-            
-            Path profileLocation = profile.getLocation();
-            
-            profileLocation.toFile().mkdirs();
         }
         
         controller.finishAddEditDevelopmentProfile(profile, editMode);

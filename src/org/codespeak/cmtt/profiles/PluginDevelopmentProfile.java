@@ -1,9 +1,12 @@
 package org.codespeak.cmtt.profiles;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
@@ -113,6 +116,34 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
      */
     public Path getWorldsLocation() {
         return getLocation().resolve("worlds");
+    }
+    
+    @Override
+    public void finishSetup() {
+        Path profileLocation = getLocation();
+
+        profileLocation.toFile().mkdirs();
+    }
+    
+    @Override
+    public void update() {
+        
+    }
+    
+    @Override
+    public void remove() {
+        Path profileLocation = getLocation();
+        
+        if (profileLocation.toFile().exists()) {
+            try {
+                Files.walk(profileLocation)
+                     .sorted(Comparator.reverseOrder())
+                     .map(Path::toFile)
+                     .forEach(File::delete);
+            } catch (IOException ex) {
+                
+            }
+        }
     }
     
     @Override

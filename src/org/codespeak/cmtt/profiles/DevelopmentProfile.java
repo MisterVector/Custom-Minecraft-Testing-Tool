@@ -75,6 +75,21 @@ public abstract class DevelopmentProfile extends Profile {
      * @return development type of this development profile
      */
     public abstract DevelopmentType getDevelopmentType();
+
+    /**
+     * Finishes setting up this development profile
+     */
+    public abstract void finishSetup();
+    
+    /**
+     * Updates this development profile
+     */
+    public abstract void update();
+    
+    /**
+     * Removes this development profile
+     */
+    public abstract void remove();
     
     /**
      * Converts this DevelopmentProfile object to JSON

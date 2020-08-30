@@ -21,7 +21,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.profiles.ServerDevelopmentProfile;
@@ -186,23 +185,9 @@ public class AddEditServerDevelopmentProfileSceneController implements Initializ
             editedProfile.setJVMFlagsString(jvmFlagsString);
             editedProfile.setServerPath(serverPath);
             
-            Path profileLocation = editedProfile.getLocation();
-            Path existingServerPath = profileLocation.resolve("server.jar");
-
-            Files.copy(serverPath, existingServerPath, StandardCopyOption.REPLACE_EXISTING);
-
             profile = editedProfile;
         } else {
             profile = new ServerDevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverPath);
-
-            DevelopmentProfileHandler.addDevelopmentProfile(profile);
-
-            Path profileLocation = profile.getLocation();
-            Path newServerPath = profileLocation.resolve("server.jar");
-
-            profileLocation.toFile().mkdir();
-
-            Files.copy(serverPath, newServerPath);
         }
         
         controller.finishAddEditDevelopmentProfile(profile, editMode);

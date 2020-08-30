@@ -1,8 +1,12 @@
 package org.codespeak.cmtt.profiles;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import org.codespeak.cmtt.Configuration;
 import org.json.JSONObject;
 
@@ -52,6 +56,50 @@ public class ServerDevelopmentProfile extends DevelopmentProfile {
     @Override
     public DevelopmentType getDevelopmentType() {
         return DevelopmentType.SERVER;
+    }
+    
+    @Override
+    public void finishSetup() {
+        Path profileLocation = getLocation();
+
+        profileLocation.toFile().mkdir();
+
+        try {
+            Path newServerPath = profileLocation.resolve("server.jar");
+            
+            Files.copy(serverPath, newServerPath);
+        } catch (IOException ex) {
+            
+        }
+    }
+    
+    @Override
+    public void update() {
+        Path profileLocation = getLocation();
+        Path existingServerPath = profileLocation.resolve("server.jar");
+
+        try {
+            Files.copy(serverPath, existingServerPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            
+        }
+    }
+    
+    @Override
+    public void remove() {
+        Path profileLocation = getLocation();
+
+        if (profileLocation.toFile().exists()) {
+            try {
+                Files.walk(profileLocation)
+                     .sorted(Comparator.reverseOrder())
+                     .map(Path::toFile)
+                     .forEach(File::delete);
+                
+            } catch (IOException ex) {
+                
+            }
+        }
     }
     
     @Override
