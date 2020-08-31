@@ -139,6 +139,13 @@ public class AddEditServerProfileSceneController implements Initializable {
             return;
         }
         
+        if (serverPath == null) {
+            Alert alert = AlertUtil.createAlert("Select a file for the server.");
+            alert.show();
+
+            return;
+        }
+
         ServerTypes serverType = ServerTypes.fromName(serverTypeChosen);
         
         if (serverType == ServerTypes.CUSTOM) {
@@ -187,13 +194,6 @@ public class AddEditServerProfileSceneController implements Initializable {
             
             profile = editedServerProfile;
         } else {
-            if (serverPath == null) {
-                Alert alert = AlertUtil.createAlert("Select a file for the server.");
-                alert.show();
-                
-                return;
-            }
-            
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
                                         customWorldsArgument, serverPath, autoUpdate);
 
