@@ -117,6 +117,11 @@ public class AddEditServerProfileSceneController implements Initializable {
         String customPluginsArgument = customPluginsArgumentInput.getText();
         String customWorldsArgument = customWorldsArgumentInput.getText();
         boolean autoUpdate = autoUpdateCheck.isSelected();
+        ServerTypes serverType = null;
+        
+        if (!StringUtil.isNullOrEmpty(serverTypeChosen)) {
+            serverType = ServerTypes.fromName(serverTypeChosen);
+        }
         
         if (StringUtil.isNullOrEmpty(profileName)) {
             Alert alert = AlertUtil.createAlert("Profile name is empty.");
@@ -132,7 +137,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             return;
         }
         
-        if (StringUtil.isNullOrEmpty(serverTypeChosen)) {
+        if (serverType == null) {
             Alert alert = AlertUtil.createAlert("Server type has not been chosen.");
             alert.show();
             
@@ -146,8 +151,6 @@ public class AddEditServerProfileSceneController implements Initializable {
             return;
         }
 
-        ServerTypes serverType = ServerTypes.fromName(serverTypeChosen);
-        
         if (serverType == ServerTypes.CUSTOM) {
             if (StringUtil.isNullOrEmpty(customPluginsArgument)) {
                 Alert alert = AlertUtil.createAlert("Custom plugins argument is empty.");
