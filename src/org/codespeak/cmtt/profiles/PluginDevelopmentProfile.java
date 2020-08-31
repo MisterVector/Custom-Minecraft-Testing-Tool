@@ -121,8 +121,23 @@ public class PluginDevelopmentProfile extends DevelopmentProfile {
     @Override
     public void finishSetup() {
         Path profileLocation = getLocation();
-
+        Path pluginsLocation = getPluginsLocation();
+        Path worldsLocation = getWorldsLocation();
+        
         profileLocation.toFile().mkdirs();
+        pluginsLocation.toFile().mkdirs();
+        worldsLocation.toFile().mkdirs();
+        
+        for (Plugin plugin : plugins) {
+            Path pluginSourcePath = plugin.getPath();
+            Path pluginPath = pluginsLocation.resolve(plugin.getFileName());
+            
+            try {
+                Files.copy(pluginSourcePath, pluginPath);
+            } catch (IOException ex) {
+                
+            }
+        }
     }
     
     @Override
