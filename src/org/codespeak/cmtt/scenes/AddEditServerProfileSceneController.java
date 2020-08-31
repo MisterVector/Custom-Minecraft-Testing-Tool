@@ -36,7 +36,6 @@ public class AddEditServerProfileSceneController implements Initializable {
 
     private ServerProfilesSceneController controller;
     private Path serverPath = null;
-    private Path serverUpdatePath = null;
     private ServerProfile editedServerProfile = null;
     private boolean editMode = false;
     
@@ -47,7 +46,6 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private TextField customPluginsArgumentInput;
     @FXML private TextField customWorldsArgumentInput;
     @FXML private Label serverPathLabel;
-    @FXML private Label serverUpdatePathLabel;
     @FXML private CheckBox autoUpdateCheck;
     
     /**
@@ -80,12 +78,9 @@ public class AddEditServerProfileSceneController implements Initializable {
         serverTypeChoices.getSelectionModel().select(profile.getServerType().getName());
         customPluginsArgumentInput.setText(profile.getCustomPluginsArgument());
         customWorldsArgumentInput.setText(profile.getCustomWorldsArgument());
-        serverUpdatePath = profile.getUpdatePath();
+        serverPath = profile.getServerPath();
+        serverPathLabel.setText(serverPath.toString());
         autoUpdateCheck.setSelected(profile.isAutoUpdate());
-        
-        if (serverUpdatePath != null) {
-            serverUpdatePathLabel.setText(serverUpdatePath.toString());
-        }
 
         headerLabel.setText("Edit Server Profile");
         
@@ -111,17 +106,6 @@ public class AddEditServerProfileSceneController implements Initializable {
         if (chosenFile != null) {
             serverPath = chosenFile.toPath();
             serverPathLabel.setText(serverPath.toString());
-        }
-    }
-    
-    @FXML
-    public void onSelectServerUpdateFileButtonClick(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
-        File chosenFile = chooser.showOpenDialog(null);
-        
-        if (chosenFile != null) {
-            serverUpdatePath = chosenFile.toPath();
-            serverUpdatePathLabel.setText(serverUpdatePath.toString());
         }
     }
     
@@ -173,22 +157,6 @@ public class AddEditServerProfileSceneController implements Initializable {
             }
         }
 
-        if (autoUpdate) {
-            if (serverUpdatePath == null) {
-                Alert alert = AlertUtil.createAlert("Update file has not been chosen.");
-                alert.show();
-                
-                return;
-            }
-            
-            if (!serverUpdatePath.toFile().exists()) {
-                Alert alert = AlertUtil.createAlert("The update file does not exist.");
-                alert.show();
-                
-                return;
-            }
-        }
-        
         ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
         
         if (existingProfile != null && existingProfile != editedServerProfile) {
@@ -206,7 +174,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setServerType(serverType);
             editedServerProfile.setCustomPluginsArgument(customPluginsArgument);
             editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
-            editedServerProfile.setUpdatePath(serverUpdatePath);
+            editedServerProfile.setServerPath(serverPath);
             editedServerProfile.setAutoUpdate(autoUpdate);
             
             if (serverPath != null) {
@@ -227,7 +195,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             }
             
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
-                                        customWorldsArgument, serverUpdatePath, autoUpdate);
+                                        customWorldsArgument, serverPath, autoUpdate);
 
             Path profileFolder = profile.getProfileLocation();
             Path profileServerFile = profile.getServerLocation();

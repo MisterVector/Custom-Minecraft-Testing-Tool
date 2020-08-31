@@ -18,22 +18,22 @@ public class ServerProfile extends Profile {
     private ServerTypes serverType;
     private String customPluginsArgument;
     private String customWorldsArgument;
-    private Path updatePath;
+    private Path serverPath;
     private boolean autoUpdate;
     
     public ServerProfile(String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument, Path updatePath,
+                         String customPluginsArgument, String customWorldsArgument, Path serverPath,
                          boolean autoUpdate) {
-        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, updatePath, autoUpdate);
+        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, serverPath, autoUpdate);
     }
     
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument, Path updatePath,
+                         String customPluginsArgument, String customWorldsArgument, Path serverPath,
                          boolean autoUpdate) {
         super(id, name);
 
         this.minecraftVersion = minecraftVersion;
-        this.updatePath = updatePath;
+        this.serverPath = serverPath;
         this.autoUpdate = autoUpdate;
         this.serverType = serverType;
         this.customPluginsArgument = customPluginsArgument;
@@ -107,19 +107,19 @@ public class ServerProfile extends Profile {
     }
     
     /**
-     * Gets the path this server will be updated from
-     * @return path this server will be updated from
+     * Gets the path to this server
+     * @return path to this server
      */
-    public Path getUpdatePath() {
-        return updatePath;
+    public Path getServerPath() {
+        return serverPath;
     }
     
     /**
-     * Sets the path this server will be updated from
-     * @param updatePath path this server will be updated from
+     * Sets the path to this server
+     * @param serverPath path to this server
      */
-    public void setUpdatePath(Path updatePath) {
-        this.updatePath = updatePath;
+    public void setServerPath(Path serverPath) {
+        this.serverPath = serverPath;
     }
     
     /**
@@ -165,7 +165,7 @@ public class ServerProfile extends Profile {
         json.put("server_type", serverType.getName());
         json.put("custom_plugins_argument", customPluginsArgument);
         json.put("custom_worlds_argument", customWorldsArgument);
-        json.put("update_path", (updatePath != null ? updatePath.toString() : ""));
+        json.put("server_path", serverPath);
         json.put("auto_update", autoUpdate);
         
         return json;
@@ -178,7 +178,7 @@ public class ServerProfile extends Profile {
         ServerTypes serverType = ServerTypes.BUKKIT;
         String customPluginsArgument = "";
         String customWorldsArgument = "";
-        Path updatePath = null;
+        Path serverPath = null;
         boolean autoUpdate = false;
         
         if (json.has("id")) {
@@ -205,8 +205,8 @@ public class ServerProfile extends Profile {
             customWorldsArgument = json.getString("custom_worlds_argument");
         }
         
-        if (json.has("update_path")) {
-            updatePath = Paths.get(json.getString("update_path"));
+        if (json.has("server_path")) {
+            serverPath = Paths.get(json.getString("server_path"));
         }
         
         if (json.has("auto_update")) {
@@ -214,7 +214,7 @@ public class ServerProfile extends Profile {
         }
         
         return new ServerProfile(id, name, minecraftVersion, serverType, customPluginsArgument,
-                                 customWorldsArgument, updatePath, autoUpdate);
+                                 customWorldsArgument, serverPath, autoUpdate);
     }
     
 }
