@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
@@ -258,51 +259,29 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         String jvmFlagsString = jvmFlagsStringInput.getText();
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
         boolean separateWorlds = separateWorldsCheck.isSelected();
-        
-        if (StringUtil.isNullOrEmpty(profileName)) {
-            Alert alert = AlertUtil.createAlert("Profile name is blank.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (StringUtil.isNullOrEmpty(lowerMemory)) {
-            Alert alert = AlertUtil.createAlert("Lower memory is blank..");
-            alert.show();
-            
-            return;
-        }
 
-        if (StringUtil.isNullOrEmpty(upperMemory)) {
-            Alert alert = AlertUtil.createAlert("Upper memory is blank.");
-            alert.show();
-            
-            return;
-        }
+        ConditionalAlert ca = new ConditionalAlert();
+        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
+                        .addCondition(StringUtil.isNullOrEmpty(lowerMemory), "Lower memory is blank.")
+                        .addCondition(StringUtil.isNullOrEmpty(upperMemory), "Upper memory is blank.")
+                        .addCondition(StringUtil.isNullOrEmpty(upperMemory), "Server profile has not been chosen.")
+                        .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server profile has not been chosen.")
+                        .addCondition(plugins.isEmpty(), "You must add at least one plugin.")
+                        .getAlert();
+        
+        if (alert == null) {
+            DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
 
-        if (StringUtil.isNullOrEmpty(serverProfileName)) {
-            Alert alert = AlertUtil.createAlert("Server profile has not been chosen.");
+            alert = ca.addCondition(existingProfile != null && existingProfile != editedPluginDevelopmentProfile, "A profile by that name already exists.")
+                      .getAlert();
+        }
+        
+        if (alert != null) {
             alert.show();
             
             return;
         }
         
-        if (plugins.isEmpty()) {
-            Alert alert = AlertUtil.createAlert("You must add at least one plugin.");
-            alert.show();
-            
-            return;
-        }
-
-        DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
-        
-        if (existingProfile != null && existingProfile != editedPluginDevelopmentProfile) {
-            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
-            alert.show();
-            
-            return;
-        }
-
         if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
             jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
         }

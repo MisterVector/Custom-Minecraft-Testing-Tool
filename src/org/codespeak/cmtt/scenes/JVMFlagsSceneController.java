@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.util.AlertUtil;
@@ -69,26 +70,21 @@ public class JVMFlagsSceneController implements Initializable {
         String profileName = profileNameInput.getText();
         String flagsString = flagsStringInput.getText();
         
-        if (StringUtil.isNullOrEmpty(profileName)) {
-            Alert alert = AlertUtil.createAlert("Profile name is eempty.");
-            alert.show();
-            
-            return;
+        ConditionalAlert ca = new ConditionalAlert();
+        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is eempty.")
+                        .addCondition(StringUtil.isNullOrEmpty(flagsString), "Flags string is empty.")
+                        .getAlert();
+                
+        if (alert == null) {
+            JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
+
+            alert = ca.addCondition(existingProfile != null && existingProfile != editedProfile, "A profile by that name already exists.")
+                      .getAlert();
         }
         
-        if (StringUtil.isNullOrEmpty(flagsString)) {
-            Alert alert = AlertUtil.createAlert("Flags string is empty.");
+        if (alert != null) {
             alert.show();
-            
-            return;
-        }
-        
-        JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
-        
-        if (existingProfile != null && existingProfile != editedProfile) {
-            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
-            alert.show();
-            
+
             return;
         }
 

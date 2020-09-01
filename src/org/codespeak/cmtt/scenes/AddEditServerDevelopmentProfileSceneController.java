@@ -21,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.profiles.ServerDevelopmentProfile;
@@ -139,29 +140,15 @@ public class AddEditServerDevelopmentProfileSceneController implements Initializ
         String upperMemory = upperMemoryInput.getText();
         String jvmFlagsString = jvmFlagsStringInput.getText();
         
-        if (StringUtil.isNullOrEmpty(profileName)) {
-            Alert alert = AlertUtil.createAlert("Profile name is blank.");
-            alert.show();
-            
-            return;
-        }
+        Alert alert = new ConditionalAlert()
+                          .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
+                          .addCondition(StringUtil.isNullOrEmpty(lowerMemory), "Lower memory is blank.")
+                          .addCondition(StringUtil.isNullOrEmpty(upperMemory), "Upper memory is blank.")
+                          .addCondition(serverPath == null, "Server file has not been chosen.")
+                          .getAlert();
         
-        if (StringUtil.isNullOrEmpty(lowerMemory)) {
-            Alert alert = AlertUtil.createAlert("Lower memory is blank.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (StringUtil.isNullOrEmpty(upperMemory)) {
-            Alert alert = AlertUtil.createAlert("Upper memory is blank.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (serverPath == null) {
-            Alert alert = AlertUtil.createAlert("Server file has not been chosen.");
+                                              
+        if (alert != null) {
             alert.show();
             
             return;

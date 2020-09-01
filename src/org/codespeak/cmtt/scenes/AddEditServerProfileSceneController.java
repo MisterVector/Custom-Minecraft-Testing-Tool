@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
@@ -122,57 +123,28 @@ public class AddEditServerProfileSceneController implements Initializable {
         if (!StringUtil.isNullOrEmpty(serverTypeChosen)) {
             serverType = ServerTypes.fromName(serverTypeChosen);
         }
-        
-        if (StringUtil.isNullOrEmpty(profileName)) {
-            Alert alert = AlertUtil.createAlert("Profile name is empty.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (StringUtil.isNullOrEmpty(minecraftVersion)) {
-            Alert alert = AlertUtil.createAlert("Minecraft version is empty.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (serverType == null) {
-            Alert alert = AlertUtil.createAlert("Server type has not been chosen.");
-            alert.show();
-            
-            return;
-        }
-        
-        if (serverPath == null) {
-            Alert alert = AlertUtil.createAlert("Select a file for the server.");
-            alert.show();
 
-            return;
-        }
-
-        if (serverType == ServerTypes.CUSTOM) {
-            if (StringUtil.isNullOrEmpty(customPluginsArgument)) {
-                Alert alert = AlertUtil.createAlert("Custom plugins argument is empty.");
-                alert.show();
+        ConditionalAlert ca = new ConditionalAlert();
+        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is empty.")
+                        .addCondition(StringUtil.isNullOrEmpty(minecraftVersion), "Minecraft version is empty.")
+                        .addCondition(serverType == null, "Server type has not been chosen.")
+                        .addCondition(serverPath == null, "Select a file for the server.")
+                        .ifTrue(serverType == ServerTypes.CUSTOM)
+                            .addCondition(StringUtil.isNullOrEmpty(customPluginsArgument), "Custom plugins argument is empty.")
+                            .addCondition(StringUtil.isNullOrEmpty(customWorldsArgument), "Custom worlds argument is empty.")
+                        .endIf()
+                        .getAlert();
                 
-                return;
-            }
-            
-            if (StringUtil.isNullOrEmpty(customWorldsArgument)) {
-                Alert alert = AlertUtil.createAlert("Custom worlds argument is empty.");
-                alert.show();
-                
-                return;
-            }
-        }
+        if (alert == null) {
+            ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
 
-        ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
+            alert = ca.addCondition(existingProfile != null && existingProfile != editedServerProfile, "A profile by that name already exists.")
+                      .getAlert();
+        }
         
-        if (existingProfile != null && existingProfile != editedServerProfile) {
-            Alert alert = AlertUtil.createAlert("A profile by that name already exists.");
+        if (alert != null) {
             alert.show();
-            
+
             return;
         }
         
