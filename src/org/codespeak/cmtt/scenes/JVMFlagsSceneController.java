@@ -83,8 +83,6 @@ public class JVMFlagsSceneController implements Initializable {
             return;
         }
         
-        flagsString = StringUtil.getUnduplicatedString(flagsString);
-        
         JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
         
         if (existingProfile != null && existingProfile != editedProfile) {
@@ -93,6 +91,8 @@ public class JVMFlagsSceneController implements Initializable {
             
             return;
         }
+
+        flagsString = StringUtil.getUnduplicatedString(flagsString);
         
         if (isEditMode) {
             editedProfile.setName(profileName);
