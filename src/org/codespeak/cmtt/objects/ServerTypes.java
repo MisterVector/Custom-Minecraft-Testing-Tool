@@ -7,7 +7,7 @@ package org.codespeak.cmtt.objects;
  */
 public enum ServerTypes {
     
-    BUKKIT("Bukkit", "plugins", "worlds"),
+    BUKKIT("Bukkit", "plugins", "world-dir"),
     CUSTOM("Custom");
     
     private final String name;
