@@ -39,7 +39,7 @@
                </font>
             </Label>
             <ListView fx:id="pluginDevelopmentProfileList" layoutX="14.0" layoutY="61.0" prefHeight="216.0" prefWidth="502.0" />
-            <Button layoutX="14.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="14.0" layoutY="291.0" mnemonicParsing="false" onAction="#onOpenPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
             <Button layoutX="139.0" layoutY="291.0" mnemonicParsing="false" onAction="#onAddPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
             <Button layoutX="269.0" layoutY="291.0" mnemonicParsing="false" onAction="#onEditPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
             <Button layoutX="400.0" layoutY="291.0" mnemonicParsing="false" onAction="#onDeletePluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />

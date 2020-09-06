@@ -135,6 +135,27 @@ public class MainSceneController implements Initializable {
     }
     
     @FXML
+    public void onOpenPluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        int selectedIndex = pluginDevelopmentProfileList.getSelectionModel().getSelectedIndex();
+        
+        if (selectedIndex == -1) {
+            Alert alert = AlertUtil.createAlert("Select a plugin development profile first.");
+            alert.show();
+            
+            return;
+        }
+        
+        String profileName = pluginDevelopmentProfileList.getItems().get(selectedIndex);
+        PluginDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.PLUGIN);
+        StageController<OpenPluginDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_PLUGIN_DEVELOPMENT_PROFILE, "Open Plugin Development Profile");
+        Stage stage = stageController.getStage();
+        OpenPluginDevelopmentProfileSceneController controller = stageController.getController();
+
+        stage.show();
+        controller.openProfile(profile);
+    }
+    
+    @FXML
     public void onAddPluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
         StageController<AddEditPluginDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN_DEVELOPMENT_PROFILE, "Add Plugin Development Profile");
         Stage stage = stageController.getStage();
