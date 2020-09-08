@@ -7,7 +7,7 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public abstract class DevelopmentProfile extends Profile {
+public abstract class DevelopmentProfile extends ResourceProfile {
     
     private String lowerMemory;
     private String upperMemory;
@@ -76,21 +76,6 @@ public abstract class DevelopmentProfile extends Profile {
      */
     public abstract DevelopmentType getDevelopmentType();
 
-    /**
-     * Finishes setting up this development profile
-     */
-    public abstract void finishSetup();
-    
-    /**
-     * Updates this development profile
-     */
-    public abstract void update();
-    
-    /**
-     * Removes this development profile
-     */
-    public abstract void remove();
-    
     /**
      * Converts this DevelopmentProfile object to JSON
      * @return JSON representation of this DevelopmentProfile object
