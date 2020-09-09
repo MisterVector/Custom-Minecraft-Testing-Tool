@@ -75,9 +75,13 @@ public class ServerProfilesSceneController implements Initializable {
         
         if (editMode) {
             items.set(currentlySelectedIndex, profileName);
+            
+            profile.update();
         } else {
             items.add(profileName);
             availableServerProfiles.add(profile);
+            
+            profile.finishSetup();
         }
     }
     
@@ -137,15 +141,9 @@ public class ServerProfilesSceneController implements Initializable {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
             ServerProfile profile = getServerProfile(profileName);
-            Path profileFolder = profile.getProfileLocation();
             
-            ServerProfileHandler.deleteProfile(profile.getId());
+            profile.remove();
             
-            Files.walk(profileFolder)
-             .sorted(Comparator.reverseOrder())
-             .map(Path::toFile)
-             .forEach(File::delete);
-
             items.remove(selectedIndex);
             availableServerProfiles.remove(profile);
         }

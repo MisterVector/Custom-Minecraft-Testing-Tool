@@ -159,24 +159,10 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setServerPath(serverPath);
             editedServerProfile.setAutoUpdate(autoUpdate);
             
-            if (serverPath != null) {
-                Path existingServerFile = Paths.get(Configuration.SERVERS_FOLDER + File.separator
-                                        + editedServerProfile.getId() + File.separator
-                                        + "server.jar");
-                
-                Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
-            }
-            
             profile = editedServerProfile;
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
                                         customWorldsArgument, serverPath, autoUpdate);
-
-            Path profileFolder = profile.getProfileLocation();
-            Path profileServerFile = profile.getServerLocation();
-            
-            profileFolder.toFile().mkdir();
-            Files.copy(serverPath, profileServerFile);
         }
     
         controller.finishAddEditServerProfile(profile, editMode);

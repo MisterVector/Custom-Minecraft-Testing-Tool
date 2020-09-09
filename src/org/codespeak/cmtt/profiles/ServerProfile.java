@@ -1,8 +1,12 @@
 package org.codespeak.cmtt.profiles;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.json.JSONObject;
@@ -12,7 +16,7 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class ServerProfile extends Profile {
+public class ServerProfile extends ResourceProfile {
    
     private String minecraftVersion;
     private ServerTypes serverType;
@@ -153,7 +157,50 @@ public class ServerProfile extends Profile {
     public Path getServerLocation() {
         return getProfileLocation().resolve("server.jar");
     }
+
+    @Override
+    public void finishSetup() {
+        Path profileFolder = getProfileLocation();
+        Path profileServerFile = getServerLocation();
+
+        profileFolder.toFile().mkdir();
+
+        try {
+            Files.copy(serverPath, profileServerFile);
+        } catch (IOException ex) {
+
+        }            
+    }
     
+    @Override
+    public void update() {
+        if (serverPath != null) {
+            Path existingServerFile = Paths.get(Configuration.SERVERS_FOLDER + File.separator
+                                    + super.getId() + File.separator
+                                    + "server.jar");
+
+            try {
+                Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+
+            }            
+        }
+    }
+    
+    @Override
+    public void remove() {
+        Path profileFolder = getProfileLocation();
+
+        try {
+            Files.walk(profileFolder)
+                 .sorted(Comparator.reverseOrder())
+                 .map(Path::toFile)
+                 .forEach(File::delete);
+        } catch (IOException ex) {
+
+        }            
+    }
+
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         int id = super.getId();
