@@ -78,6 +78,8 @@ public class ServerProfilesSceneController implements Initializable {
             
             profile.update();
         } else {
+            ServerProfileHandler.addProfile(profile);
+            
             items.add(profileName);
             availableServerProfiles.add(profile);
             
