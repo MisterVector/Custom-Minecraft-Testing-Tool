@@ -160,6 +160,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add(openedProfile.getWorldsLocation().toAbsolutePath().toString());
         }
         
+        commands.add("nogui");
+        
         ProcessBuilder pb = new ProcessBuilder(commands);
         pb.directory(serverProfileLocation.toFile());
         
