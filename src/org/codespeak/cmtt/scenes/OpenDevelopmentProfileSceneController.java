@@ -150,8 +150,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
         
-        commands.add("--" + pluginsArgument);
-        commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
+        if (!openedProfile.getPlugins().isEmpty()) {
+            commands.add("--" + pluginsArgument);
+            commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
+        }
 
         if (openedProfile.isSeparateWorlds()) {
             commands.add("--" + worldsArgument);

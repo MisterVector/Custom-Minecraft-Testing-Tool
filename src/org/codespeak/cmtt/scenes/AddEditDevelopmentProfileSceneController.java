@@ -265,7 +265,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
                         .addCondition(StringUtil.isNullOrEmpty(upperMemory), "Upper memory is blank.")
                         .addCondition(StringUtil.isNullOrEmpty(upperMemory), "Server profile has not been chosen.")
                         .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server profile has not been chosen.")
-                        .addCondition(plugins.isEmpty(), "You must add at least one plugin.")
                         .getAlert();
         
         if (alert == null) {
