@@ -11,10 +11,9 @@ public enum SceneTypes {
     JVM_FLAGS("JVMFlagsScene.fxml"),
     SERVER_PROFILES("ServerProfilesScene.fxml"),
     ADD_EDIT_SERVER_PROFILE("AddEditServerProfileScene.fxml"),
-    ADD_EDIT_PLUGIN_DEVELOPMENT_PROFILE("AddEditPluginDevelopmentProfileScene.fxml"),
-    ADD_EDIT_SERVER_DEVELOPMENT_PROFILE("AddEditServerDevelopmentProfileScene.fxml"),
+    ADD_EDIT_DEVELOPMENT_PROFILE("AddEditDevelopmentProfileScene.fxml"),
     ADD_EDIT_PLUGIN("AddEditPluginScene.fxml"),
-    OPEN_PLUGIN_DEVELOPMENT_PROFILE("OpenPluginDevelopmentProfileScene.fxml");
+    OPEN_DEVELOPMENT_PROFILE("OpenDevelopmentProfileScene.fxml");
     
     private final String fxmlName;
     

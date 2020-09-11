@@ -5,10 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
-import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
-import org.codespeak.cmtt.profiles.Plugin;
-import org.codespeak.cmtt.profiles.ServerDevelopmentProfile;
-import org.codespeak.cmtt.profiles.ServerProfile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -110,26 +106,13 @@ public class DevelopmentProfileHandler {
         nextIDsJson.put("development_profile", nextDevelopmentProfileID);
         nextIDsJson.put("plugin", nextPluginID);
 
-        JSONArray pluginDevelopmentProfilesJson = new JSONArray();
-        JSONArray serverDevelopmentProfilesJson = new JSONArray();
+        JSONArray developmentProfilesJson = new JSONArray();
         
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            JSONObject profileJson = developmentProfile.toJSON();
-            
-            switch (developmentProfile.getDevelopmentType()) {
-                case PLUGIN:
-                    pluginDevelopmentProfilesJson.put(profileJson);
-                    
-                    break;
-                case SERVER:
-                    serverDevelopmentProfilesJson.put(profileJson);
-                    
-                    break;
-            }
+            developmentProfilesJson.put(developmentProfile.toJSON());
         }
         
-        json.put("plugin_development_profiles", pluginDevelopmentProfilesJson);
-        json.put("server_development_profiles", serverDevelopmentProfilesJson);
+        json.put("development_profiles", developmentProfilesJson);
     }
     
     /**
@@ -149,21 +132,12 @@ public class DevelopmentProfileHandler {
             }
         }
         
-        if (json.has("plugin_development_profiles")) {
-            JSONArray pluginDevelopmentProfilesJson = json.getJSONArray("plugin_development_profiles");
+        if (json.has("development_profiles")) {
+            JSONArray developmentProfilesJson = json.getJSONArray("development_profiles");
             
-            for (int i = 0; i < pluginDevelopmentProfilesJson.length(); i++) {
-                JSONObject obj = pluginDevelopmentProfilesJson.getJSONObject(i);
-                developmentProfiles.add(PluginDevelopmentProfile.fromJSON(obj));
-            }
-        }
-        
-        if (json.has("server_development_profiles")) {
-            JSONArray serverDevelopmentProfilesJson = json.getJSONArray("server_development_profiles");
-            
-            for (int i = 0; i < serverDevelopmentProfilesJson.length(); i++) {
-                JSONObject obj = serverDevelopmentProfilesJson.getJSONObject(i);
-                developmentProfiles.add(ServerDevelopmentProfile.fromJSON(obj));
+            for (int i = 0; i < developmentProfilesJson.length(); i++) {
+                JSONObject obj = developmentProfilesJson.getJSONObject(i);
+                developmentProfiles.add(DevelopmentProfile.fromJSON(obj));
             }
         }
     }

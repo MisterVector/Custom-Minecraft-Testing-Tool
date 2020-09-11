@@ -21,21 +21,21 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
-import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
+import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;
 
 /**
- * Controller for the open plugin development profile scene
+ * Controller for the open development profile scene
  *
  * @author Vector
  */
-public class OpenPluginDevelopmentProfileSceneController implements Initializable {
+public class OpenDevelopmentProfileSceneController implements Initializable {
 
     private List<ServerProfile> allServerProfiles = new ArrayList<ServerProfile>();
-    private PluginDevelopmentProfile openedProfile = null;
-    private ServerProfile pluginTestingServerProfile = null;
+    private DevelopmentProfile openedProfile = null;
+    private ServerProfile serverProfile = null;
     
     @FXML private Label headerLabel;
     @FXML private ComboBox<String> serverProfileChoice;
@@ -67,7 +67,7 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
         minecraftVersionLabel.setText(serverProfile.getMinecraftVersion());
         serverTypeLabel.setText(serverProfile.getServerType().getName());
         
-        pluginTestingServerProfile = serverProfile;
+        this.serverProfile = serverProfile;
     }
     
     /**
@@ -85,19 +85,19 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
     }    
     
     /**
-     * Opens the specified plugin development profile
-     * @param profile plugin development profile
+     * Opens the specified development profile
+     * @param profile development profile
      */
-    public void openProfile(PluginDevelopmentProfile profile) {
+    public void openProfile(DevelopmentProfile profile) {
         String profileName = profile.getName();
         
         headerLabel.setText(profileName);
         
-        pluginTestingServerProfile = profile.getServerProfile();
+        serverProfile = profile.getServerProfile();
         openedProfile = profile;
 
-        serverProfileChoice.getSelectionModel().select(pluginTestingServerProfile.getName());                
-        selectServerProfile(pluginTestingServerProfile);
+        serverProfileChoice.getSelectionModel().select(serverProfile.getName());                
+        selectServerProfile(serverProfile);
     }
     
     @FXML
@@ -110,7 +110,7 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
     
     @FXML
     public void onUpdateProfileButtonClick(ActionEvent event) {
-        openedProfile.setServerProfile(pluginTestingServerProfile);
+        openedProfile.setServerProfile(serverProfile);
         
         Alert alert = AlertUtil.createAlert("Profile has been updated with the new server.");
         alert.show();
@@ -119,7 +119,7 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
     @FXML
     public void onStartServerButtonClick(ActionEvent event) throws IOException {
         List<String> commands = new ArrayList<String>();
-        Path serverProfileLocation = pluginTestingServerProfile.getProfileLocation();
+        Path serverProfileLocation = serverProfile.getProfileLocation();
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
 
@@ -146,9 +146,9 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
         commands.add("-jar");
         commands.add("server.jar");
 
-        ServerTypes serverType = pluginTestingServerProfile.getServerType();
-        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? pluginTestingServerProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
-        String worldsArgument = (serverType == ServerTypes.CUSTOM ? pluginTestingServerProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
+        ServerTypes serverType = serverProfile.getServerType();
+        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
         
         commands.add("--" + pluginsArgument);
         commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
@@ -166,7 +166,7 @@ public class OpenPluginDevelopmentProfileSceneController implements Initializabl
 
     @FXML
     public void onOpenLogsFolderButtonClick(ActionEvent event) throws IOException {
-        Path profileLocation = pluginTestingServerProfile.getProfileLocation();
+        Path profileLocation = serverProfile.getProfileLocation();
         Path logsFolder = profileLocation.resolve("logs");
         
         if (!logsFolder.toFile().exists()) {

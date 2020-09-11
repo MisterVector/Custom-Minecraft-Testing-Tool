@@ -25,7 +25,7 @@ import org.codespeak.cmtt.util.AlertUtil;
  */
 public class AddEditPluginSceneController implements Initializable {
 
-    private AddEditPluginDevelopmentProfileSceneController controller = null;
+    private AddEditDevelopmentProfileSceneController controller = null;
     private Path path = null;
     
     private Plugin editedPlugin = null;
@@ -45,10 +45,10 @@ public class AddEditPluginSceneController implements Initializable {
     }    
     
     /**
-     * Sets the add/edit plugin development profile scene controller
-     * @param controller add/edit plugin development profile scene controller
+     * Sets the add/edit development profile scene controller
+     * @param controller add/edit development profile scene controller
      */
-    public void setController(AddEditPluginDevelopmentProfileSceneController controller) {
+    public void setController(AddEditDevelopmentProfileSceneController controller) {
         this.controller = controller;
     }
     

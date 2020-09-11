@@ -21,9 +21,6 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
-import org.codespeak.cmtt.profiles.DevelopmentType;
-import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
-import org.codespeak.cmtt.profiles.ServerDevelopmentProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.SceneUtil;
 
@@ -37,13 +34,12 @@ public class MainSceneController implements Initializable {
     private List<DevelopmentProfile> availableDevelopmentProfiles = new ArrayList<DevelopmentProfile>();
     private int currentlySelectedIndex = -1;
     
-    @FXML private ListView<String> pluginDevelopmentProfileList;
-    @FXML private ListView<String> serverDevelopmentProfileList;
+    @FXML private ListView<String> developmentProfileList;
     
-    private <T extends DevelopmentProfile> T getDevelopmentProfile(String profileName, DevelopmentType dt) {
+    private DevelopmentProfile getDevelopmentProfile(String profileName) {
         for (DevelopmentProfile developmentProfile : availableDevelopmentProfiles) {
-            if (developmentProfile.getDevelopmentType() == dt && developmentProfile.getName().equalsIgnoreCase(profileName)) {
-                return (T) developmentProfile;
+            if (developmentProfile.getName().equalsIgnoreCase(profileName)) {
+                return developmentProfile;
             }
         }
         
@@ -53,23 +49,10 @@ public class MainSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<DevelopmentProfile> developmentProfiles = DevelopmentProfileHandler.getProfiles();
-        ObservableList<String> pluginDevelopmentProfileItems = pluginDevelopmentProfileList.getItems();
-        ObservableList<String> serverDevelopmentProfileItems = serverDevelopmentProfileList.getItems();
+        ObservableList<String> developmentProfileItems = developmentProfileList.getItems();
         
         for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            String profileName = developmentProfile.getName();
-
-            switch (developmentProfile.getDevelopmentType()) {
-                case PLUGIN:
-                    pluginDevelopmentProfileItems.add(profileName);
-                    
-                    break;
-                case SERVER:
-                    serverDevelopmentProfileItems.add(profileName);
-                    
-                    break;
-            }
-            
+            developmentProfileItems.add(developmentProfile.getName());
             availableDevelopmentProfiles.add(developmentProfile);
         }
     }    
@@ -80,44 +63,21 @@ public class MainSceneController implements Initializable {
      * @param editMode whether the development profile is edited
      */
     public void finishAddEditDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
-        ObservableList<String> pluginDevelopmentProfileItems = pluginDevelopmentProfileList.getItems();
-        ObservableList<String> serverDevelopmentProfileItems = serverDevelopmentProfileList.getItems();
-        DevelopmentType developmentType = developmentProfile.getDevelopmentType();
+        ObservableList<String> developmentProfileItems = developmentProfileList.getItems();
         String profileName = developmentProfile.getName();
         
         if (editMode) {
-            switch (developmentType) {
-                case PLUGIN:
-                    pluginDevelopmentProfileItems.set(currentlySelectedIndex, profileName);
-                    
-                    break;
-                    
-                case SERVER:
-                    serverDevelopmentProfileItems.set(currentlySelectedIndex, profileName);
-                    
-                    break;
-            }
+            developmentProfileItems.set(currentlySelectedIndex, profileName);
 
             developmentProfile.update();
-            
+
             currentlySelectedIndex = -1;
         } else {
             DevelopmentProfileHandler.addDevelopmentProfile(developmentProfile);
             
-            switch (developmentType) {
-                case PLUGIN:
-                    pluginDevelopmentProfileItems.add(profileName);
-                    
-                    break;
-                    
-                case SERVER:
-                    serverDevelopmentProfileItems.add(profileName);
-                    
-                    break;
-            }
-            
             developmentProfile.finishSetup();
 
+            developmentProfileItems.add(profileName);
             availableDevelopmentProfiles.add(developmentProfile);
         }
     }
@@ -135,42 +95,42 @@ public class MainSceneController implements Initializable {
     }
     
     @FXML
-    public void onOpenPluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        int selectedIndex = pluginDevelopmentProfileList.getSelectionModel().getSelectedIndex();
+    public void onOpenDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a plugin development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a development profile first.");
             alert.show();
             
             return;
         }
         
-        String profileName = pluginDevelopmentProfileList.getItems().get(selectedIndex);
-        PluginDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.PLUGIN);
-        StageController<OpenPluginDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_PLUGIN_DEVELOPMENT_PROFILE, "Open Plugin Development Profile");
+        String profileName = developmentProfileList.getItems().get(selectedIndex);
+        DevelopmentProfile profile = getDevelopmentProfile(profileName);
+        StageController<OpenDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_DEVELOPMENT_PROFILE, "Open Development Profile");
         Stage stage = stageController.getStage();
-        OpenPluginDevelopmentProfileSceneController controller = stageController.getController();
+        OpenDevelopmentProfileSceneController controller = stageController.getController();
 
         stage.show();
         controller.openProfile(profile);
     }
     
     @FXML
-    public void onAddPluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        StageController<AddEditPluginDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN_DEVELOPMENT_PROFILE, "Add Plugin Development Profile");
+    public void onAddDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Add Development Profile");
         Stage stage = stageController.getStage();
-        AddEditPluginDevelopmentProfileSceneController controller = stageController.getController();
+        AddEditDevelopmentProfileSceneController controller = stageController.getController();
         
         stage.show();
         controller.setController(this);
     }
 
     @FXML
-    public void onEditPluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        int selectedIndex = pluginDevelopmentProfileList.getSelectionModel().getSelectedIndex();
+    public void onEditDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a plugin development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a development profile first.");
             alert.show();
             
             return;
@@ -178,88 +138,33 @@ public class MainSceneController implements Initializable {
         
         currentlySelectedIndex = selectedIndex;
         
-        String profileName = pluginDevelopmentProfileList.getItems().get(selectedIndex);
-        PluginDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.PLUGIN);
+        String profileName = developmentProfileList.getItems().get(selectedIndex);
+        DevelopmentProfile profile = getDevelopmentProfile(profileName);
         
-        StageController<AddEditPluginDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN_DEVELOPMENT_PROFILE, "Edit Plugin Development Profile");
+        StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Edit Development Profile");
         Stage stage = stageController.getStage();
-        AddEditPluginDevelopmentProfileSceneController controller = stageController.getController();
+        AddEditDevelopmentProfileSceneController controller = stageController.getController();
         
         stage.show();
         controller.setController(this);
         
-        controller.editPluginDevelopmentProfile(profile);
+        controller.editDevelopmentProfile(profile);
     }
 
     @FXML
-    public void onDeletePluginDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        int selectedIndex = pluginDevelopmentProfileList.getSelectionModel().getSelectedIndex();
+    public void onDeleteDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a plugin development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a development profile first.");
             alert.show();
 
             return;
         }
         
-        String profileName = pluginDevelopmentProfileList.getItems().remove(selectedIndex);
-        PluginDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.PLUGIN);
+        String profileName = developmentProfileList.getItems().remove(selectedIndex);
+        DevelopmentProfile profile = getDevelopmentProfile(profileName);
 
-        profile.remove();
-        DevelopmentProfileHandler.deleteProfile(profile.getId());
-        availableDevelopmentProfiles.remove(profile);
-    }
-    
-    @FXML
-    public void onAddServerDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        StageController<AddEditServerDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_DEVELOPMENT_PROFILE, "Add Server Development Profile");
-        Stage stage = stageController.getStage();
-        AddEditServerDevelopmentProfileSceneController controller = stageController.getController();
-        
-        stage.show();
-        controller.setController(this);
-    }
-
-    @FXML
-    public void onEditServerDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        int selectedIndex = serverDevelopmentProfileList.getSelectionModel().getSelectedIndex();
-        
-        if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a server development profile first.");
-            alert.show();
-            
-            return;
-        }
-        
-        currentlySelectedIndex = selectedIndex;
-        
-        String profileName = serverDevelopmentProfileList.getItems().get(selectedIndex);
-        ServerDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.SERVER);
-        
-        StageController<AddEditServerDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_DEVELOPMENT_PROFILE, "Edit Server Development Profile");
-        Stage stage = stageController.getStage();
-        AddEditServerDevelopmentProfileSceneController controller = stageController.getController();
-        
-        stage.show();
-        controller.setController(this);
-        
-        controller.editServerDevelopmentProfile(profile);
-    }
-
-    @FXML
-    public void onDeleteServerDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
-        int selectedIndex = serverDevelopmentProfileList.getSelectionModel().getSelectedIndex();
-        
-        if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a server development profile first.");
-            alert.show();
-
-            return;
-        }
-        
-        String profileName = serverDevelopmentProfileList.getItems().remove(selectedIndex);
-        ServerDevelopmentProfile profile = getDevelopmentProfile(profileName, DevelopmentType.SERVER);
-        
         profile.remove();
         DevelopmentProfileHandler.deleteProfile(profile.getId());
         availableDevelopmentProfiles.remove(profile);

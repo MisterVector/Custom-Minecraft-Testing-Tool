@@ -50,18 +50,12 @@ public class CustomMinecraftTestingTool extends Application {
             serversFolder.mkdir();
         }
         
-        File pluginDevelopmentFolder = new File(Configuration.PLUGIN_DEVELOPMENT_FOLDER);
+        File developmentFolder = new File(Configuration.DEVELOPMENT_FOLDER);
         
-        if (!pluginDevelopmentFolder.exists()) {
-            pluginDevelopmentFolder.mkdirs();
+        if (!developmentFolder.exists()) {
+            developmentFolder.mkdirs();
         }
 
-        File serverDevelopmentFolder = new File(Configuration.SERVER_DEVELOPMENT_FOLDER);
-        
-        if (!serverDevelopmentFolder.exists()) {
-            serverDevelopmentFolder.mkdirs();
-        }
-        
         launch(args);
     }
     

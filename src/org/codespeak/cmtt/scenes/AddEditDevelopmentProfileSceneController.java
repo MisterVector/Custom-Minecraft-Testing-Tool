@@ -26,9 +26,8 @@ import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
-import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
-import org.codespeak.cmtt.profiles.PluginDevelopmentProfile;
+import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.Plugin;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
@@ -36,18 +35,18 @@ import org.codespeak.cmtt.util.SceneUtil;
 import org.codespeak.cmtt.util.StringUtil;
 
 /**
- * Controller for the add/edit plugin development profile scene
+ * Controller for the add/edit development profile scene
  *
  * @author Vector
  */
-public class AddEditPluginDevelopmentProfileSceneController implements Initializable {
+public class AddEditDevelopmentProfileSceneController implements Initializable {
 
     private MainSceneController controller = null;
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
     private List<Plugin> deletedPlugins = new ArrayList<Plugin>();
-    private PluginDevelopmentProfile editedPluginDevelopmentProfile = null;
+    private DevelopmentProfile editedDevelopmentProfile = null;
     private int currentlySelectedIndex = -1;
     private boolean editMode = false;
     
@@ -138,17 +137,17 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
     }
     
     /**
-     * Edits an existing plugin development profile
-     * @param pluginDevelopmentProfile existing plugin development profile
+     * Edits an existing development profile
+     * @param developmentProfile existing development profile
      */
-    public void editPluginDevelopmentProfile(PluginDevelopmentProfile pluginDevelopmentProfile) {
-        profileNameInput.setText(pluginDevelopmentProfile.getName());
-        lowerMemoryInput.setText(pluginDevelopmentProfile.getLowerMemory());
-        upperMemoryInput.setText(pluginDevelopmentProfile.getUpperMemory());
-        jvmFlagsStringInput.setText(pluginDevelopmentProfile.getJVMFlagsString());
-        separateWorldsCheck.setSelected(pluginDevelopmentProfile.isSeparateWorlds());
-        serverProfilesChoice.getSelectionModel().select(pluginDevelopmentProfile.getServerProfile().getName());
-        plugins = pluginDevelopmentProfile.getPlugins();
+    public void editDevelopmentProfile(DevelopmentProfile developmentProfile) {
+        profileNameInput.setText(developmentProfile.getName());
+        lowerMemoryInput.setText(developmentProfile.getLowerMemory());
+        upperMemoryInput.setText(developmentProfile.getUpperMemory());
+        jvmFlagsStringInput.setText(developmentProfile.getJVMFlagsString());
+        separateWorldsCheck.setSelected(developmentProfile.isSeparateWorlds());
+        serverProfilesChoice.getSelectionModel().select(developmentProfile.getServerProfile().getName());
+        plugins = developmentProfile.getPlugins();
         
         ObservableList<String> pluginItems = pluginList.getItems();
         
@@ -156,7 +155,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             pluginItems.add(plugin.getFileName());
         }
         
-        editedPluginDevelopmentProfile = pluginDevelopmentProfile;
+        editedDevelopmentProfile = developmentProfile;
         editMode = true;
     }
 
@@ -189,7 +188,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
             
             return;
         }
-        
+         
         JVMFlagsProfile profile = getJVMFlagsProfile(jvmFlagsProfileName);
         String existingJVMFlagsString = jvmFlagsStringInput.getText();
         
@@ -230,7 +229,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         
         stage.show();
         controller.setController(this);
-        controller.editPlugin(plugin, (editedPluginDevelopmentProfile != null ? editedPluginDevelopmentProfile.getPluginsLocation() : null));
+        controller.editPlugin(plugin, (editedDevelopmentProfile != null ? editedDevelopmentProfile.getPluginsLocation() : null));
     }
     
     @FXML
@@ -272,7 +271,7 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         if (alert == null) {
             DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
 
-            alert = ca.addCondition(existingProfile != null && existingProfile != editedPluginDevelopmentProfile, "A profile by that name already exists.")
+            alert = ca.addCondition(existingProfile != null && existingProfile != editedDevelopmentProfile, "A profile by that name already exists.")
                       .getAlert();
         }
         
@@ -287,26 +286,26 @@ public class AddEditPluginDevelopmentProfileSceneController implements Initializ
         }
         
         ServerProfile serverProfile = getServerProfile(serverProfileName);
-        PluginDevelopmentProfile profile = null;
+        DevelopmentProfile profile = null;
         
         if (editMode) {
-            editedPluginDevelopmentProfile.setName(profileName);
-            editedPluginDevelopmentProfile.setLowerMemory(lowerMemory);
-            editedPluginDevelopmentProfile.setUpperMemory(upperMemory);
-            editedPluginDevelopmentProfile.setJVMFlagsString(jvmFlagsString);
-            editedPluginDevelopmentProfile.setServerProfile(serverProfile);
-            editedPluginDevelopmentProfile.setPlugins(plugins);
-            editedPluginDevelopmentProfile.setSeparateWorlds(separateWorlds);
+            editedDevelopmentProfile.setName(profileName);
+            editedDevelopmentProfile.setLowerMemory(lowerMemory);
+            editedDevelopmentProfile.setUpperMemory(upperMemory);
+            editedDevelopmentProfile.setJVMFlagsString(jvmFlagsString);
+            editedDevelopmentProfile.setServerProfile(serverProfile);
+            editedDevelopmentProfile.setPlugins(plugins);
+            editedDevelopmentProfile.setSeparateWorlds(separateWorlds);
 
-            Path pluginsLocation = editedPluginDevelopmentProfile.getPluginsLocation();
+            Path pluginsLocation = editedDevelopmentProfile.getPluginsLocation();
 
             for (Plugin plugin : deletedPlugins) {
                 plugin.uninstall(pluginsLocation);
             }
             
-            profile = editedPluginDevelopmentProfile;
+            profile = editedDevelopmentProfile;
         } else {
-            profile = new PluginDevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, plugins);
+            profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, plugins);
         }
         
         controller.finishAddEditDevelopmentProfile(profile, editMode);

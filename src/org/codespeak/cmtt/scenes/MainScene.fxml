@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="631.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.MainSceneController">
+<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.MainSceneController">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="536.0">
         <menus>
@@ -31,28 +31,18 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane layoutX="4.0" layoutY="25.0" prefHeight="657.0" prefWidth="528.0">
+      <AnchorPane layoutX="4.0" layoutY="25.0" prefHeight="374.0" prefWidth="528.0">
          <children>
-            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="502.0" text="Plugin Development Profiles">
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="502.0" text="Development Profiles">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <ListView fx:id="pluginDevelopmentProfileList" layoutX="14.0" layoutY="61.0" prefHeight="216.0" prefWidth="502.0" />
-            <Button layoutX="14.0" layoutY="291.0" mnemonicParsing="false" onAction="#onOpenPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
-            <Button layoutX="139.0" layoutY="291.0" mnemonicParsing="false" onAction="#onAddPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
-            <Button layoutX="269.0" layoutY="291.0" mnemonicParsing="false" onAction="#onEditPluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
-            <Button layoutX="400.0" layoutY="291.0" mnemonicParsing="false" onAction="#onDeletePluginDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
-            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="336.0" prefHeight="35.0" prefWidth="502.0" text="Server Development Profiles">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <ListView fx:id="serverDevelopmentProfileList" layoutX="14.0" layoutY="384.0" prefHeight="216.0" prefWidth="502.0" />
-            <Button layoutX="14.0" layoutY="613.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
-            <Button layoutX="139.0" layoutY="613.0" mnemonicParsing="false" onAction="#onAddServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
-            <Button layoutX="269.0" layoutY="613.0" mnemonicParsing="false" onAction="#onEditServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
-            <Button layoutX="400.0" layoutY="613.0" mnemonicParsing="false" onAction="#onDeleteServerDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
+            <ListView fx:id="developmentProfileList" layoutX="14.0" layoutY="61.0" prefHeight="255.0" prefWidth="502.0" />
+            <Button layoutX="15.0" layoutY="329.0" mnemonicParsing="false" onAction="#onOpenDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Open Profile" />
+            <Button layoutX="140.0" layoutY="329.0" mnemonicParsing="false" onAction="#onAddDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Add Profile" />
+            <Button layoutX="270.0" layoutY="329.0" mnemonicParsing="false" onAction="#onEditDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Edit Profile" />
+            <Button layoutX="401.0" layoutY="329.0" mnemonicParsing="false" onAction="#onDeleteDevelopmentProfileButtonClick" prefHeight="25.0" prefWidth="114.0" text="Delete Profile" />
          </children>
       </AnchorPane>
     </children>

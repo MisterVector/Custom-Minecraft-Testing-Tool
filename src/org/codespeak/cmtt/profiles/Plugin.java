@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 
 /**
- * A class representing a plugin that is used with a plugin development profile
+ * A class representing a plugin that is used with a development profile
  *
  * @author Vector
  */
