@@ -221,6 +221,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             return;
         }
         
+        currentlySelectedIndex = selectedIndex;
+        
         String fileName = pluginList.getItems().get(selectedIndex);
         Plugin plugin = getPlugin(fileName);
         StageController<AddEditPluginSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN, "Edit Plugin");
