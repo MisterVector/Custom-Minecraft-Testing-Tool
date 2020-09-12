@@ -64,6 +64,7 @@ public class AddEditPluginSceneController implements Initializable {
         
         headerLabel.setText("Edit Plugin");
         this.pluginsFolder = pluginsFolder;
+        editedPlugin = plugin;
         editMode = true;
     }
     
