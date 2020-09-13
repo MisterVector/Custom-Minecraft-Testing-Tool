@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
+import org.codespeak.cmtt.util.MiscUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -196,7 +198,23 @@ public class DevelopmentProfile extends ResourceProfile {
     
     @Override
     public void update() {
+        Path pluginsLocation = getPluginsLocation();
         
+        for (Plugin plugin : plugins) {
+            Path sourcePath = plugin.getPath();
+            String checksum = MiscUtil.getChecksum(sourcePath);
+            String originalChecksum = plugin.getChecksum();
+            
+            if (!checksum.equals(originalChecksum)) {
+                Path localPath = pluginsLocation.resolve(plugin.getFileName());
+                
+                try {
+                    Files.copy(sourcePath, localPath, StandardCopyOption.REPLACE_EXISTING);                    
+                } catch (IOException ex) {
+                    
+                }
+            }
+        }
     }
     
     @Override
