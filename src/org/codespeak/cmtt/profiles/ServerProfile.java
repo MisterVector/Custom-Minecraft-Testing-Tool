@@ -192,17 +192,13 @@ public class ServerProfile extends ResourceProfile {
     
     @Override
     public void update() {
-        if (serverPath != null) {
-            Path existingServerFile = Paths.get(Configuration.SERVERS_FOLDER + File.separator
-                                    + super.getId() + File.separator
-                                    + "server.jar");
+        Path existingServerFile = getServerLocation();
 
-            try {
-                Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
+        try {
+            Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
 
-            }            
-        }
+        }            
     }
     
     @Override
