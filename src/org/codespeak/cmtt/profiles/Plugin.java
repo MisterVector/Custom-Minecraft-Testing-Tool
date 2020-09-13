@@ -14,12 +14,14 @@ public class Plugin implements Cloneable {
     private int id;
     private String fileName;
     private Path path;
+    private String checksum;
     private boolean autoUpdate;
     
-    public Plugin(int id, String fileName, Path path, boolean autoUpdate) {
+    public Plugin(int id, String fileName, Path path, String checksum, boolean autoUpdate) {
         this.id = id;
         this.fileName = fileName;
         this.path = path;
+        this.checksum = checksum;
         this.autoUpdate = autoUpdate;
     }
     
@@ -64,6 +66,22 @@ public class Plugin implements Cloneable {
     }
     
     /**
+     * Gets the checksum of this plugin
+     * @return checksum of this plugin
+     */
+    public String getChecksum() {
+        return checksum;
+    }
+
+    /**
+     * Sets the checksum of this plugin
+     * @param checksum checksum of this plugin
+     */
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
+    }
+    
+    /**
      * Gets whether this plugin is being automatically updated
      * @return whether this plugin is being automatically updated
      */
@@ -84,7 +102,7 @@ public class Plugin implements Cloneable {
      * @return copy of this Plugin object
      */
     public Plugin copy() {
-        return new Plugin(new Integer(id), new String(fileName), Paths.get(path.toString()), new Boolean(autoUpdate));
+        return new Plugin(new Integer(id), new String(fileName), Paths.get(path.toString()), new String(checksum), new Boolean(autoUpdate));
     }
     
     /**
@@ -108,6 +126,7 @@ public class Plugin implements Cloneable {
         json.put("id", id);
         json.put("file_name", fileName);
         json.put("path", (path != null ? path.toString() : ""));
+        json.put("checksum", checksum);
         json.put("auto_update", autoUpdate);
         
         return json;
@@ -122,6 +141,7 @@ public class Plugin implements Cloneable {
         int id = 0;
         String fileName = "";
         Path path = null;
+        String checksum = "";
         boolean autoUpdate = false;
         
         if (json.has("id")) {
@@ -136,11 +156,15 @@ public class Plugin implements Cloneable {
             path = Paths.get(json.getString("path"));
         }
         
+        if (json.has("checksum")) {
+            checksum = json.getString("checksum");
+        }
+        
         if (json.has("auto_update")) {
             autoUpdate = json.getBoolean("auto_update");
         }
         
-        return new Plugin(id, fileName, path, autoUpdate);
+        return new Plugin(id, fileName, path, checksum, autoUpdate);
     }
     
 }

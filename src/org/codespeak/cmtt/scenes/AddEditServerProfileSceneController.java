@@ -26,6 +26,7 @@ import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.util.AlertUtil;
+import org.codespeak.cmtt.util.MiscUtil;
 import org.codespeak.cmtt.util.StringUtil;
 
 /**
@@ -47,6 +48,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private TextField customPluginsArgumentInput;
     @FXML private TextField customWorldsArgumentInput;
     @FXML private Label serverPathLabel;
+    @FXML private Label checksumLabel;
     @FXML private CheckBox autoUpdateCheck;
     
     /**
@@ -81,6 +83,7 @@ public class AddEditServerProfileSceneController implements Initializable {
         customWorldsArgumentInput.setText(profile.getCustomWorldsArgument());
         serverPath = profile.getServerPath();
         serverPathLabel.setText(serverPath.toString());
+        checksumLabel.setText(profile.getChecksum());
         autoUpdateCheck.setSelected(profile.isAutoUpdate());
 
         headerLabel.setText("Edit Server Profile");
@@ -105,8 +108,11 @@ public class AddEditServerProfileSceneController implements Initializable {
         File chosenFile = chooser.showOpenDialog(null);
         
         if (chosenFile != null) {
+            String checksum = MiscUtil.getChecksum(chosenFile.toPath());
+            
             serverPath = chosenFile.toPath();
             serverPathLabel.setText(serverPath.toString());
+            checksumLabel.setText(checksum);
         }
     }
     
@@ -148,6 +154,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             return;
         }
         
+        String checksum = checksumLabel.getText();
         ServerProfile profile = null;
         
         if (editMode) {
@@ -157,12 +164,13 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setCustomPluginsArgument(customPluginsArgument);
             editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
             editedServerProfile.setServerPath(serverPath);
+            editedServerProfile.setChecksum(checksum);
             editedServerProfile.setAutoUpdate(autoUpdate);
             
             profile = editedServerProfile;
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
-                                        customWorldsArgument, serverPath, autoUpdate);
+                                        customWorldsArgument, serverPath, checksum, autoUpdate);
         }
     
         controller.finishAddEditServerProfile(profile, editMode);

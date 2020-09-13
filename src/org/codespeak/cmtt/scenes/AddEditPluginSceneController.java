@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.Plugin;
 import org.codespeak.cmtt.util.AlertUtil;
+import org.codespeak.cmtt.util.MiscUtil;
 
 /**
  * Controller for the add/edit plugin scene
@@ -34,6 +35,7 @@ public class AddEditPluginSceneController implements Initializable {
     
     @FXML private Label headerLabel;
     @FXML private Label pathLabel;
+    @FXML private Label checksumLabel;
     @FXML private CheckBox autoUpdateCheck;
     
     /**
@@ -60,6 +62,7 @@ public class AddEditPluginSceneController implements Initializable {
     public void editPlugin(Plugin plugin, Path pluginsFolder) {
         path = plugin.getPath();
         pathLabel.setText(path.toString());
+        checksumLabel.setText(plugin.getChecksum());
         autoUpdateCheck.setSelected(plugin.isAutoUpdate());
         
         headerLabel.setText("Edit Plugin");
@@ -100,7 +103,10 @@ public class AddEditPluginSceneController implements Initializable {
                 }        
             }
 
+            String checksum = MiscUtil.getChecksum(path);
+            
             editedPlugin.setPath(path);
+            editedPlugin.setChecksum(checksum);
             editedPlugin.setAutoUpdate(autoUpdate);
             
             profile = editedPlugin;
@@ -113,8 +119,10 @@ public class AddEditPluginSceneController implements Initializable {
             }
 
             String fileName = path.getFileName().toString();
+            String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
-            profile = new Plugin(pluginID, fileName, path, autoUpdate);
+            
+            profile = new Plugin(pluginID, fileName, path, checksum, autoUpdate);
         }
         
         controller.finishAddEditPlugin(profile, editMode);
