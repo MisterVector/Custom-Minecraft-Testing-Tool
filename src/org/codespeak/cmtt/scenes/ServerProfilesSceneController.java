@@ -75,15 +75,9 @@ public class ServerProfilesSceneController implements Initializable {
         
         if (editMode) {
             items.set(currentlySelectedIndex, profileName);
-            
-            profile.update();
         } else {
-            ServerProfileHandler.addProfile(profile);
-            
             items.add(profileName);
             availableServerProfiles.add(profile);
-            
-            profile.finishSetup();
         }
     }
     

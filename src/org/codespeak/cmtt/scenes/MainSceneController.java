@@ -69,14 +69,8 @@ public class MainSceneController implements Initializable {
         if (editMode) {
             developmentProfileItems.set(currentlySelectedIndex, profileName);
 
-            developmentProfile.update();
-
             currentlySelectedIndex = -1;
         } else {
-            DevelopmentProfileHandler.addDevelopmentProfile(developmentProfile);
-            
-            developmentProfile.finishSetup();
-
             developmentProfileItems.add(profileName);
             availableDevelopmentProfiles.add(developmentProfile);
         }

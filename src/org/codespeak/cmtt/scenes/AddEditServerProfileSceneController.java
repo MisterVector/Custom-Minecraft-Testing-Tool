@@ -164,11 +164,17 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setChecksum(checksum);
             
             profile = editedServerProfile;
+            
+            profile.update();
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
                                         customWorldsArgument, serverPath, checksum);
+
+            ServerProfileHandler.addProfile(profile);
+
+            profile.finishSetup();
         }
-    
+
         controller.finishAddEditServerProfile(profile, editMode);
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

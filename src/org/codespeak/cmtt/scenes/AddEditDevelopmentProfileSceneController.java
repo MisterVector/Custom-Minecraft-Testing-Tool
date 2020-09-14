@@ -309,11 +309,17 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             }
             
             profile = editedDevelopmentProfile;
+            
+            profile.update();
         } else {
             profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds,
                                              updateOutdatedServerAutomatically, plugins);
+
+            DevelopmentProfileHandler.addDevelopmentProfile(profile);
+
+            profile.finishSetup();
         }
-        
+
         controller.finishAddEditDevelopmentProfile(profile, editMode);
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
