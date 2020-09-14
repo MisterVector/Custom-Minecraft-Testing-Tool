@@ -106,6 +106,7 @@ public class AddEditPluginSceneController implements Initializable {
             String checksum = MiscUtil.getChecksum(path);
             
             editedPlugin.setPath(path);
+            editedPlugin.setFileName(path.getFileName().toString());
             editedPlugin.setChecksum(checksum);
             editedPlugin.setAutoUpdate(autoUpdate);
             
