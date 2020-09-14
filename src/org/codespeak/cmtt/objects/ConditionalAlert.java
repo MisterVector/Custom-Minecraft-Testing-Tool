@@ -107,7 +107,5 @@ public class ConditionalAlert {
         
         return ret;
     }
-    
-    
-    
+
 }

@@ -86,7 +86,7 @@ public class AddEditPluginSceneController implements Initializable {
     public void onSavePluginButtonClick(ActionEvent event) throws IOException {
         boolean autoUpdate = autoUpdateCheck.isSelected();
         
-        Plugin profile = null;
+        Plugin plugin = null;
         
         if (editMode) {
             if (pluginsFolder != null) {
@@ -109,7 +109,7 @@ public class AddEditPluginSceneController implements Initializable {
             editedPlugin.setChecksum(checksum);
             editedPlugin.setAutoUpdate(autoUpdate);
             
-            profile = editedPlugin;
+            plugin = editedPlugin;
         } else {
             if (path == null) {
                 Alert alert = AlertUtil.createAlert("The plugin path has not been selected.");
@@ -122,10 +122,10 @@ public class AddEditPluginSceneController implements Initializable {
             String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
             
-            profile = new Plugin(pluginID, fileName, path, checksum, autoUpdate);
+            plugin = new Plugin(pluginID, path, fileName, checksum, autoUpdate);
         }
         
-        controller.finishAddEditPlugin(profile, editMode);
+        controller.finishAddEditPlugin(plugin, editMode);
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

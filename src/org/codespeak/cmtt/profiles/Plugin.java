@@ -12,15 +12,15 @@ import org.json.JSONObject;
 public class Plugin implements Cloneable {
 
     private int id;
-    private String fileName;
     private Path path;
+    private String fileName;
     private String checksum;
     private boolean autoUpdate;
     
-    public Plugin(int id, String fileName, Path path, String checksum, boolean autoUpdate) {
+    public Plugin(int id, Path path, String fileName, String checksum, boolean autoUpdate) {
         this.id = id;
-        this.fileName = fileName;
         this.path = path;
+        this.fileName = fileName;
         this.checksum = checksum;
         this.autoUpdate = autoUpdate;
     }
@@ -31,22 +31,6 @@ public class Plugin implements Cloneable {
      */
     public int getId() {
         return id;
-    }
-    
-    /**
-     * Gets the file name of this plugin
-     * @return file name of this plugin
-     */
-    public String getFileName() {
-        return fileName;
-    }
-    
-    /**
-     * Sets the file name of this plugin
-     * @param fileName file name of this plugin
-     */
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
     
     /**
@@ -63,6 +47,22 @@ public class Plugin implements Cloneable {
      */
     public void setPath(Path path) {
         this.path = path;
+    }
+    
+    /**
+     * Gets the file name of this plugin
+     * @return file name of this plugin
+     */
+    public String getFileName() {
+        return fileName;
+    }
+    
+    /**
+     * Sets the file name of this plugin
+     * @param fileName file name of this plugin
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
     
     /**
@@ -102,7 +102,7 @@ public class Plugin implements Cloneable {
      * @return copy of this Plugin object
      */
     public Plugin copy() {
-        return new Plugin(new Integer(id), new String(fileName), Paths.get(path.toString()), new String(checksum), new Boolean(autoUpdate));
+        return new Plugin(new Integer(id), Paths.get(path.toString()), new String(fileName), new String(checksum), new Boolean(autoUpdate));
     }
     
     /**
@@ -124,8 +124,8 @@ public class Plugin implements Cloneable {
         JSONObject json = new JSONObject();
         
         json.put("id", id);
-        json.put("file_name", fileName);
         json.put("path", (path != null ? path.toString() : ""));
+        json.put("file_name", fileName);
         json.put("checksum", checksum);
         json.put("auto_update", autoUpdate);
         
@@ -139,8 +139,8 @@ public class Plugin implements Cloneable {
      */
     public static Plugin fromJSON(JSONObject json) {
         int id = 0;
-        String fileName = "";
         Path path = null;
+        String fileName = "";
         String checksum = "";
         boolean autoUpdate = false;
         
@@ -148,12 +148,12 @@ public class Plugin implements Cloneable {
             id = json.getInt("id");
         }
 
-        if (json.has("file_name")) {
-            fileName = json.getString("file_name");
-        }
-        
         if (json.has("path")) {
             path = Paths.get(json.getString("path"));
+        }
+        
+        if (json.has("file_name")) {
+            fileName = json.getString("file_name");
         }
         
         if (json.has("checksum")) {
@@ -164,7 +164,7 @@ public class Plugin implements Cloneable {
             autoUpdate = json.getBoolean("auto_update");
         }
         
-        return new Plugin(id, fileName, path, checksum, autoUpdate);
+        return new Plugin(id, path, fileName, checksum, autoUpdate);
     }
     
 }
