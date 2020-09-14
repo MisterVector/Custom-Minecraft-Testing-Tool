@@ -27,15 +27,18 @@ public class DevelopmentProfile extends ResourceProfile {
     private String jvmFlagsString;
     private ServerProfile serverProfile;
     private boolean separateWorlds;    
+    private boolean updateOutdatedServerAutomatically;
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                    ServerProfile serverProfile, boolean separateWorlds, List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, plugins);
+                                    ServerProfile serverProfile, boolean separateWorlds, boolean updateOutdatedServerAutomatically,
+                                    List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, updateOutdatedServerAutomatically, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                     ServerProfile serverProfile, boolean separateWorlds, List<Plugin> plugins) {
+                                     ServerProfile serverProfile, boolean separateWorlds, boolean updateOutdatedServerAutomatically,
+                                     List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
@@ -43,6 +46,7 @@ public class DevelopmentProfile extends ResourceProfile {
         this.jvmFlagsString = jvmFlagsString;
         this.serverProfile = serverProfile;
         this.separateWorlds = separateWorlds;
+        this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
         this.plugins = plugins;
     }
     
@@ -126,6 +130,23 @@ public class DevelopmentProfile extends ResourceProfile {
      */
     public void setSeparateWorlds(boolean separateWorlds) {
         this.separateWorlds = separateWorlds;
+    }
+    
+    /**
+     * Checks if the server is automatically updated if it is outdated
+     * @return if the server is automatically updated if it is outdated
+     */
+    public boolean isUpdatingOutdatedServerAutomatically() {
+        return updateOutdatedServerAutomatically;
+    }
+    
+    /**
+     * Sets if the server is automatically updated if it is outdated
+     * @param updateOutdatedServerAutomatically if the server is automatically
+     * updated if it is outdated
+     */
+    public void setUpdateOutdatedServerAutomatically(boolean updateOutdatedServerAutomatically) {
+        this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
     }
     
     /**
@@ -251,6 +272,7 @@ public class DevelopmentProfile extends ResourceProfile {
         json.put("jvm_flags_string", jvmFlagsString);
         json.put("server_profile", serverProfile.getId());
         json.put("separate_worlds", separateWorlds);
+        json.put("update_outdated_server_automatically", updateOutdatedServerAutomatically);
         json.put("plugins", pluginsJson);
         
         return json;
@@ -269,6 +291,7 @@ public class DevelopmentProfile extends ResourceProfile {
         String jvmFlagsString = "";
         ServerProfile serverProfile = null;
         boolean separateWorlds = false;
+        boolean updateOutdatedServerAutomatically = false;
         List<Plugin> plugins = new ArrayList<Plugin>();
         
         if (json.has("id")) {
@@ -299,6 +322,10 @@ public class DevelopmentProfile extends ResourceProfile {
             separateWorlds = json.getBoolean("separate_worlds");
         }
         
+        if (json.has("update_outdated_server_automatically")) {
+            updateOutdatedServerAutomatically = json.getBoolean("update_outdated_server_automatically");
+        }
+        
         if (json.has("plugins")) {
             JSONArray pluginsJson = json.getJSONArray("plugins");
             
@@ -309,7 +336,7 @@ public class DevelopmentProfile extends ResourceProfile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, separateWorlds, plugins);
+                                            serverProfile, separateWorlds, updateOutdatedServerAutomatically, plugins);
     }
     
 }

@@ -49,7 +49,6 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private TextField customWorldsArgumentInput;
     @FXML private Label serverPathLabel;
     @FXML private Label checksumLabel;
-    @FXML private CheckBox autoUpdateCheck;
     
     /**
      * Initializes the controller class.
@@ -84,7 +83,6 @@ public class AddEditServerProfileSceneController implements Initializable {
         serverPath = profile.getServerPath();
         serverPathLabel.setText(serverPath.toString());
         checksumLabel.setText(profile.getChecksum());
-        autoUpdateCheck.setSelected(profile.isAutoUpdate());
 
         headerLabel.setText("Edit Server Profile");
         
@@ -123,7 +121,6 @@ public class AddEditServerProfileSceneController implements Initializable {
         String serverTypeChosen = serverTypeChoices.getSelectionModel().getSelectedItem();
         String customPluginsArgument = customPluginsArgumentInput.getText();
         String customWorldsArgument = customWorldsArgumentInput.getText();
-        boolean autoUpdate = autoUpdateCheck.isSelected();
         ServerTypes serverType = null;
         
         if (!StringUtil.isNullOrEmpty(serverTypeChosen)) {
@@ -165,12 +162,11 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
             editedServerProfile.setServerPath(serverPath);
             editedServerProfile.setChecksum(checksum);
-            editedServerProfile.setAutoUpdate(autoUpdate);
             
             profile = editedServerProfile;
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
-                                        customWorldsArgument, serverPath, checksum, autoUpdate);
+                                        customWorldsArgument, serverPath, checksum);
         }
     
         controller.finishAddEditServerProfile(profile, editMode);

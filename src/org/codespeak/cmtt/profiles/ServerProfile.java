@@ -24,23 +24,21 @@ public class ServerProfile extends ResourceProfile {
     private String customWorldsArgument;
     private Path serverPath;
     private String checksum;
-    private boolean autoUpdate;
     
     public ServerProfile(String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument, Path serverPath,
-                         String checksum, boolean autoUpdate) {
-        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, serverPath, checksum, autoUpdate);
+                         String customPluginsArgument, String customWorldsArgument,
+                         Path serverPath, String checksum) {
+        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, serverPath, checksum);
     }
     
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument, Path serverPath,
-                         String checksum, boolean autoUpdate) {
+                         String customPluginsArgument, String customWorldsArgument,
+                         Path serverPath, String checksum) {
         super(id, name);
 
         this.minecraftVersion = minecraftVersion;
         this.serverPath = serverPath;
         this.checksum = checksum;
-        this.autoUpdate = autoUpdate;
         this.serverType = serverType;
         this.customPluginsArgument = customPluginsArgument;
         this.customWorldsArgument = customWorldsArgument;
@@ -145,22 +143,6 @@ public class ServerProfile extends ResourceProfile {
     }
     
     /**
-     * Gets if this server is being auto-updated
-     * @return if this server is being auto-updated
-     */
-    public boolean isAutoUpdate() {
-        return autoUpdate;
-    }
-    
-    /**
-     * Gets if this server is being auto-updated
-     * @param autoUpdate if this server is being auto-updated
-     */
-    public void setAutoUpdate(boolean autoUpdate) {
-        this.autoUpdate = autoUpdate;
-    }
-    
-    /**
      * Gets the path to the folder for this server profile
      * @return path to the folder for this server profile
      */
@@ -228,7 +210,6 @@ public class ServerProfile extends ResourceProfile {
         json.put("custom_worlds_argument", customWorldsArgument);
         json.put("server_path", serverPath);
         json.put("checksum", checksum);
-        json.put("auto_update", autoUpdate);
         
         return json;
     }
@@ -242,7 +223,6 @@ public class ServerProfile extends ResourceProfile {
         String customWorldsArgument = "";
         Path serverPath = null;
         String checksum = "";
-        boolean autoUpdate = false;
         
         if (json.has("id")) {
             id = json.getInt("id");
@@ -276,12 +256,8 @@ public class ServerProfile extends ResourceProfile {
             checksum = json.getString("checksum");
         }
         
-        if (json.has("auto_update")) {
-            autoUpdate = json.getBoolean("auto_update");
-        }
-        
         return new ServerProfile(id, name, minecraftVersion, serverType, customPluginsArgument,
-                                 customWorldsArgument, serverPath, checksum, autoUpdate);
+                                 customWorldsArgument, serverPath, checksum);
     }
     
 }
