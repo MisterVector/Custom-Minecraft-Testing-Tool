@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
@@ -29,7 +30,7 @@ import org.codespeak.cmtt.util.SceneUtil;
  *
  * @author Vector
  */
-public class MainSceneController implements Initializable {
+public class MainSceneController implements Initializable, DevelopmentProfileProcessor {
 
     private List<DevelopmentProfile> availableDevelopmentProfiles = new ArrayList<DevelopmentProfile>();
     private int currentlySelectedIndex = -1;
@@ -57,12 +58,8 @@ public class MainSceneController implements Initializable {
         }
     }    
 
-    /**
-     * Finishes adding or editing a development profile
-     * @param developmentProfile development profile to add or edit
-     * @param editMode whether the development profile is edited
-     */
-    public void finishAddEditDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
+    @Override
+    public void processDevelopmentProfile(DevelopmentProfile developmentProfile, boolean editMode) {
         ObservableList<String> developmentProfileItems = developmentProfileList.getItems();
         String profileName = developmentProfile.getName();
         
@@ -116,7 +113,7 @@ public class MainSceneController implements Initializable {
         AddEditDevelopmentProfileSceneController controller = stageController.getController();
         
         stage.show();
-        controller.setController(this);
+        controller.setProcessor(this);
     }
 
     @FXML
@@ -140,7 +137,7 @@ public class MainSceneController implements Initializable {
         AddEditDevelopmentProfileSceneController controller = stageController.getController();
         
         stage.show();
-        controller.setController(this);
+        controller.setProcessor(this);
         
         controller.editDevelopmentProfile(profile);
     }

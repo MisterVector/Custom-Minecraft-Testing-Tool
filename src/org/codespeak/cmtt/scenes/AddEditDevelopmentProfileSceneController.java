@@ -22,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ConditionalAlert;
+import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
@@ -41,7 +42,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditDevelopmentProfileSceneController implements Initializable {
 
-    private MainSceneController controller = null;
+    private DevelopmentProfileProcessor processor = null;
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
@@ -130,11 +131,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }    
     
     /**
-     * Sets the main scene controller
-     * @param controller main scene controller
+     * Sets a development profile processor
+     * @param processor development profile processor
      */
-    public void setController(MainSceneController controller) {
-        this.controller = controller;
+    public void setProcessor(DevelopmentProfileProcessor processor) {
+        this.processor = processor;
     }
     
     /**
@@ -320,7 +321,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             profile.finishSetup();
         }
 
-        controller.finishAddEditDevelopmentProfile(profile, editMode);
+        processor.processDevelopmentProfile(profile, editMode);
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
