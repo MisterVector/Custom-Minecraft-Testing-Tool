@@ -83,7 +83,7 @@ public class AddEditPluginSceneController implements Initializable {
     }
     
     @FXML
-    public void onSavePluginButtonClick(ActionEvent event) throws IOException {
+    public void onOKButtonClick(ActionEvent event) throws IOException {
         boolean autoUpdate = autoUpdateCheck.isSelected();
         
         Plugin plugin = null;
@@ -132,7 +132,7 @@ public class AddEditPluginSceneController implements Initializable {
         stage.close();
     }
     
-    public void onCloseWindowButtonClick(ActionEvent event) {
+    public void onCloseButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

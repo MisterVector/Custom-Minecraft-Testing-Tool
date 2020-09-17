@@ -24,8 +24,8 @@
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <Button layoutX="363.0" layoutY="177.0" mnemonicParsing="false" onAction="#onSavePluginButtonClick" prefHeight="25.0" prefWidth="92.0" text="Save Plugin" />
-      <Button layoutX="473.0" layoutY="177.0" mnemonicParsing="false" onAction="#onCloseWindowButtonClick" text="Close Window" />
+      <Button layoutX="363.0" layoutY="177.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="473.0" layoutY="177.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
       <Label layoutX="15.0" layoutY="103.0" text="File Checksum">
          <font>
             <Font size="14.0" />

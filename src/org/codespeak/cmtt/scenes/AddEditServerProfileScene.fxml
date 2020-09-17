@@ -60,7 +60,7 @@
          </font>
       </Label>
       <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="573.0" layoutY="90.0" prefHeight="25.0" prefWidth="176.0" />
-      <Button layoutX="551.0" layoutY="219.0" mnemonicParsing="false" onAction="#onSaveProfileButtonClick" prefHeight="25.0" prefWidth="92.0" text="Save Profile" />
-      <Button layoutX="657.0" layoutY="219.0" mnemonicParsing="false" onAction="#onCloseWindowButtonClick" text="Close Window" />
+      <Button layoutX="551.0" layoutY="219.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="657.0" layoutY="219.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>

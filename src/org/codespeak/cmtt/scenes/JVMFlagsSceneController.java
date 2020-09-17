@@ -183,7 +183,7 @@ public class JVMFlagsSceneController implements Initializable {
     }
     
     @FXML
-    public void onCloseWindowButtonClick(ActionEvent event) {
+    public void onCloseButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

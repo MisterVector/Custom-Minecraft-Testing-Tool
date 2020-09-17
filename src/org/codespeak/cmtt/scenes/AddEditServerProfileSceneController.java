@@ -115,7 +115,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onSaveProfileButtonClick(ActionEvent event) throws IOException {
+    public void onOKButtonClick(ActionEvent event) throws IOException {
         String profileName = profileNameInput.getText();
         String minecraftVersion = minecraftVersionInput.getText();
         String serverTypeChosen = serverTypeChoices.getSelectionModel().getSelectedItem();
@@ -182,7 +182,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     }
 
     @FXML
-    public void onCloseWindowButtonClick(ActionEvent event) {
+    public void onCloseButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

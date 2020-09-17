@@ -32,6 +32,6 @@
       <Button layoutX="135.0" layoutY="509.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Edit Profile" />
       <Button fx:id="cancelEditButton" disable="true" layoutX="252.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
       <Button layoutX="374.0" layoutY="509.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
-      <Button layoutX="374.0" layoutY="568.0" mnemonicParsing="false" onAction="#onCloseWindowButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close Window" />
+      <Button layoutX="374.0" layoutY="568.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close" />
    </children>
 </AnchorPane>
