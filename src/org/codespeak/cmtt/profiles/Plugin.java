@@ -1,7 +1,11 @@
 package org.codespeak.cmtt.profiles;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import org.codespeak.cmtt.util.MiscUtil;
 import org.json.JSONObject;
 
 /**
@@ -103,6 +107,31 @@ public class Plugin implements Cloneable {
      */
     public Plugin copy() {
         return new Plugin(new Integer(id), Paths.get(path.toString()), new String(fileName), new String(checksum), new Boolean(autoUpdate));
+    }
+    
+    /**
+     * Checks if this plugin has an update
+     * @return if this plugin has an update
+     */
+    public boolean hasUpdate() {
+        String checkChecksum = MiscUtil.getChecksum(path);
+        
+        return !checkChecksum.equals(checksum);
+    }
+    
+    /**
+     * Updates this plugin
+     * @param pluginsLocation location of the plugins folder this plugin
+     * resides in 
+     */
+    public void update(Path pluginsLocation) {
+        Path pluginLocation = pluginsLocation.resolve(fileName);
+        
+        try {
+            Files.copy(path, pluginLocation, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            
+        }
     }
     
     /**

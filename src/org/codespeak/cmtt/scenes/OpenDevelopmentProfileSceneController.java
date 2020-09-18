@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
+import org.codespeak.cmtt.profiles.Plugin;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;
@@ -151,6 +152,12 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
         
         if (!openedProfile.getPlugins().isEmpty()) {
+            for (Plugin plugin : openedProfile.getPlugins()) {
+                if (plugin.isAutoUpdate() && plugin.hasUpdate()) {
+                    plugin.update(openedProfile.getPluginsLocation());
+                }
+            }
+            
             commands.add("--" + pluginsArgument);
             commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
         }
