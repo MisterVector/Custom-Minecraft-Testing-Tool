@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
+import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
@@ -73,6 +74,11 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         }
     }
 
+    @Override
+    public ProcessorContext getContext() {
+        return ProcessorContext.MAIN_SCENE;
+    }
+    
     @FXML
     public void onJVMFlagsMenuClick(ActionEvent event) throws IOException {
         Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Management").getStage();

@@ -26,4 +26,6 @@ public interface DevelopmentProfileProcessor {
         
     }
     
+    public ProcessorContext getContext();
+    
 }
