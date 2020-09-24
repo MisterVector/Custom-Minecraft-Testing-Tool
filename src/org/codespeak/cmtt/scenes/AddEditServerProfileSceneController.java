@@ -137,7 +137,12 @@ public class AddEditServerProfileSceneController implements Initializable {
                             .addCondition(StringUtil.isNullOrEmpty(customWorldsArgument), "Custom worlds argument is empty.")
                         .endIf()
                         .getAlert();
-                
+
+        if (alert == null) {
+            alert = ca.addCondition(!serverPath.toFile().exists(), "The server file no longer exists.")
+                      .getAlert();
+        }
+        
         if (alert == null) {
             ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
 
