@@ -22,6 +22,7 @@ import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
+import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.SceneUtil;
@@ -114,6 +115,13 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     
     @FXML
     public void onAddDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+        if (ServerProfileHandler.getProfiles().isEmpty()) {
+            Alert alert = AlertUtil.createAlert(("Cannot create a development profile as no servers have been defined."));
+            alert.show();
+            
+            return;
+        }
+        
         StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Add Development Profile");
         Stage stage = stageController.getStage();
         AddEditDevelopmentProfileSceneController controller = stageController.getController();
