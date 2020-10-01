@@ -93,6 +93,12 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     }
     
     @FXML
+    public void onAboutMenuItemClick(ActionEvent event) throws IOException {
+        Stage stage = SceneUtil.getScene(SceneTypes.ABOUT, "About").getStage();
+        stage.show();
+    }
+    
+    @FXML
     public void onOpenDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
