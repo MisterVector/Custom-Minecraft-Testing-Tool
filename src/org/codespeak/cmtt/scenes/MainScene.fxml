@@ -20,7 +20,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Profile">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onJVMFlagsMenuClick" text="JVM Flags ..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onJVMFlagsMenuItemClick" text="JVM Flags ..." />
                   <MenuItem mnemonicParsing="false" onAction="#onServersMenuItemClick" text="Servers ..." />
               </items>
             </Menu>
