@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.ServerTypes;
+import org.codespeak.cmtt.util.MiscUtil;
 import org.json.JSONObject;
 
 /**
@@ -162,11 +163,14 @@ public class ServerProfile extends ResourceProfile {
     public void finishSetup() {
         Path profileFolder = getProfileLocation();
         Path profileServerFile = getServerLocation();
+        Path profileEULAFile = profileFolder.resolve("eula.txt");
+        String eulaText = MiscUtil.getEULAText();
 
         profileFolder.toFile().mkdir();
 
         try {
             Files.copy(serverPath, profileServerFile);
+            Files.write(profileEULAFile, eulaText.getBytes());
         } catch (IOException ex) {
 
         }            
