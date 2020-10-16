@@ -285,7 +285,30 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             
             return;
         }
-        
+
+        if (!plugins.isEmpty()) {
+            String pluginsNotFound = "";
+            
+            for (Plugin plugin : plugins) {
+                Path path = plugin.getPath();
+                
+                if (!path.toFile().exists()) {
+                    if (!pluginsNotFound.isEmpty()) {
+                        pluginsNotFound += "\n";
+                    }
+                    
+                    pluginsNotFound += plugin.getFileName();
+                }
+            }
+            
+            if (!pluginsNotFound.isEmpty()) {
+                alert = AlertUtil.createAlert("The source file to the following plugins was not found:\n\n" + pluginsNotFound);
+                alert.show();
+                
+                return;
+            }
+        }
+
         if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
             jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
         }
