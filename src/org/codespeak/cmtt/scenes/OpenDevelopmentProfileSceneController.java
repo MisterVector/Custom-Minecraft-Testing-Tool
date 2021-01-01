@@ -161,15 +161,18 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
             String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
-            if (!openedProfile.getPlugins().isEmpty()) {
-                for (Plugin plugin : openedProfile.getPlugins()) {
+            List<Plugin> plugins = openedProfile.getPlugins();
+            Path pluginsLocation = openedProfile.getPluginsLocation();
+            
+            if (!plugins.isEmpty()) {
+                for (Plugin plugin : plugins) {
                     if (plugin.isAutoUpdate() && plugin.hasUpdate()) {
-                        plugin.update(openedProfile.getPluginsLocation());
+                        plugin.update(pluginsLocation);
                     }
                 }
 
                 commands.add("--" + pluginsArgument);
-                commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
+                commands.add(pluginsLocation.toAbsolutePath().toString());
             }
 
             if (openedProfile.isSeparateWorlds()) {
@@ -186,7 +189,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             }            
         }
 
-        
         commands.add("nogui");
         
         ProcessBuilder pb = new ProcessBuilder(commands);
