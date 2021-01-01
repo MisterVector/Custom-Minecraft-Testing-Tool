@@ -187,23 +187,13 @@ public class DevelopmentProfile extends ResourceProfile {
         return getLocation().resolve("plugins");
     }
     
-    /**
-     * Gets the location of this development profile's worlds folder
-     * @return location of this development profile's worlds folder
-     */
-    public Path getWorldsLocation() {
-        return getLocation().resolve("worlds");
-    }
-    
     @Override
     public void finishSetup() {
         Path profileLocation = getLocation();
         Path pluginsLocation = getPluginsLocation();
-        Path worldsLocation = getWorldsLocation();
         
         profileLocation.toFile().mkdirs();
         pluginsLocation.toFile().mkdirs();
-        worldsLocation.toFile().mkdirs();
         
         for (Plugin plugin : plugins) {
             Path pluginSourcePath = plugin.getPath();

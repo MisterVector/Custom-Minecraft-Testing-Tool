@@ -2,6 +2,7 @@ package org.codespeak.cmtt.scenes;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -173,7 +174,15 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
             if (openedProfile.isSeparateWorlds()) {
                 commands.add("--" + worldsArgument);
-                commands.add(openedProfile.getWorldsLocation().toAbsolutePath().toString());
+                
+                Path worldsLocation = openedProfile.getLocation().resolve("worlds").resolve(Integer.toString(serverProfile.getId())).toAbsolutePath();
+                File fileWorldsLocation = worldsLocation.toFile();
+                
+                if (!fileWorldsLocation.exists()) {
+                    fileWorldsLocation.mkdirs();
+                }
+                
+                commands.add(worldsLocation.toString());
             }            
         }
 
