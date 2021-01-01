@@ -106,7 +106,7 @@ public class Plugin implements Cloneable {
      * @return copy of this Plugin object
      */
     public Plugin copy() {
-        return new Plugin(new Integer(id), Paths.get(path.toString()), new String(fileName), new String(checksum), new Boolean(autoUpdate));
+        return new Plugin(id, Paths.get(path.toString()), fileName, checksum, autoUpdate);
     }
     
     /**
