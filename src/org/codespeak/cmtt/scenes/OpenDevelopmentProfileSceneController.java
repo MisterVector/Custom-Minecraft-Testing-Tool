@@ -148,24 +148,28 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         commands.add("server.jar");
 
         ServerTypes serverType = serverProfile.getServerType();
-        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
-        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
         
-        if (!openedProfile.getPlugins().isEmpty()) {
-            for (Plugin plugin : openedProfile.getPlugins()) {
-                if (plugin.isAutoUpdate() && plugin.hasUpdate()) {
-                    plugin.update(openedProfile.getPluginsLocation());
+        if (serverType != ServerTypes.VANILLA) {
+            String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+            String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
+
+            if (!openedProfile.getPlugins().isEmpty()) {
+                for (Plugin plugin : openedProfile.getPlugins()) {
+                    if (plugin.isAutoUpdate() && plugin.hasUpdate()) {
+                        plugin.update(openedProfile.getPluginsLocation());
+                    }
                 }
+
+                commands.add("--" + pluginsArgument);
+                commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
             }
-            
-            commands.add("--" + pluginsArgument);
-            commands.add(openedProfile.getPluginsLocation().toAbsolutePath().toString());
+
+            if (openedProfile.isSeparateWorlds()) {
+                commands.add("--" + worldsArgument);
+                commands.add(openedProfile.getWorldsLocation().toAbsolutePath().toString());
+            }            
         }
 
-        if (openedProfile.isSeparateWorlds()) {
-            commands.add("--" + worldsArgument);
-            commands.add(openedProfile.getWorldsLocation().toAbsolutePath().toString());
-        }
         
         commands.add("nogui");
         
