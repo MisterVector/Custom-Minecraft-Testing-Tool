@@ -162,7 +162,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
             List<Plugin> plugins = openedProfile.getPlugins();
-            Path pluginsLocation = openedProfile.getPluginsLocation();
+            Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
             
             if (!plugins.isEmpty()) {
                 for (Plugin plugin : plugins) {
@@ -172,7 +172,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                 }
 
                 commands.add("--" + pluginsArgument);
-                commands.add(pluginsLocation.toAbsolutePath().toString());
+                commands.add(pluginsLocation.toString());
             }
 
             if (openedProfile.isSeparateWorlds()) {
