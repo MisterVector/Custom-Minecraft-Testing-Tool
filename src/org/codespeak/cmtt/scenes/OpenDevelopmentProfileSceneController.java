@@ -121,6 +121,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     public void onStartServerButtonClick(ActionEvent event) throws IOException {
         List<String> commands = new ArrayList<String>();
         Path serverProfileLocation = serverProfile.getProfileLocation();
+        String lowerMemory = openedProfile.getLowerMemory();
+        String upperMemory = openedProfile.getUpperMemory();
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
 
@@ -141,8 +143,13 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.addAll(flagList);
         }
         
-        commands.add("-Xms" + openedProfile.getLowerMemory());
-        commands.add("-Xmx" + openedProfile.getUpperMemory());
+        if (!StringUtil.isNullOrEmpty(lowerMemory)) {
+            commands.add("-Xms" + lowerMemory);
+        }
+        
+        if (!StringUtil.isNullOrEmpty(upperMemory)) {
+            commands.add("-Xmx" + upperMemory);
+        }
 
         commands.add("-jar");
         commands.add("server.jar");
