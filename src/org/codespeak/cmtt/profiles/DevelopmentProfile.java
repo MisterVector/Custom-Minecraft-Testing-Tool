@@ -150,17 +150,11 @@ public class DevelopmentProfile extends ResourceProfile {
     }
     
     /**
-     * Gets a copy of the plugins used by this development profile
-     * @return copy of the plugins used by this development profile
+     * Gets the plugins used by this development profile
+     * @return plugins used by this development profile
      */
     public List<Plugin> getPlugins() {
-        List<Plugin> ret = new ArrayList<Plugin>();
-        
-        for (Plugin plugin : plugins) {
-            ret.add(plugin.copy());
-        }
-        
-        return ret;
+        return plugins;
     }
     
     /**
@@ -169,6 +163,20 @@ public class DevelopmentProfile extends ResourceProfile {
      */
     public void setPlugins(List<Plugin> plugins) {
         this.plugins = plugins;
+    }
+    
+    /**
+     * Gets a copy of the plugins used by this development profile
+     * @return copy of the plugins used by this development profile
+     */
+    public List<Plugin> copyPlugins() {
+        List<Plugin> ret = new ArrayList<Plugin>();
+        
+        for (Plugin plugin : plugins) {
+            ret.add(plugin.copy());
+        }
+        
+        return ret;
     }
     
     /**

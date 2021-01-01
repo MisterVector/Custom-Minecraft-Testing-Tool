@@ -150,7 +150,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         separateWorldsCheck.setSelected(developmentProfile.isSeparateWorlds());
         updateOutdatedServerAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedServerAutomatically());
         serverProfilesChoice.getSelectionModel().select(developmentProfile.getServerProfile().getName());
-        plugins = developmentProfile.getPlugins();
+        plugins = developmentProfile.copyPlugins();
         
         ObservableList<String> pluginItems = pluginList.getItems();
         
