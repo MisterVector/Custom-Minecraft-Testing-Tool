@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.StageController;
@@ -79,6 +80,15 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @Override
     public ProcessorContext getContext() {
         return ProcessorContext.MAIN_SCENE;
+    }
+    
+    @FXML
+    public void onSettingsMenuItemClick(ActionEvent event) throws IOException {
+        StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings for " + Configuration.PROGRAM_NAME);
+        SettingsSceneController controller = stageController.getController();
+        Stage stage = stageController.getStage();
+        
+        stage.show();
     }
     
     @FXML
