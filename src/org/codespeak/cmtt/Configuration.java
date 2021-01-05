@@ -32,9 +32,10 @@ public class Configuration {
             try {
                 byte[] bytes = Files.readAllBytes(settingsFile.toPath());
                 String jsonString = new String(bytes);
-                JSONObject obj = new JSONObject(jsonString);
+                JSONObject json = new JSONObject(jsonString);
+                JSONObject jsonSettings = json.getJSONObject("settings");
                 
-                return Settings.fromJSON(obj);
+                return Settings.fromJSON(jsonSettings);
             } catch (IOException ex) {
                 
             }
