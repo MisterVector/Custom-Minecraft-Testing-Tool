@@ -77,15 +77,18 @@ public class AddEditPluginSceneController implements Initializable {
         File fileChosen = chooser.showOpenDialog(null);
         
         if (fileChosen != null) {
+            String checksum = MiscUtil.getChecksum(fileChosen.toPath());
+            
             path = fileChosen.toPath();
             pathLabel.setText(fileChosen.toString());
+            checksumLabel.setText(checksum);
         }
     }
     
     @FXML
     public void onOKButtonClick(ActionEvent event) throws IOException {
         boolean autoUpdate = autoUpdateCheck.isSelected();
-        
+        String checksum = checksumLabel.getText();
         Plugin plugin = null;
         
         if (editMode) {
@@ -103,8 +106,6 @@ public class AddEditPluginSceneController implements Initializable {
                 }        
             }
 
-            String checksum = MiscUtil.getChecksum(path);
-            
             editedPlugin.setPath(path);
             editedPlugin.setFileName(path.getFileName().toString());
             editedPlugin.setChecksum(checksum);
@@ -120,7 +121,6 @@ public class AddEditPluginSceneController implements Initializable {
             }
 
             String fileName = path.getFileName().toString();
-            String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
             
             plugin = new Plugin(pluginID, path, fileName, checksum, autoUpdate);
