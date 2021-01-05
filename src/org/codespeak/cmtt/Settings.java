@@ -14,10 +14,14 @@ import org.json.JSONObject;
 public class Settings {
 
     public enum SettingFields {
-        ;
+        MINECRAFT_LAUNCHER_LOCATION("minecraft_launcher_location", "");
         
-        private SettingFields() {
-            
+        private final String key;
+        private final Object defaultValue;
+        
+        private SettingFields(String key, Object defaultValue) {
+            this.key = key;
+            this.defaultValue = defaultValue;
         }
         
         /**
@@ -25,7 +29,7 @@ public class Settings {
          * @return key of this setting
          */
         public String getKey() {
-            return "";
+            return key;
         }
         
         /**
@@ -33,7 +37,7 @@ public class Settings {
          * @return default value of this setting
          */
         public Object getDefaultValue() {
-            return new Object();
+            return defaultValue;
         }
     }
     

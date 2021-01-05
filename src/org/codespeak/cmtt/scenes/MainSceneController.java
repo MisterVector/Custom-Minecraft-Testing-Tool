@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.Settings;
+import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.StageController;
@@ -28,6 +31,7 @@ import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.SceneUtil;
+import org.codespeak.cmtt.util.StringUtil;
 
 /**
  * Controller for the main scene
@@ -89,6 +93,32 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         Stage stage = stageController.getStage();
         
         stage.show();
+    }
+
+    @FXML
+    public void onStartMinecraftMenuItemClick(ActionEvent event) throws IOException {
+        Settings settings = Configuration.getSettings();
+        String minecraftLauncherLocation = settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION);
+        
+        if (StringUtil.isNullOrEmpty(minecraftLauncherLocation)) {
+            Alert alert = AlertUtil.createAlert("The Minecraft launcher location has not been set.");
+            alert.show();
+            
+            return;
+        }
+        
+        Path minecraftLauncherPath = Paths.get(minecraftLauncherLocation);
+        
+        if (!minecraftLauncherPath.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("The Minecraft launcher file does not exist.");
+            alert.show();
+            
+            return;
+        }
+        
+        ProcessBuilder pb = new ProcessBuilder(minecraftLauncherLocation);
+        pb.directory(minecraftLauncherPath.getParent().toFile());
+        pb.start();
     }
     
     @FXML
