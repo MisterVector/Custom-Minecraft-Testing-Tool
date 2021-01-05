@@ -129,6 +129,8 @@ public class Plugin implements Cloneable {
         
         try {
             Files.copy(path, pluginLocation, StandardCopyOption.REPLACE_EXISTING);
+            
+            checksum = MiscUtil.getChecksum(path);
         } catch (IOException ex) {
             
         }
