@@ -159,6 +159,16 @@ public class ServerProfile extends ResourceProfile {
         return getProfileLocation().resolve("server.jar");
     }
 
+    /**
+     * Checks if this server has an update
+     * @return if this server has an update 
+     */
+    public boolean hasUpdate() {
+        String checkChecksum = MiscUtil.getChecksum(serverPath);
+        
+        return !checkChecksum.equals(checksum);
+    }
+    
     @Override
     public void finishSetup() {
         Path profileFolder = getProfileLocation();
@@ -182,6 +192,8 @@ public class ServerProfile extends ResourceProfile {
 
         try {
             Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
+            
+            checksum = MiscUtil.getChecksum(serverPath);
         } catch (IOException ex) {
 
         }            

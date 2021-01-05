@@ -124,6 +124,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
 
+        if (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.hasUpdate()) {
+            serverProfile.update();
+        }
+        
         if (OS.indexOf("win") > -1) {
             commands.add("cmd");
             commands.add("/c");
