@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.profiles.Plugin;
@@ -74,6 +75,9 @@ public class AddEditPluginSceneController implements Initializable {
     @FXML
     public void onSelectFileButtonClick(ActionEvent event) {
         FileChooser chooser = new FileChooser();
+        
+        chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
+        
         File fileChosen = chooser.showOpenDialog(null);
         
         if (fileChosen != null) {
