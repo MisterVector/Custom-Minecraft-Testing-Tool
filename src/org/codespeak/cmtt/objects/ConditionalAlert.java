@@ -1,10 +1,7 @@
 package org.codespeak.cmtt.objects;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.scene.control.Alert;
 import org.codespeak.cmtt.Configuration;
 

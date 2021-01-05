@@ -1,12 +1,10 @@
 package org.codespeak.cmtt.objects.handlers;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import org.codespeak.cmtt.profiles.ServerProfile;
-import org.codespeak.cmtt.objects.ServerTypes;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
