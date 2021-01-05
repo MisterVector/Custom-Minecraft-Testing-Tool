@@ -57,6 +57,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML ComboBox<String> serverProfilesChoice;
     @FXML CheckBox separateWorldsCheck;
     @FXML CheckBox updateOutdatedServerAutomaticallyCheck;
+    @FXML CheckBox useServerGUICheck;
     @FXML ListView<String> pluginList;
 
     private JVMFlagsProfile getJVMFlagsProfile(String name) {
@@ -147,6 +148,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         jvmFlagsStringInput.setText(developmentProfile.getJVMFlagsString());
         separateWorldsCheck.setSelected(developmentProfile.isSeparateWorlds());
         updateOutdatedServerAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedServerAutomatically());
+        useServerGUICheck.setSelected(developmentProfile.isUsingServerGUI());
         serverProfilesChoice.getSelectionModel().select(developmentProfile.getServerProfile().getName());
         plugins = developmentProfile.copyPlugins();
         
@@ -262,6 +264,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
         boolean separateWorlds = separateWorldsCheck.isSelected();
         boolean updateOutdatedServerAutomatically = updateOutdatedServerAutomaticallyCheck.isSelected();
+        boolean useServerGUI = useServerGUICheck.isSelected();
 
         ConditionalAlert ca = new ConditionalAlert();
         Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
@@ -320,6 +323,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setPlugins(plugins);
             editedDevelopmentProfile.setSeparateWorlds(separateWorlds);
             editedDevelopmentProfile.setUpdateOutdatedServerAutomatically(updateOutdatedServerAutomatically);
+            editedDevelopmentProfile.setUsingServerGUI(useServerGUI);
 
             Path pluginsLocation = editedDevelopmentProfile.getPluginsLocation();
 
@@ -332,7 +336,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             profile.update();
         } else {
             profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds,
-                                             updateOutdatedServerAutomatically, plugins);
+                                             updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);
 

@@ -28,17 +28,18 @@ public class DevelopmentProfile extends ResourceProfile {
     private ServerProfile serverProfile;
     private boolean separateWorlds;    
     private boolean updateOutdatedServerAutomatically;
+    private boolean useServerGUI;
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
                                     ServerProfile serverProfile, boolean separateWorlds, boolean updateOutdatedServerAutomatically,
-                                    List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, updateOutdatedServerAutomatically, plugins);
+                                    boolean useServerGUI, List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, separateWorlds, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
                                      ServerProfile serverProfile, boolean separateWorlds, boolean updateOutdatedServerAutomatically,
-                                     List<Plugin> plugins) {
+                                     boolean useServerGUI, List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
@@ -47,6 +48,7 @@ public class DevelopmentProfile extends ResourceProfile {
         this.serverProfile = serverProfile;
         this.separateWorlds = separateWorlds;
         this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
+        this.useServerGUI = useServerGUI;
         this.plugins = plugins;
     }
     
@@ -147,6 +149,22 @@ public class DevelopmentProfile extends ResourceProfile {
      */
     public void setUpdateOutdatedServerAutomatically(boolean updateOutdatedServerAutomatically) {
         this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
+    }
+    
+    /**
+     * Gets if this development profile is using the server's GUI
+     * @return if this development profile is using the server's GUI
+     */
+    public boolean isUsingServerGUI() {
+        return useServerGUI;
+    }
+    
+    /**
+     * Sets if this development profile is using the server's GUI
+     * @param useServerGUI if this development profile is using the server's GUI
+     */
+    public void setUsingServerGUI(boolean useServerGUI) {
+        this.useServerGUI = useServerGUI;
     }
     
     /**
@@ -271,6 +289,7 @@ public class DevelopmentProfile extends ResourceProfile {
         json.put("server_profile", serverProfile.getId());
         json.put("separate_worlds", separateWorlds);
         json.put("update_outdated_server_automatically", updateOutdatedServerAutomatically);
+        json.put("use_server_gui", useServerGUI);
         json.put("plugins", pluginsJson);
         
         return json;
@@ -290,6 +309,7 @@ public class DevelopmentProfile extends ResourceProfile {
         ServerProfile serverProfile = null;
         boolean separateWorlds = false;
         boolean updateOutdatedServerAutomatically = false;
+        boolean useServerGUI = false;
         List<Plugin> plugins = new ArrayList<Plugin>();
         
         if (json.has("id")) {
@@ -324,6 +344,10 @@ public class DevelopmentProfile extends ResourceProfile {
             updateOutdatedServerAutomatically = json.getBoolean("update_outdated_server_automatically");
         }
         
+        if (json.has("use_server_gui")) {
+            useServerGUI = json.getBoolean("use_server_gui");
+        }
+        
         if (json.has("plugins")) {
             JSONArray pluginsJson = json.getJSONArray("plugins");
             
@@ -334,7 +358,8 @@ public class DevelopmentProfile extends ResourceProfile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, separateWorlds, updateOutdatedServerAutomatically, plugins);
+                                            serverProfile, separateWorlds, updateOutdatedServerAutomatically,
+                                            useServerGUI, plugins);
     }
     
 }

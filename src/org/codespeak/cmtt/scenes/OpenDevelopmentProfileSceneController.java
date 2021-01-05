@@ -190,7 +190,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             }            
         }
 
-        commands.add("nogui");
+        if (!openedProfile.isUsingServerGUI()) {
+            commands.add("nogui");
+        }
         
         ProcessBuilder pb = new ProcessBuilder(commands);
         pb.directory(serverProfileLocation.toFile());

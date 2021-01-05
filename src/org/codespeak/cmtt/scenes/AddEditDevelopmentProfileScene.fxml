@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="512.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="552.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditDevelopmentProfileSceneController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="816.0" text="Add Development Profile">
          <font>
@@ -54,7 +54,7 @@
          </font>
       </Label>
       <ComboBox fx:id="serverProfilesChoice" layoutX="183.0" layoutY="375.0" prefHeight="25.0" prefWidth="285.0" />
-      <CheckBox fx:id="separateWorldsCheck" layoutX="14.0" layoutY="414.0" mnemonicParsing="false" text="Use Separate Worlds">
+      <CheckBox fx:id="separateWorldsCheck" layoutX="14.0" layoutY="416.0" mnemonicParsing="false" text="Use Separate Worlds">
          <font>
             <Font size="14.0" />
          </font></CheckBox>
@@ -67,9 +67,14 @@
       <Button layoutX="491.0" layoutY="320.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Add Plugin" />
       <Button layoutX="610.0" layoutY="320.0" mnemonicParsing="false" onAction="#onEditPluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Edit Plugin" />
       <Button layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Delete Plugin" />
-      <Button layoutX="662.0" layoutY="474.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
-      <Button layoutX="759.0" layoutY="474.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
-      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="14.0" layoutY="446.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+      <Button layoutX="659.0" layoutY="508.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
+      <Button layoutX="756.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
+      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="14.0" layoutY="448.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="useServerGUICheck" layoutX="16.0" layoutY="479.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
          <font>
             <Font size="14.0" />
          </font>
