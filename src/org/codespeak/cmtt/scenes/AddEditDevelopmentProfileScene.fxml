@@ -58,6 +58,16 @@
          <font>
             <Font size="14.0" />
          </font></CheckBox>
+      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="14.0" layoutY="448.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="useServerGUICheck" layoutX="16.0" layoutY="479.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
       <Label alignment="TOP_CENTER" layoutX="491.0" layoutY="60.0" prefHeight="27.0" prefWidth="339.0" text="Plugin List">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -69,15 +79,5 @@
       <Button layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="103.0" text="Delete Plugin" />
       <Button layoutX="659.0" layoutY="508.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="756.0" layoutY="508.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
-      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="14.0" layoutY="448.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="useServerGUICheck" layoutX="16.0" layoutY="479.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
    </children>
 </AnchorPane>
