@@ -17,7 +17,7 @@
       <Button layoutX="14.0" layoutY="317.0" mnemonicParsing="false" onAction="#onAddProfileButtonClick" prefHeight="25.0" prefWidth="101.0" text="Add Profile" />
       <Button layoutX="134.0" layoutY="317.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="101.0" text="Edit Profile" />
       <Button layoutX="254.0" layoutY="317.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="101.0" text="Delete Profile" />
-      <Button layoutX="374.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Wipe Server" />
+      <Button layoutX="374.0" layoutY="317.0" mnemonicParsing="false" onAction="#onBrowseFilesButtonClick" prefHeight="25.0" prefWidth="101.0" text="Browse Files" />
       <Button layoutX="374.0" layoutY="366.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="101.0" text="Close" />
    </children>
 </AnchorPane>

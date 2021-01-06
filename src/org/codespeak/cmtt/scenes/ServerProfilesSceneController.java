@@ -1,7 +1,9 @@
 package org.codespeak.cmtt.scenes;
 
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.StageController;
@@ -140,8 +143,23 @@ public class ServerProfilesSceneController implements Initializable {
     }
     
     @FXML
-    public void onWipeServerButtonClick(ActionEvent event) {
+    public void onBrowseFilesButtonClick(ActionEvent event) throws IOException {
+        MultipleSelectionModel<String> selectionModel = profileList.getSelectionModel();
+        int currentlySelectedIndex = selectionModel.getSelectedIndex();
         
+        if (currentlySelectedIndex == -1) {
+            Alert alert = AlertUtil.createAlert("Select a server profile first.");
+            alert.show();
+            
+            return;
+        }
+        
+        String serverName = selectionModel.getSelectedItem();
+        ServerProfile serverProfile = ServerProfileHandler.getProfile(serverName);
+        Path profileLocation = serverProfile.getProfileLocation().toAbsolutePath();
+        Desktop desktop = Desktop.getDesktop();
+        
+        desktop.open(profileLocation.toFile());
     }
     
     @FXML
