@@ -102,6 +102,13 @@ public class AddEditPluginSceneController implements Initializable {
             return;
         }
 
+        if (controller.isExistingPluginPath(path, editedPlugin)) {
+            Alert alert = AlertUtil.createAlert("An existing plugin with this path exists.");
+            alert.show();
+            
+            return;
+        }
+
         if (editMode) {
             if (pluginsFolder != null) {
                 String existingFileName = editedPlugin.getFileName();

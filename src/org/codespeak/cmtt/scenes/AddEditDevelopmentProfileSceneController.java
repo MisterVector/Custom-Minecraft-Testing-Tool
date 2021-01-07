@@ -90,6 +90,21 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         return null;
     }
     
+    private void undoDeletedPluginIfPresent(Plugin plugin) {
+        Path path = plugin.getPath();
+        
+        for (Iterator<Plugin> it = deletedPlugins.iterator(); it.hasNext();) {
+            Plugin deletedPlugin = it.next();
+            Path deletedPluginPath = deletedPlugin.getPath();
+            
+            if (deletedPluginPath.equals(path)) {
+                it.remove();
+
+                return;
+            }
+        }
+    }
+    
     private Plugin deletePlugin(String pluginName) {
         for (Iterator<Plugin> it = plugins.iterator(); it.hasNext();) {
             Plugin plugin = it.next();
@@ -128,6 +143,26 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             availableServerProfiles.add(profile);
         }
     }    
+
+    /**
+     * Checks if the specified path already exists with the current
+     * list of plugins
+     * @param path the path to check
+     * @param editedPlugin the plugin being edited or null if no plugin
+     * @return true if the path is equal to an existing path and there is no
+     * plugin being edited or the path does not equal the plugin being edited
+     */
+    public boolean isExistingPluginPath(Path path, Plugin editedPlugin) {
+        for (Plugin plugin : plugins) {
+            Path p = plugin.getPath();
+            
+            if (p.equals(path) && (editedPlugin == null || !plugin.equals(editedPlugin))) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     /**
      * Sets a development profile processor
@@ -176,6 +211,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             
             currentlySelectedIndex = -1;
         } else {
+            undoDeletedPluginIfPresent(plugin);
+            
             plugins.add(plugin);
             items.add(fileName);
         }
