@@ -95,6 +95,13 @@ public class AddEditPluginSceneController implements Initializable {
         String checksum = checksumLabel.getText();
         Plugin plugin = null;
         
+        if (path == null) {
+            Alert alert = AlertUtil.createAlert("The plugin path has not been selected.");
+            alert.show();
+
+            return;
+        }
+
         if (editMode) {
             if (pluginsFolder != null) {
                 String existingFileName = editedPlugin.getFileName();
@@ -117,13 +124,6 @@ public class AddEditPluginSceneController implements Initializable {
             
             plugin = editedPlugin;
         } else {
-            if (path == null) {
-                Alert alert = AlertUtil.createAlert("The plugin path has not been selected.");
-                alert.show();
-                
-                return;
-            }
-
             String fileName = path.getFileName().toString();
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
             
