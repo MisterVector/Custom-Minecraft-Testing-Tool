@@ -32,6 +32,8 @@
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onAboutMenuItemClick" text="About" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onCheckForUpdateMenuItemClick" text="Check for Update" />
             </items>
           </Menu>
         </menus>

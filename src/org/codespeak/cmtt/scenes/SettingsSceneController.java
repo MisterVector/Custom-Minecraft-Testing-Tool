@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class SettingsSceneController implements Initializable {
     
     @FXML Label settingsLabel;
     @FXML Label minecraftLauncherLocationLabel;
+    @FXML CheckBox checkUpdateOnStartupCheck;
     
     /**
      * Initializes the controller class.
@@ -35,6 +37,7 @@ public class SettingsSceneController implements Initializable {
         
         settingsLabel.setText("Settings for " + Configuration.PROGRAM_NAME);
         minecraftLauncherLocationLabel.setText(settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION));
+        checkUpdateOnStartupCheck.setSelected(settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP));
     }    
 
     @FXML
@@ -50,6 +53,7 @@ public class SettingsSceneController implements Initializable {
     @FXML
     public void onOKButtonClick(ActionEvent event) {
         settings.setSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION, minecraftLauncherLocationLabel.getText());
+        settings.setSetting(SettingFields.CHECK_UPDATE_ON_STARTUP, checkUpdateOnStartupCheck.isSelected());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

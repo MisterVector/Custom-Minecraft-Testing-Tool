@@ -8,9 +8,11 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
+import org.codespeak.cmtt.scenes.MainSceneController;
 import org.codespeak.cmtt.scenes.SceneTypes;
 import org.codespeak.cmtt.util.SceneUtil;
 import org.json.JSONObject;
@@ -29,8 +31,13 @@ public class CustomMinecraftTestingTool extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        stage = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_TITLE).getStage();
+        StageController<MainSceneController> stageController = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_TITLE);
+        stage = stageController.getStage();
+        
+        MainSceneController controller = stageController.getController();
+        
         stage.show();
+        controller.checkVersion(true);
     }
 
     @Override

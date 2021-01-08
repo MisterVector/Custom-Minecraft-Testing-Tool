@@ -14,7 +14,8 @@ import org.json.JSONObject;
 public class Settings {
 
     public enum SettingFields {
-        MINECRAFT_LAUNCHER_LOCATION("minecraft_launcher_location", "");
+        MINECRAFT_LAUNCHER_LOCATION("minecraft_launcher_location", ""),
+        CHECK_UPDATE_ON_STARTUP("check_update_on_startup", true);
         
         private final String key;
         private final Object defaultValue;

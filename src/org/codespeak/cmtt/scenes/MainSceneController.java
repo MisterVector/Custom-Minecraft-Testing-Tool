@@ -1,9 +1,12 @@
  package org.codespeak.cmtt.scenes;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,11 +16,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
+import org.codespeak.cmtt.objects.CheckVersionResponse;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.StageController;
@@ -80,6 +85,46 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     public ProcessorContext getContext() {
         return ProcessorContext.MAIN_SCENE;
     }
+
+    /**
+     * Checks for a new version of the program
+     * @param startup if the program's version is being checked at startup
+     * @throws IOException if there is an error while checking for updates, this
+     * will be thrown
+     */
+    public void checkVersion(boolean startup) throws IOException {
+        Settings settings = Configuration.getSettings();
+        boolean checkUpdateOnStartup = settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP);
+        
+        if (!startup || checkUpdateOnStartup) {
+            CheckVersionResponse response = CheckVersionResponse.checkVersion();
+            String requestVersion = response.getRequestVersion();
+            Timestamp requestReleaseTime = response.getRequestReleaseTime();
+            String version = response.getVersion();
+            Timestamp releaseTime = response.getReleaseTime();
+            
+            if (releaseTime.after(requestReleaseTime)) {
+                Alert alert = AlertUtil.createAlert("A new version is currently available!\n\n"
+                                                  + "Current version: " + requestVersion + "\n"
+                                                  + "New version: " + version + "\n\n"
+                                                  + "Would you like to view the changelog and download the latest version?", "Update for " + Configuration.PROGRAM_NAME);
+                alert.getButtonTypes().setAll(new ButtonType[] {ButtonType.YES, ButtonType.NO});
+                
+                ButtonType result = alert.showAndWait().get();
+                
+                if (result == ButtonType.YES) {
+                    Desktop desktop = Desktop.getDesktop();
+                    
+                    desktop.browse(URI.create(Configuration.UPDATE_SUMMARY_URL));
+                }
+            } else {
+                if (!startup) {
+                    Alert alert = AlertUtil.createAlert("This program is currently up-to-date.");
+                    alert.show();
+                }
+            }
+        }
+    }
     
     @FXML
     public void onSettingsMenuItemClick(ActionEvent event) throws IOException {
@@ -137,6 +182,11 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     public void onAboutMenuItemClick(ActionEvent event) throws IOException {
         Stage stage = SceneUtil.getScene(SceneTypes.ABOUT, "About").getStage();
         stage.show();
+    }
+    
+    @FXML
+    public void onCheckForUpdateMenuItemClick(ActionEvent event) throws IOException {
+        checkVersion(false);
     }
     
     @FXML
