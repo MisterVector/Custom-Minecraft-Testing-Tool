@@ -19,14 +19,12 @@ public class Plugin implements Cloneable {
     private Path path;
     private String fileName;
     private String checksum;
-    private boolean autoUpdate;
     
-    public Plugin(int id, Path path, String fileName, String checksum, boolean autoUpdate) {
+    public Plugin(int id, Path path, String fileName, String checksum) {
         this.id = id;
         this.path = path;
         this.fileName = fileName;
         this.checksum = checksum;
-        this.autoUpdate = autoUpdate;
     }
     
     /**
@@ -86,27 +84,11 @@ public class Plugin implements Cloneable {
     }
     
     /**
-     * Gets whether this plugin is being automatically updated
-     * @return whether this plugin is being automatically updated
-     */
-    public boolean isAutoUpdate() {
-        return autoUpdate;
-    }
-    
-    /**
-     * Sets whether this plugin is being automatically updated
-     * @param autoUpdate whether this plugin is being automatically updated
-     */
-    public void setAutoUpdate(boolean autoUpdate) {
-        this.autoUpdate = autoUpdate;
-    }
-
-    /**
      * Gets a copy of this Plugin object
      * @return copy of this Plugin object
      */
     public Plugin copy() {
-        return new Plugin(id, Paths.get(path.toString()), fileName, checksum, autoUpdate);
+        return new Plugin(id, Paths.get(path.toString()), fileName, checksum);
     }
     
     /**
@@ -158,7 +140,6 @@ public class Plugin implements Cloneable {
         json.put("path", (path != null ? path.toString() : ""));
         json.put("file_name", fileName);
         json.put("checksum", checksum);
-        json.put("auto_update", autoUpdate);
         
         return json;
     }
@@ -173,7 +154,6 @@ public class Plugin implements Cloneable {
         Path path = null;
         String fileName = "";
         String checksum = "";
-        boolean autoUpdate = false;
         
         if (json.has("id")) {
             id = json.getInt("id");
@@ -191,11 +171,7 @@ public class Plugin implements Cloneable {
             checksum = json.getString("checksum");
         }
         
-        if (json.has("auto_update")) {
-            autoUpdate = json.getBoolean("auto_update");
-        }
-        
-        return new Plugin(id, path, fileName, checksum, autoUpdate);
+        return new Plugin(id, path, fileName, checksum);
     }
     
 }

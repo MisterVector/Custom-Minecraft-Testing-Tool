@@ -37,7 +37,6 @@ public class AddEditPluginSceneController implements Initializable {
     @FXML private Label headerLabel;
     @FXML private Label pathLabel;
     @FXML private Label checksumLabel;
-    @FXML private CheckBox autoUpdateCheck;
     
     /**
      * Initializes the controller class.
@@ -64,7 +63,6 @@ public class AddEditPluginSceneController implements Initializable {
         path = plugin.getPath();
         pathLabel.setText(path.toString());
         checksumLabel.setText(plugin.getChecksum());
-        autoUpdateCheck.setSelected(plugin.isAutoUpdate());
         
         headerLabel.setText("Edit Plugin");
         this.pluginsFolder = pluginsFolder;
@@ -91,7 +89,6 @@ public class AddEditPluginSceneController implements Initializable {
     
     @FXML
     public void onOKButtonClick(ActionEvent event) throws IOException {
-        boolean autoUpdate = autoUpdateCheck.isSelected();
         String checksum = checksumLabel.getText();
         Plugin plugin = null;
         
@@ -127,14 +124,13 @@ public class AddEditPluginSceneController implements Initializable {
             editedPlugin.setPath(path);
             editedPlugin.setFileName(path.getFileName().toString());
             editedPlugin.setChecksum(checksum);
-            editedPlugin.setAutoUpdate(autoUpdate);
             
             plugin = editedPlugin;
         } else {
             String fileName = path.getFileName().toString();
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
             
-            plugin = new Plugin(pluginID, path, fileName, checksum, autoUpdate);
+            plugin = new Plugin(pluginID, path, fileName, checksum);
         }
         
         controller.finishAddEditPlugin(plugin, editMode);

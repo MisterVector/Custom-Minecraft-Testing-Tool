@@ -167,7 +167,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             
             if (!plugins.isEmpty()) {
                 for (Plugin plugin : plugins) {
-                    if (plugin.isAutoUpdate() && plugin.hasUpdate()) {
+                    if (plugin.hasUpdate()) {
                         plugin.update(pluginsLocation);
                     }
                 }
