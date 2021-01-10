@@ -176,7 +176,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                 commands.add(pluginsLocation.toString());
             }
 
-            if (openedProfile.isSeparateWorlds()) {
+            if (!openedProfile.isUsingServerWorlds()) {
                 commands.add("--" + worldsArgument);
                 
                 Path worldsLocation = openedProfile.getLocation().resolve("worlds").resolve(Integer.toString(serverProfile.getId())).toAbsolutePath();
