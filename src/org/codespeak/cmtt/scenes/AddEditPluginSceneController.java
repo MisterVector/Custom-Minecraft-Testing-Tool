@@ -36,7 +36,6 @@ public class AddEditPluginSceneController implements Initializable {
     
     @FXML private Label headerLabel;
     @FXML private Label pathLabel;
-    @FXML private Label checksumLabel;
     
     /**
      * Initializes the controller class.
@@ -62,7 +61,6 @@ public class AddEditPluginSceneController implements Initializable {
     public void editPlugin(Plugin plugin, Path pluginsFolder) {
         path = plugin.getPath();
         pathLabel.setText(path.toString());
-        checksumLabel.setText(plugin.getChecksum());
         
         headerLabel.setText("Edit Plugin");
         this.pluginsFolder = pluginsFolder;
@@ -79,17 +77,13 @@ public class AddEditPluginSceneController implements Initializable {
         File fileChosen = chooser.showOpenDialog(null);
         
         if (fileChosen != null) {
-            String checksum = MiscUtil.getChecksum(fileChosen.toPath());
-            
             path = fileChosen.toPath();
             pathLabel.setText(fileChosen.toString());
-            checksumLabel.setText(checksum);
         }
     }
     
     @FXML
     public void onOKButtonClick(ActionEvent event) throws IOException {
-        String checksum = checksumLabel.getText();
         Plugin plugin = null;
         
         if (path == null) {
@@ -106,6 +100,8 @@ public class AddEditPluginSceneController implements Initializable {
             return;
         }
 
+        String checksum = MiscUtil.getChecksum(path);
+        
         if (editMode) {
             if (pluginsFolder != null) {
                 String existingFileName = editedPlugin.getFileName();

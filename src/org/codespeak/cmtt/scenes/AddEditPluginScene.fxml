@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="177.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditPluginSceneController">
+<AnchorPane id="AnchorPane" prefHeight="138.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditPluginSceneController">
    <children>
       <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="548.0" text="Add Plugin">
          <font>
@@ -18,17 +18,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="363.0" layoutY="134.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="473.0" layoutY="134.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
-      <Label layoutX="15.0" layoutY="103.0" text="File Checksum">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="checksumLabel" layoutX="145.0" layoutY="103.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
+      <Button layoutX="363.0" layoutY="99.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="473.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>
