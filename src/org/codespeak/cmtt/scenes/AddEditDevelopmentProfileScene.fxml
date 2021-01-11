@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="705.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditDevelopmentProfileSceneController">
    <children>
-      <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="903.0" text="Add Development Profile">
+      <Label fx:id="mainHeaderLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="903.0" text="Add Development Profile">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
