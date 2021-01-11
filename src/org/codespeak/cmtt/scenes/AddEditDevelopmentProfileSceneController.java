@@ -1,5 +1,6 @@
 package org.codespeak.cmtt.scenes;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -19,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
@@ -31,6 +34,7 @@ import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.profiles.Plugin;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
+import org.codespeak.cmtt.util.MiscUtil;
 import org.codespeak.cmtt.util.SceneUtil;
 import org.codespeak.cmtt.util.StringUtil;
 
@@ -47,7 +51,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     private List<Plugin> plugins = new ArrayList<Plugin>();
     private List<Plugin> deletedPlugins = new ArrayList<Plugin>();
     private DevelopmentProfile editedDevelopmentProfile = null;
-    private int currentlySelectedIndex = -1;
     private boolean editMode = false;
     
     @FXML Label mainHeaderLabel;
@@ -90,6 +93,22 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
         
         return null;
+    }
+
+    private boolean isExistingPluginPath(Path path) {
+        return isExistingPluginPath(path, null);
+    }
+    
+    private boolean isExistingPluginPath(Path path, Plugin editedPlugin) {
+        for (Plugin plugin : plugins) {
+            Path p = plugin.getPath();
+            
+            if (p.equals(path) && (editedPlugin == null || !plugin.equals(editedPlugin))) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private void undoDeletedPluginIfPresent(Plugin plugin) {
@@ -147,26 +166,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }    
 
     /**
-     * Checks if the specified path already exists with the current
-     * list of plugins
-     * @param path the path to check
-     * @param editedPlugin the plugin being edited or null if no plugin
-     * @return true if the path is equal to an existing path and there is no
-     * plugin being edited or the path does not equal the plugin being edited
-     */
-    public boolean isExistingPluginPath(Path path, Plugin editedPlugin) {
-        for (Plugin plugin : plugins) {
-            Path p = plugin.getPath();
-            
-            if (p.equals(path) && (editedPlugin == null || !plugin.equals(editedPlugin))) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    /**
      * Sets a development profile processor
      * @param processor development profile processor
      */
@@ -201,27 +200,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         editMode = true;
     }
 
-    /**
-     * Finish adding or editing a plugin
-     * @param plugin the plugin being added or edited
-     * @param editMode whether the plugin is being edited
-     */
-    public void finishAddEditPlugin(Plugin plugin, boolean editMode) {
-        ObservableList<String> items = pluginList.getItems();
-        String pathString = plugin.getPath().toString();
-        
-        if (editMode) {
-            items.set(currentlySelectedIndex, pathString);
-            
-            currentlySelectedIndex = -1;
-        } else {
-            undoDeletedPluginIfPresent(plugin);
-            
-            plugins.add(plugin);
-            items.add(pathString);
-        }
-    }
- 
     @FXML
     public void onInsertButtonClick(ActionEvent event) {
         String jvmFlagsProfileName = jvmFlagsProfileChoice.getSelectionModel().getSelectedItem();
@@ -246,12 +224,32 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     
     @FXML
     public void onAddPluginButtonClick(ActionEvent event) throws IOException {
-        StageController<AddEditPluginSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN, "Add Plugin");
-        AddEditPluginSceneController controller = stageController.getController();
-        Stage stage = stageController.getStage();
+        FileChooser chooser = new FileChooser();
         
-        stage.show();
-        controller.setController(this);
+        chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
+
+        File fileChosen = chooser.showOpenDialog(null);
+        
+        if (fileChosen != null) {
+            Path path = fileChosen.toPath();
+            
+            if (isExistingPluginPath(path)) {
+                Alert alert = AlertUtil.createAlert("An existing plugin with this path exists.");
+                alert.show();
+
+                return;
+            }
+            
+            String checksum = MiscUtil.getChecksum(path);
+            int pluginID = DevelopmentProfileHandler.getNextPluginID();
+            Plugin plugin = new Plugin(pluginID, path, path.getFileName().toString(), checksum);
+            ObservableList<String> pluginItems = pluginList.getItems();
+            
+            pluginItems.add(path.toString());
+            plugins.add(plugin);
+            
+            undoDeletedPluginIfPresent(plugin);
+        }
     }
     
     @FXML
@@ -265,17 +263,44 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             return;
         }
         
-        currentlySelectedIndex = selectedIndex;
+        FileChooser chooser = new FileChooser();
         
-        String pathString = pluginList.getItems().get(selectedIndex);
-        Plugin plugin = getPlugin(pathString);
-        StageController<AddEditPluginSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN, "Edit Plugin");
-        AddEditPluginSceneController controller = stageController.getController();
-        Stage stage = stageController.getStage();
+        chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
+
+        File fileChosen = chooser.showOpenDialog(null);
         
-        stage.show();
-        controller.setController(this);
-        controller.editPlugin(plugin, (editedDevelopmentProfile != null ? editedDevelopmentProfile.getPluginsLocation() : null));
+        if (fileChosen != null) {
+            Path path = fileChosen.toPath();
+            ObservableList<String> pluginItems = pluginList.getItems();
+            String pluginPath = pluginItems.get(selectedIndex);
+            Plugin plugin = getPlugin(pluginPath);
+
+            if (isExistingPluginPath(path, plugin)) {
+                Alert alert = AlertUtil.createAlert("An existing plugin with this path exists.");
+                alert.show();
+
+                return;
+            }
+            
+            String checksum = MiscUtil.getChecksum(path);            
+            String existingFileName = plugin.getFileName();
+            String fileName = path.getFileName().toString();
+
+            if (!existingFileName.equals(fileName)) {
+                Path pluginFile = editedDevelopmentProfile.getPluginsLocation().resolve(existingFileName);
+                File file = pluginFile.toFile();
+
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+            
+            plugin.setPath(path);
+            plugin.setFileName(fileName);
+            plugin.setChecksum(checksum);
+            
+            pluginItems.set(selectedIndex, path.toString());
+        }
     }
     
     @FXML
