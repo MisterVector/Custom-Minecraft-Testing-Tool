@@ -84,6 +84,17 @@ public class Plugin implements Cloneable {
     }
     
     /**
+     * Checks if this path is equivalent to the specified path string
+     * @param pathString path string to check
+     * @return if this path is equivalent to the specified path string
+     */
+    public boolean isPath(String pathString) {
+        String currentPathString = path.toString();
+        
+        return currentPathString.equals(pathString);
+    }
+    
+    /**
      * Gets a copy of this Plugin object
      * @return copy of this Plugin object
      */

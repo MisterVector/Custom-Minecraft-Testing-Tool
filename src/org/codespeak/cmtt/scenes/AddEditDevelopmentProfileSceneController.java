@@ -82,9 +82,9 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         return null;
     }
     
-    private Plugin getPlugin(String pluginName) {
+    private Plugin getPlugin(String pathString) {
         for (Plugin plugin : plugins) {
-            if (plugin.getFileName().equals(pluginName)) {
+            if (plugin.isPath(pathString)) {
                 return plugin;
             }
         }
@@ -107,11 +107,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
     }
     
-    private Plugin deletePlugin(String pluginName) {
+    private Plugin deletePlugin(String pathString) {
         for (Iterator<Plugin> it = plugins.iterator(); it.hasNext();) {
             Plugin plugin = it.next();
             
-            if (plugin.getFileName().equals(pluginName)) {
+            if (plugin.isPath(pathString)) {
                 it.remove();
                 return plugin;
             }
@@ -267,8 +267,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         
         currentlySelectedIndex = selectedIndex;
         
-        String fileName = pluginList.getItems().get(selectedIndex);
-        Plugin plugin = getPlugin(fileName);
+        String pathString = pluginList.getItems().get(selectedIndex);
+        Plugin plugin = getPlugin(pathString);
         StageController<AddEditPluginSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_PLUGIN, "Edit Plugin");
         AddEditPluginSceneController controller = stageController.getController();
         Stage stage = stageController.getStage();
@@ -290,8 +290,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
         
         ObservableList<String> pluginItems = pluginList.getItems();
-        String pluginName = pluginItems.remove(selectedIndex);
-        Plugin plugin = deletePlugin(pluginName);
+        String pathString = pluginItems.remove(selectedIndex);
+        Plugin plugin = deletePlugin(pathString);
         
         deletedPlugins.add(plugin);
     }
