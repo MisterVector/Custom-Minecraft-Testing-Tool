@@ -194,7 +194,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         ObservableList<String> pluginItems = pluginList.getItems();
         
         for (Plugin plugin : plugins) {
-            pluginItems.add(plugin.getFileName());
+            pluginItems.add(plugin.getPath().toString());
         }
         
         editedDevelopmentProfile = developmentProfile;
@@ -208,17 +208,17 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
      */
     public void finishAddEditPlugin(Plugin plugin, boolean editMode) {
         ObservableList<String> items = pluginList.getItems();
-        String fileName = plugin.getFileName();
+        String pathString = plugin.getPath().toString();
         
         if (editMode) {
-            items.set(currentlySelectedIndex, fileName);
+            items.set(currentlySelectedIndex, pathString);
             
             currentlySelectedIndex = -1;
         } else {
             undoDeletedPluginIfPresent(plugin);
             
             plugins.add(plugin);
-            items.add(fileName);
+            items.add(pathString);
         }
     }
  
