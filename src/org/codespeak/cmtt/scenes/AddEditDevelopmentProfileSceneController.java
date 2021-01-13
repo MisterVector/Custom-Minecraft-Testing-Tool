@@ -256,7 +256,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onEditPluginButtonClick(ActionEvent event) throws IOException {
+    public void onChangePluginButtonClick(ActionEvent event) throws IOException {
         int selectedIndex = pluginList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {

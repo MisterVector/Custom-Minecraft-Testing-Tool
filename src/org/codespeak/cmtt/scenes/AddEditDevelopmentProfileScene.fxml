@@ -75,7 +75,7 @@
       </Label>
       <ListView fx:id="pluginList" layoutX="15.0" layoutY="421.0" prefHeight="186.0" prefWidth="903.0" />
       <Button layoutX="14.0" layoutY="616.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Add Plugin" />
-      <Button layoutX="325.0" layoutY="616.0" mnemonicParsing="false" onAction="#onEditPluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Edit Plugin" />
+      <Button layoutX="325.0" layoutY="616.0" mnemonicParsing="false" onAction="#onChangePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Change Plugin" />
       <Button layoutX="632.0" layoutY="616.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
       <Button layoutX="747.0" layoutY="665.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="844.0" layoutY="665.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
