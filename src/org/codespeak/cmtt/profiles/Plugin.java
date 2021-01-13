@@ -103,29 +103,40 @@ public class Plugin implements Cloneable {
     }
     
     /**
-     * Checks if this plugin has an update
-     * @return if this plugin has an update
-     */
-    public boolean hasUpdate() {
-        String checkChecksum = MiscUtil.getChecksum(path);
-        
-        return !checkChecksum.equals(checksum);
-    }
-    
-    /**
-     * Updates this plugin
+     * Updates this plugin if it is outdated or hasn't been copied yet
      * @param pluginsLocation location of the plugins folder this plugin
      * resides in 
      */
-    public void update(Path pluginsLocation) {
-        Path pluginLocation = pluginsLocation.resolve(fileName);
+    public void updateIfNeeded(Path pluginsLocation) {
+        Path pluginFilePath = pluginsLocation.resolve(fileName);
+        String tempChecksum = null;
+        boolean update = false;
         
-        try {
-            Files.copy(path, pluginLocation, StandardCopyOption.REPLACE_EXISTING);
-            
-            checksum = MiscUtil.getChecksum(path);
-        } catch (IOException ex) {
-            
+        if (!pluginFilePath.toFile().exists()) {
+            update = true;
+        }
+        
+        if (!update) {
+            String checkChecksum = MiscUtil.getChecksum(path);
+
+            if (!checkChecksum.equals(checksum)) {
+                update = true;
+                tempChecksum = checkChecksum;
+            }
+        }
+
+        if (update) {
+            try {
+                Files.copy(path, pluginFilePath, StandardCopyOption.REPLACE_EXISTING);
+
+                if (tempChecksum != null) {
+                    checksum = tempChecksum;
+                } else {
+                    checksum = MiscUtil.getChecksum(path);
+                }
+            } catch (IOException ex) {
+
+            }
         }
     }
     
