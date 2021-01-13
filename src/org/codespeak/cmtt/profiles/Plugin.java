@@ -17,13 +17,11 @@ public class Plugin implements Cloneable {
 
     private int id;
     private Path path;
-    private String fileName;
     private String checksum;
     
-    public Plugin(int id, Path path, String fileName, String checksum) {
+    public Plugin(int id, Path path, String checksum) {
         this.id = id;
         this.path = path;
-        this.fileName = fileName;
         this.checksum = checksum;
     }
     
@@ -56,15 +54,7 @@ public class Plugin implements Cloneable {
      * @return file name of this plugin
      */
     public String getFileName() {
-        return fileName;
-    }
-    
-    /**
-     * Sets the file name of this plugin
-     * @param fileName file name of this plugin
-     */
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+        return path.getFileName().toString();
     }
     
     /**
@@ -99,7 +89,7 @@ public class Plugin implements Cloneable {
      * @return copy of this Plugin object
      */
     public Plugin copy() {
-        return new Plugin(id, Paths.get(path.toString()), fileName, checksum);
+        return new Plugin(id, Paths.get(path.toString()), checksum);
     }
     
     /**
@@ -108,7 +98,7 @@ public class Plugin implements Cloneable {
      * resides in 
      */
     public void updateIfNeeded(Path pluginsLocation) {
-        Path pluginFilePath = pluginsLocation.resolve(fileName);
+        Path pluginFilePath = pluginsLocation.resolve(path.getFileName().toString());
         String tempChecksum = null;
         boolean update = false;
         
@@ -149,7 +139,6 @@ public class Plugin implements Cloneable {
         
         json.put("id", id);
         json.put("path", (path != null ? path.toString() : ""));
-        json.put("file_name", fileName);
         json.put("checksum", checksum);
         
         return json;
@@ -163,7 +152,6 @@ public class Plugin implements Cloneable {
     public static Plugin fromJSON(JSONObject json) {
         int id = 0;
         Path path = null;
-        String fileName = "";
         String checksum = "";
         
         if (json.has("id")) {
@@ -174,15 +162,11 @@ public class Plugin implements Cloneable {
             path = Paths.get(json.getString("path"));
         }
         
-        if (json.has("file_name")) {
-            fileName = json.getString("file_name");
-        }
-        
         if (json.has("checksum")) {
             checksum = json.getString("checksum");
         }
         
-        return new Plugin(id, path, fileName, checksum);
+        return new Plugin(id, path, checksum);
     }
     
 }

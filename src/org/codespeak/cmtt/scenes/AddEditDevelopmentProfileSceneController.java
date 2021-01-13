@@ -240,7 +240,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             String fileName = path.getFileName().toString();
             String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
-            Plugin plugin = new Plugin(pluginID, path, fileName, checksum);
+            Plugin plugin = new Plugin(pluginID, path, checksum);
             ObservableList<String> pluginItems = pluginList.getItems();
             
             pluginItems.add(path.toString());
@@ -307,7 +307,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             String checksum = MiscUtil.getChecksum(path);
             
             plugin.setPath(path);
-            plugin.setFileName(fileName);
             plugin.setChecksum(checksum);
             
             pluginItems.set(selectedIndex, path.toString());
