@@ -138,7 +138,7 @@ public class Plugin implements Cloneable {
         JSONObject json = new JSONObject();
         
         json.put("id", id);
-        json.put("path", (path != null ? path.toString() : ""));
+        json.put("path", path.toString());
         json.put("checksum", checksum);
         
         return json;
