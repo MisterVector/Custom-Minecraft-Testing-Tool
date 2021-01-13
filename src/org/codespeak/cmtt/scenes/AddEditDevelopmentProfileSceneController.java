@@ -277,6 +277,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             ObservableList<String> pluginItems = pluginList.getItems();
             String pluginPath = pluginItems.get(selectedIndex);
             Plugin plugin = getPlugin(pluginPath);
+            Path existingPath = plugin.getPath();
+            
+            if (existingPath.equals(path)) {
+                return;
+            }
 
             if (isExistingPluginPath(path, plugin)) {
                 Alert alert = AlertUtil.createAlert("An existing plugin with this path exists.");
