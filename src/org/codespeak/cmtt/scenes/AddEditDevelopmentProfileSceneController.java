@@ -49,7 +49,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
-    private List<Plugin> deletedPlugins = new ArrayList<Plugin>();
+    private List<Path> pathsToDelete = new ArrayList<Path>();
     private DevelopmentProfile editedDevelopmentProfile = null;
     private boolean editMode = false;
     
@@ -111,14 +111,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         return false;
     }
     
-    private void undoDeletedPluginIfPresent(Plugin plugin) {
-        Path path = plugin.getPath();
-        
-        for (Iterator<Plugin> it = deletedPlugins.iterator(); it.hasNext();) {
-            Plugin deletedPlugin = it.next();
-            Path deletedPluginPath = deletedPlugin.getPath();
-            
-            if (deletedPluginPath.equals(path)) {
+    private void undoDeletedPathIfPresent(Path path) {
+        for (Iterator<Path> it = pathsToDelete.iterator(); it.hasNext();) {
+            Path deletedPath = it.next();
+
+            if (deletedPath.equals(path)) {
                 it.remove();
 
                 return;
@@ -240,15 +237,21 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
                 return;
             }
             
+            String fileName = path.getFileName().toString();
             String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
-            Plugin plugin = new Plugin(pluginID, path, path.getFileName().toString(), checksum);
+            Plugin plugin = new Plugin(pluginID, path, fileName, checksum);
             ObservableList<String> pluginItems = pluginList.getItems();
             
             pluginItems.add(path.toString());
             plugins.add(plugin);
-            
-            undoDeletedPluginIfPresent(plugin);
+
+            if (editedDevelopmentProfile != null) {
+                Path pluginsFolder = editedDevelopmentProfile.getPluginsLocation();
+                Path pluginFilePath = pluginsFolder.resolve(fileName);
+                
+                undoDeletedPathIfPresent(pluginFilePath);
+            }
         }
     }
     
@@ -281,19 +284,22 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
 
                 return;
             }
-            
-            String checksum = MiscUtil.getChecksum(path);            
-            String existingFileName = plugin.getFileName();
+
             String fileName = path.getFileName().toString();
-
-            if (!existingFileName.equals(fileName)) {
-                Path pluginFile = editedDevelopmentProfile.getPluginsLocation().resolve(existingFileName);
-                File file = pluginFile.toFile();
-
-                if (file.exists()) {
-                    file.delete();
+            
+            if (editedDevelopmentProfile != null) {
+                Path pluginsFolder = editedDevelopmentProfile.getPluginsLocation();
+                Path pluginFilePath = pluginsFolder.resolve(plugin.getFileName());
+                Path newPluginFilePath = pluginsFolder.resolve(fileName);
+                
+                if (pluginFilePath.toFile().exists()) {
+                    pathsToDelete.add(pluginFilePath);
                 }
+
+                undoDeletedPathIfPresent(newPluginFilePath);
             }
+            
+            String checksum = MiscUtil.getChecksum(path);
             
             plugin.setPath(path);
             plugin.setFileName(fileName);
@@ -318,7 +324,14 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String pathString = pluginItems.remove(selectedIndex);
         Plugin plugin = deletePlugin(pathString);
         
-        deletedPlugins.add(plugin);
+        if (editedDevelopmentProfile != null) {
+            Path pluginsFolder = editedDevelopmentProfile.getPluginsLocation();
+            Path pluginFilePath = pluginsFolder.resolve(plugin.getFileName());
+
+            if (pluginFilePath.toFile().exists()) {
+                pathsToDelete.add(pluginFilePath);                
+            }
+        }
     }
     
     @FXML
@@ -391,10 +404,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setUpdateOutdatedServerAutomatically(updateOutdatedServerAutomatically);
             editedDevelopmentProfile.setUsingServerGUI(useServerGUI);
 
-            Path pluginsLocation = editedDevelopmentProfile.getPluginsLocation();
-
-            for (Plugin plugin : deletedPlugins) {
-                plugin.uninstall(pluginsLocation);
+            for (Path path : pathsToDelete) {
+                path.toFile().delete();
             }
             
             profile = editedDevelopmentProfile;

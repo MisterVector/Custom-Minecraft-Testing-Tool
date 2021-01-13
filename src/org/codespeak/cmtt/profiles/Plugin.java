@@ -130,17 +130,6 @@ public class Plugin implements Cloneable {
     }
     
     /**
-     * Uninstalls this plugin
-     * @param pluginsLocation path to the plugins folder
-     */
-    public void uninstall(Path pluginsLocation) {
-        if (pluginsLocation != null) {
-            Path pluginPath = pluginsLocation.resolve(fileName);
-            pluginPath.toFile().delete();
-        }
-    }
-    
-    /**
      * Converts this Plugin object to JSON
      * @return JSON representation of this Plugin object
      */
