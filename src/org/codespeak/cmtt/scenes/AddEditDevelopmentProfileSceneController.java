@@ -267,17 +267,18 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
         
         FileChooser chooser = new FileChooser();
+        ObservableList<String> pluginItems = pluginList.getItems();
+        String pluginPath = pluginItems.get(selectedIndex);
+        Plugin plugin = getPlugin(pluginPath);
+        Path existingPath = plugin.getPath();
         
+        chooser.setInitialDirectory(existingPath.getParent().toFile());
         chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
 
         File fileChosen = chooser.showOpenDialog(null);
         
         if (fileChosen != null) {
             Path path = fileChosen.toPath();
-            ObservableList<String> pluginItems = pluginList.getItems();
-            String pluginPath = pluginItems.get(selectedIndex);
-            Plugin plugin = getPlugin(pluginPath);
-            Path existingPath = plugin.getPath();
             
             if (existingPath.equals(path)) {
                 return;
