@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
-import org.codespeak.cmtt.profiles.Plugin;
+import org.codespeak.cmtt.objects.Plugin;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;

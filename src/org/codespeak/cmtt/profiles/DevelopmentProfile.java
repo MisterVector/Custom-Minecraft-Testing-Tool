@@ -1,5 +1,6 @@
 package org.codespeak.cmtt.profiles;
 
+import org.codespeak.cmtt.objects.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

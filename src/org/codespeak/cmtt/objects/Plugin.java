@@ -1,4 +1,4 @@
-package org.codespeak.cmtt.profiles;
+package org.codespeak.cmtt.objects;
 
 import java.io.IOException;
 import java.nio.file.Files;
