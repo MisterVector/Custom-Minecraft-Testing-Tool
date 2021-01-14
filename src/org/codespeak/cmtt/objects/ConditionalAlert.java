@@ -95,7 +95,7 @@ public class ConditionalAlert {
 
             if (condition) {
                 ret = new Alert(Alert.AlertType.INFORMATION, message);
-                ret.setTitle(Configuration.PROGRAM_TITLE);
+                ret.setTitle(Configuration.PROGRAM_NAME);
                 ret.setHeaderText("");
                 
                 break;

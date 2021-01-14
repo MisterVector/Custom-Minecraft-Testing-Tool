@@ -31,7 +31,7 @@ public class CustomMinecraftTestingTool extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        StageController<MainSceneController> stageController = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_TITLE);
+        StageController<MainSceneController> stageController = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_NAME);
         stage = stageController.getStage();
         
         MainSceneController controller = stageController.getController();
