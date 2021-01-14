@@ -128,7 +128,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     
     @FXML
     public void onSettingsMenuItemClick(ActionEvent event) throws IOException {
-        StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings for " + Configuration.PROGRAM_NAME);
+        StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings");
         SettingsSceneController controller = stageController.getController();
         Stage stage = stageController.getStage();
         

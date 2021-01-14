@@ -35,7 +35,6 @@ public class SettingsSceneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         settings = Configuration.getSettings();
         
-        settingsLabel.setText("Settings for " + Configuration.PROGRAM_NAME);
         minecraftLauncherLocationLabel.setText(settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION));
         checkUpdateOnStartupCheck.setSelected(settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP));
     }    
