@@ -168,7 +168,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     
     @FXML
     public void onJVMFlagsMenuItemClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Management").getStage();
+        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Profile Management").getStage();
         stage.show();
     }
     

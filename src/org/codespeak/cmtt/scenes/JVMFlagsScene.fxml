@@ -33,12 +33,12 @@
       <Button fx:id="cancelEditButton" disable="true" layoutX="252.0" layoutY="569.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
       <Button layoutX="374.0" layoutY="570.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
       <Button layoutX="374.0" layoutY="629.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close" />
-      <Label alignment="TOP_CENTER" layoutX="19.0" layoutY="283.0" prefHeight="20.0" prefWidth="462.0" text="JVM Flags Profiles">
+      <Label alignment="TOP_CENTER" layoutX="19.0" layoutY="283.0" prefHeight="20.0" prefWidth="462.0" text="Profile List">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="58.0" prefHeight="27.0" prefWidth="462.0" text="JVM Flags Details">
+      <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="58.0" prefHeight="27.0" prefWidth="462.0" text="Profile Details">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
