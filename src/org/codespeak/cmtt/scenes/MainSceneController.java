@@ -174,7 +174,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     
     @FXML
     public void onServersMenuItemClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profiles Management").getStage();
+        Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profile Management").getStage();
         stage.show();
     }
     
