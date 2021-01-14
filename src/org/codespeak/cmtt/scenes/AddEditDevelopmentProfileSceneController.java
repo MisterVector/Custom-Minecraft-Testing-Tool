@@ -238,9 +238,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             }
             
             String fileName = path.getFileName().toString();
-            String checksum = MiscUtil.getChecksum(path);
             int pluginID = DevelopmentProfileHandler.getNextPluginID();
-            Plugin plugin = new Plugin(pluginID, path, checksum);
+            Plugin plugin = new Plugin(pluginID, path);
             ObservableList<String> pluginItems = pluginList.getItems();
             
             pluginItems.add(path.toString());
@@ -305,10 +304,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
                 undoDeletedPathIfPresent(newPluginFilePath);
             }
             
-            String checksum = MiscUtil.getChecksum(path);
-            
             plugin.setPath(path);
-            plugin.setChecksum(checksum);
             
             pluginItems.set(selectedIndex, path.toString());
         }

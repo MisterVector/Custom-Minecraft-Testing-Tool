@@ -19,6 +19,10 @@ public class Plugin implements Cloneable {
     private Path path;
     private String checksum;
     
+    public Plugin(int id, Path path) {
+        this(id, path, "");
+    }
+    
     public Plugin(int id, Path path, String checksum) {
         this.id = id;
         this.path = path;
