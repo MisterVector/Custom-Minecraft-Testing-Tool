@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="223.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AboutSceneController">
+<AnchorPane id="AnchorPane" prefHeight="223.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AboutSceneController">
    <children>
-      <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="427.0" text="Custom Minecraft Testing Tool">
+      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="481.0" text="Custom Minecraft Testing Tool v0.0.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="190.0" layoutY="71.0" text="By Vector">
+      <Label alignment="TOP_CENTER" layoutX="39.0" layoutY="71.0" prefHeight="27.0" prefWidth="417.0" text="By Vector">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="58.0" layoutY="112.0" prefHeight="58.0" prefWidth="340.0" text="This is a tool used to test the development of custom Minecraft plugins and servers." wrapText="true">
+      <Label alignment="TOP_LEFT" layoutX="50.0" layoutY="112.0" prefHeight="58.0" prefWidth="401.0" text="This is a tool used to test the development of custom Minecraft plugins and servers." wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="codeSpeakLinkLabel" layoutX="26.0" layoutY="180.0" onMouseClicked="#onCodeSpeakLinkClick" text="www.codespeak.org" textFill="BLUE" underline="true">
+      <Label fx:id="codeSpeakLinkLabel" layoutX="20.0" layoutY="180.0" onMouseClicked="#onCodeSpeakLinkClick" text="www.codespeak.org" textFill="BLUE" underline="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -31,6 +31,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Button layoutX="361.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
+      <Button layoutX="405.0" layoutY="181.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
    </children>
 </AnchorPane>

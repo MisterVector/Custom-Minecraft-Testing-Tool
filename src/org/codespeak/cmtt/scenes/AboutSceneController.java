@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.Configuration;
 
 /**
  * Controller for the about scene
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
  */
 public class AboutSceneController implements Initializable {
 
+    @FXML private Label headerLabel;
     @FXML private Label codeSpeakLinkLabel;
     
     /**
@@ -25,7 +27,7 @@ public class AboutSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        headerLabel.setText(Configuration.PROGRAM_NAME + " v" + Configuration.PROGRAM_VERSION);
     }    
  
     @FXML
