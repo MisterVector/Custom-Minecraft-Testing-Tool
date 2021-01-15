@@ -179,7 +179,9 @@ public class AddEditServerProfileSceneController implements Initializable {
 
             profile = editedServerProfile;
             
-            profile.update();
+            if (profile.hasUpdate()) {
+                profile.update();
+            }
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
                                         customWorldsArgument, serverPath, "");
