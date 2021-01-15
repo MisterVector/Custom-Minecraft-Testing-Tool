@@ -216,10 +216,8 @@ public class DevelopmentProfile extends ResourceProfile {
     
     @Override
     public void finishSetup() {
-        Path profileLocation = getLocation();
         Path pluginsLocation = getPluginsLocation();
         
-        profileLocation.toFile().mkdirs();
         pluginsLocation.toFile().mkdirs();
         
         for (Plugin plugin : plugins) {
