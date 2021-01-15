@@ -34,6 +34,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     private Path serverPath = null;
     private ServerProfile editedServerProfile = null;
     private boolean editMode = false;
+    private Path deleteServerPath = null;
     
     @FXML private Label headerLabel;
     @FXML private TextField profileNameInput;
@@ -100,12 +101,22 @@ public class AddEditServerProfileSceneController implements Initializable {
         if (chosenFile != null) {
             Path chosenPath = chosenFile.toPath();
             
-            if (serverPath != null && serverPath.equals(chosenPath)) {
-                return;
+            if (serverPath != null) {
+                if (serverPath.equals(chosenPath)) {
+                    return;
+                }
+        
+                if (serverPath.toFile().exists()) {
+                    deleteServerPath = serverPath;
+                }
             }
             
             serverPath = chosenFile.toPath();
             serverPathLabel.setText(serverPath.toString());
+            
+            if (deleteServerPath != null && deleteServerPath.equals(chosenPath)) {
+                deleteServerPath = null;
+            }
         }
     }
     
@@ -161,6 +172,11 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
             editedServerProfile.setServerPath(serverPath);
             
+            if (deleteServerPath != null) {
+                deleteServerPath.toFile().delete();
+                editedServerProfile.setChecksum("");
+            }
+
             profile = editedServerProfile;
             
             profile.update();
