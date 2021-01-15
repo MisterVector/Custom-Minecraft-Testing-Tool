@@ -98,6 +98,12 @@ public class AddEditServerProfileSceneController implements Initializable {
         File chosenFile = chooser.showOpenDialog(null);
         
         if (chosenFile != null) {
+            Path chosenPath = chosenFile.toPath();
+            
+            if (serverPath != null && serverPath.equals(chosenPath)) {
+                return;
+            }
+            
             serverPath = chosenFile.toPath();
             serverPathLabel.setText(serverPath.toString());
         }
