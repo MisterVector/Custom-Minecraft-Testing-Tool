@@ -181,6 +181,8 @@ public class ServerProfile extends ResourceProfile {
         try {
             Files.copy(serverPath, profileServerFile);
             Files.write(profileEULAFile, eulaText.getBytes());
+
+            checksum = MiscUtil.getChecksum(serverPath);
         } catch (IOException ex) {
 
         }            

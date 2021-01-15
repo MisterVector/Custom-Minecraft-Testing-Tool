@@ -225,9 +225,12 @@ public class DevelopmentProfile extends ResourceProfile {
         for (Plugin plugin : plugins) {
             Path pluginSourcePath = plugin.getPath();
             Path pluginPath = pluginsLocation.resolve(plugin.getFileName());
+            String checksum = MiscUtil.getChecksum(pluginSourcePath);
             
             try {
                 Files.copy(pluginSourcePath, pluginPath);
+                
+                plugin.setChecksum(checksum);
             } catch (IOException ex) {
                 
             }
