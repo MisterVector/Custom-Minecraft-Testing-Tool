@@ -348,7 +348,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
 
         ConditionalAlert ca = new ConditionalAlert();
         Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
-                        .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server profile has not been chosen.")
+                        .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server for testing has not been chosen.")
                         .getAlert();
         
         if (alert == null) {
