@@ -93,7 +93,7 @@ public class ServerProfilesSceneController implements Initializable {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
-            Alert alert = AlertUtil.createAlert("Select a server profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
@@ -118,13 +118,13 @@ public class ServerProfilesSceneController implements Initializable {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
-            Alert alert = AlertUtil.createAlert("Select a server profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
         }
         
-        Alert confirmAlert = AlertUtil.createAlert("Are you sure you want to delete this server profile?");
+        Alert confirmAlert = AlertUtil.createAlert("Are you sure you want to delete this profile?");
         
         confirmAlert.getButtonTypes().setAll(new ButtonType[] {ButtonType.YES, ButtonType.NO});
         
@@ -148,7 +148,7 @@ public class ServerProfilesSceneController implements Initializable {
         int currentlySelectedIndex = selectionModel.getSelectedIndex();
         
         if (currentlySelectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a server profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;

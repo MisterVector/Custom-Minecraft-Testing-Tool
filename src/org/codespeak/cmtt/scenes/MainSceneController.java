@@ -194,7 +194,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
@@ -213,7 +213,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML
     public void onAddDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
         if (ServerProfileHandler.getProfiles().isEmpty()) {
-            Alert alert = AlertUtil.createAlert(("Cannot create a development profile as no servers have been defined.\n\n"
+            Alert alert = AlertUtil.createAlert(("Cannot create a profile as no servers have been defined.\n\n"
                                                + "Go to Profiles -> Servers ... to setup one or more servers."));
             alert.show();
             
@@ -233,7 +233,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
@@ -259,7 +259,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
-            Alert alert = AlertUtil.createAlert("Select a development profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
 
             return;

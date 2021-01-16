@@ -118,7 +118,7 @@ public class JVMFlagsSceneController implements Initializable {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
-            Alert alert = AlertUtil.createAlert("Select a JVM Flags profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
@@ -159,7 +159,7 @@ public class JVMFlagsSceneController implements Initializable {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
-            Alert alert = AlertUtil.createAlert("Select a JVM Flags profile first.");
+            Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             
             return;
