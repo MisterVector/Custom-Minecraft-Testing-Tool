@@ -265,12 +265,20 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             return;
         }
         
-        String profileName = developmentProfileList.getItems().remove(selectedIndex);
-        DevelopmentProfile profile = getDevelopmentProfile(profileName);
+        Alert alert = AlertUtil.createAlert("Are you sure you want to delete this profile?");
+        
+        alert.getButtonTypes().setAll(new ButtonType[] {ButtonType.YES, ButtonType.NO});
+        
+        ButtonType result = alert.showAndWait().get();
+        
+        if (result == ButtonType.YES) {
+            String profileName = developmentProfileList.getItems().remove(selectedIndex);
+            DevelopmentProfile profile = getDevelopmentProfile(profileName);
 
-        profile.remove();
-        DevelopmentProfileHandler.deleteProfile(profile.getId());
-        availableDevelopmentProfiles.remove(profile);
+            profile.remove();
+            DevelopmentProfileHandler.deleteProfile(profile.getId());
+            availableDevelopmentProfiles.remove(profile);
+        }
     }
     
 }
