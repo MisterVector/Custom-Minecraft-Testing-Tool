@@ -37,6 +37,7 @@ public class JVMFlagsSceneController implements Initializable {
     @FXML private TextField profileNameInput;
     @FXML private TextArea flagsStringInput;
     @FXML private ListView<String> profileList;
+    @FXML private Button addModifyProfileButton;
     @FXML private Button cancelEditButton;
     
     private JVMFlagsProfile getJVMFlagsProfile(String name) {
@@ -66,7 +67,7 @@ public class JVMFlagsSceneController implements Initializable {
     }    
     
     @FXML
-    public void onAddProfileButtonClick(ActionEvent event) {
+    public void onAddModifyProfileButtonClick(ActionEvent event) {
         String profileName = profileNameInput.getText();
         String flagsString = flagsStringInput.getText();
         
@@ -99,6 +100,8 @@ public class JVMFlagsSceneController implements Initializable {
             cancelEditButton.setDisable(true);
             editedProfile = null;
             editedIndex = -1;
+            
+            addModifyProfileButton.setText("Add Profile");
             isEditMode = false;
         } else {
             JVMFlagsProfile profile = new JVMFlagsProfile(profileName, flagsString);
@@ -132,6 +135,7 @@ public class JVMFlagsSceneController implements Initializable {
         
         isEditMode = true;
         editedIndex = selectedIndex;
+        addModifyProfileButton.setText("Modify Profile");
         cancelEditButton.setDisable(false);
     }
     
@@ -145,6 +149,7 @@ public class JVMFlagsSceneController implements Initializable {
         isEditMode = false;
         
         cancelEditButton.setDisable(true);
+        addModifyProfileButton.setText("Add Profile");
     }
     
     @FXML
