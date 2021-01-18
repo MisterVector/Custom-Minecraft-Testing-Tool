@@ -96,8 +96,13 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML
     public void onSelectServerFileButtonClick(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        File chosenFile = chooser.showOpenDialog(null);
+
+        if (serverPath != null) {
+            chooser.setInitialDirectory(serverPath.getParent().toFile());
+        }
         
+        File chosenFile = chooser.showOpenDialog(null);
+
         if (chosenFile != null) {
             Path chosenPath = chosenFile.toPath();
             
