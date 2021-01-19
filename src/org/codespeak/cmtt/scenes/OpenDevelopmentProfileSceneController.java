@@ -157,10 +157,23 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         commands.add("server.jar");
 
         ServerTypes serverType = serverProfile.getServerType();
-        
+        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
+
+        if (!openedProfile.isUsingServerWorlds()) {
+            commands.add("--" + worldsArgument);
+
+            Path worldsLocation = openedProfile.getLocation().resolve("worlds").resolve(Integer.toString(serverProfile.getId())).toAbsolutePath();
+            File fileWorldsLocation = worldsLocation.toFile();
+
+            if (!fileWorldsLocation.exists()) {
+                fileWorldsLocation.mkdirs();
+            }
+
+            commands.add(worldsLocation.toString());
+        }            
+
         if (serverType != ServerTypes.VANILLA) {
             String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
-            String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
             List<Plugin> plugins = openedProfile.getPlugins();
             Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
@@ -173,19 +186,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                 commands.add("--" + pluginsArgument);
                 commands.add(pluginsLocation.toString());
             }
-
-            if (!openedProfile.isUsingServerWorlds()) {
-                commands.add("--" + worldsArgument);
-                
-                Path worldsLocation = openedProfile.getLocation().resolve("worlds").resolve(Integer.toString(serverProfile.getId())).toAbsolutePath();
-                File fileWorldsLocation = worldsLocation.toFile();
-                
-                if (!fileWorldsLocation.exists()) {
-                    fileWorldsLocation.mkdirs();
-                }
-                
-                commands.add(worldsLocation.toString());
-            }            
         }
 
         if (!openedProfile.isUsingServerGUI()) {
