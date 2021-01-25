@@ -64,9 +64,7 @@ public class CheckVersionResponse {
      * Performs the check version query and returns a CheckVersionResponse object
      * @return CheckVersionResponse object from check version query
      */
-    public static CheckVersionResponse checkVersion() {
-        // TODO: error handling
-        
+    public static CheckVersionResponse checkVersion() throws ProgramException {
         URL url = null;
         HttpsURLConnection connection = null;
         
@@ -75,7 +73,7 @@ public class CheckVersionResponse {
             connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", "CustomMinecraftTestingTool");
         } catch (IOException ex) {
-            return null;
+            throw ProgramException.fromException(ex);
         }
         
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
@@ -117,12 +115,12 @@ public class CheckVersionResponse {
             } else {
                 int errorCode = obj.getInt("error_code");
                 String errorMessage = obj.getString("error_message");
+
+                throw new ProgramException(ErrorType.fromId(errorCode), new Exception(errorMessage));
             }
         } catch (IOException ex) {
-            return null;
+            throw ProgramException.fromException(ex);
         }
-        
-        return null;
     }
     
 }

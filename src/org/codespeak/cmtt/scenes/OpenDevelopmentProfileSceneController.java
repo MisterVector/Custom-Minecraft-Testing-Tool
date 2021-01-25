@@ -17,10 +17,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.objects.Plugin;
+import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;
@@ -116,7 +118,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onStartServerButtonClick(ActionEvent event) throws IOException {
+    public void onStartServerButtonClick(ActionEvent event) {
         List<String> commands = new ArrayList<String>();
         Path serverProfileLocation = serverProfile.getProfileLocation();
         String lowerMemory = openedProfile.getLowerMemory();
@@ -192,14 +194,22 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add("nogui");
         }
         
-        ProcessBuilder pb = new ProcessBuilder(commands);
-        pb.directory(serverProfileLocation.toFile());
-        
-        pb.start();
+        try {
+            ProcessBuilder pb = new ProcessBuilder(commands);
+            pb.directory(serverProfileLocation.toFile());
+
+            pb.start();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
 
     @FXML
-    public void onOpenLogsFolderButtonClick(ActionEvent event) throws IOException {
+    public void onOpenLogsFolderButtonClick(ActionEvent event) {
         Path profileLocation = serverProfile.getProfileLocation();
         Path logsFolder = profileLocation.resolve("logs");
         
@@ -210,9 +220,17 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             return;
         }
         
-        Desktop desktop = Desktop.getDesktop();
-        
-        desktop.browse(logsFolder.toUri());
+        try {
+            Desktop desktop = Desktop.getDesktop();
+
+            desktop.browse(logsFolder.toUri());
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
             
     @FXML

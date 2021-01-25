@@ -29,6 +29,7 @@ target/
 
 # Other Stuff
 /extra/
+/logs/
 /profiles/
 data.json
 settings.json

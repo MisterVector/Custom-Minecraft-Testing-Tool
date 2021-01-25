@@ -220,7 +220,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onAddPluginButtonClick(ActionEvent event) throws IOException {
+    public void onAddPluginButtonClick(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         
         chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
@@ -255,7 +255,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onChangePluginButtonClick(ActionEvent event) throws IOException {
+    public void onChangePluginButtonClick(ActionEvent event) {
         int selectedIndex = pluginList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {

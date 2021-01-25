@@ -24,6 +24,7 @@ public class Configuration {
     public static final String DEVELOPMENT_FOLDER = PROFILES_FOLDER + File.separator + "development";
     public static final String SERVERS_FOLDER = PROFILES_FOLDER + File.separator + "servers";
     public static final String DATA_FILE = "data.json";
+    public static final String LOGS_FOLDER = "logs";
     public static final String SETTINGS_FILE = "settings.json";
     
     private static Settings settings = null;

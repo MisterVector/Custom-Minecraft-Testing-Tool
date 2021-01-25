@@ -20,11 +20,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.CheckVersionResponse;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.ProcessorContext;
+import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
@@ -89,54 +91,68 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     /**
      * Checks for a new version of the program
      * @param startup if the program's version is being checked at startup
-     * @throws IOException if there is an error while checking for updates, this
-     * will be thrown
      */
-    public void checkVersion(boolean startup) throws IOException {
+    public void checkVersion(boolean startup) {
         Settings settings = Configuration.getSettings();
         boolean checkUpdateOnStartup = settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP);
         
         if (!startup || checkUpdateOnStartup) {
-            CheckVersionResponse response = CheckVersionResponse.checkVersion();
-            String requestVersion = response.getRequestVersion();
-            Timestamp requestReleaseTime = response.getRequestReleaseTime();
-            String version = response.getVersion();
-            Timestamp releaseTime = response.getReleaseTime();
-            
-            if (releaseTime.after(requestReleaseTime)) {
-                Alert alert = AlertUtil.createAlert("A new version is currently available!\n\n"
-                                                  + "Current version: " + requestVersion + "\n"
-                                                  + "New version: " + version + "\n\n"
-                                                  + "Would you like to view the changelog and download the latest version?", "Update for " + Configuration.PROGRAM_NAME);
-                alert.getButtonTypes().setAll(new ButtonType[] {ButtonType.YES, ButtonType.NO});
-                
-                ButtonType result = alert.showAndWait().get();
-                
-                if (result == ButtonType.YES) {
-                    Desktop desktop = Desktop.getDesktop();
-                    
-                    desktop.browse(URI.create(Configuration.UPDATE_SUMMARY_URL));
+            try {
+                CheckVersionResponse response = CheckVersionResponse.checkVersion();
+                String requestVersion = response.getRequestVersion();
+                Timestamp requestReleaseTime = response.getRequestReleaseTime();
+                String version = response.getVersion();
+                Timestamp releaseTime = response.getReleaseTime();
+
+                if (releaseTime.after(requestReleaseTime)) {
+                    Alert alert = AlertUtil.createAlert("A new version is currently available!\n\n"
+                                                      + "Current version: " + requestVersion + "\n"
+                                                      + "New version: " + version + "\n\n"
+                                                      + "Would you like to view the changelog and download the latest version?", "Update for " + Configuration.PROGRAM_NAME);
+                    alert.getButtonTypes().setAll(new ButtonType[] {ButtonType.YES, ButtonType.NO});
+
+                    ButtonType result = alert.showAndWait().get();
+
+                    if (result == ButtonType.YES) {
+                        Desktop desktop = Desktop.getDesktop();
+
+                        desktop.browse(URI.create(Configuration.UPDATE_SUMMARY_URL));
+                    }
+                } else {
+                    if (!startup) {
+                        Alert alert = AlertUtil.createAlert("This program is currently up-to-date.");
+                        alert.show();
+                    }
                 }
-            } else {
-                if (!startup) {
-                    Alert alert = AlertUtil.createAlert("This program is currently up-to-date.");
-                    alert.show();
-                }
+            } catch (ProgramException | IOException ex) {
+                ProgramException ex2 = ProgramException.fromException(ex);
+                Alert alert = ex2.buildAlert();
+
+                alert.show();
+                CustomMinecraftTestingTool.logError(ex2);
             }
         }
     }
     
     @FXML
-    public void onSettingsMenuItemClick(ActionEvent event) throws IOException {
-        StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings");
-        SettingsSceneController controller = stageController.getController();
-        Stage stage = stageController.getStage();
-        
-        stage.show();
+    public void onSettingsMenuItemClick(ActionEvent event) {
+        try {
+            StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings");
+            SettingsSceneController controller = stageController.getController();
+            Stage stage = stageController.getStage();
+
+            stage.show();            
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
 
     @FXML
-    public void onStartMinecraftMenuItemClick(ActionEvent event) throws IOException {
+    public void onStartMinecraftMenuItemClick(ActionEvent event) {
         Settings settings = Configuration.getSettings();
         String minecraftLauncherLocation = settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION);
         
@@ -155,42 +171,74 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             
             return;
         }
-        
-        ProcessBuilder pb = new ProcessBuilder(minecraftLauncherLocation);
-        pb.directory(minecraftLauncherPath.getParent().toFile());
-        pb.start();
+
+        try {
+            ProcessBuilder pb = new ProcessBuilder(minecraftLauncherLocation);
+            pb.directory(minecraftLauncherPath.getParent().toFile());
+            pb.start();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onQuitMenuItemClick(ActionEvent event) throws IOException {
+    public void onQuitMenuItemClick(ActionEvent event) {
         Platform.exit();
     }
     
     @FXML
-    public void onJVMFlagsMenuItemClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Profile Management").getStage();
-        stage.show();
+    public void onJVMFlagsMenuItemClick(ActionEvent event) {
+        try {
+            Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS, "JVM Flags Profile Management").getStage();
+            stage.show();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onServersMenuItemClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profile Management").getStage();
-        stage.show();
+    public void onServersMenuItemClick(ActionEvent event) {
+        try {
+            Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profile Management").getStage();
+            stage.show();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onAboutMenuItemClick(ActionEvent event) throws IOException {
-        Stage stage = SceneUtil.getScene(SceneTypes.ABOUT, "About").getStage();
-        stage.show();
+    public void onAboutMenuItemClick(ActionEvent event) {
+        try {
+            Stage stage = SceneUtil.getScene(SceneTypes.ABOUT, "About").getStage();
+            stage.show();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onCheckForUpdateMenuItemClick(ActionEvent event) throws IOException {
+    public void onCheckForUpdateMenuItemClick(ActionEvent event) {
         checkVersion(false);
     }
     
     @FXML
-    public void onOpenDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+    public void onOpenDevelopmentProfileButtonClick(ActionEvent event) {
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
@@ -200,18 +248,26 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             return;
         }
         
-        String profileName = developmentProfileList.getItems().get(selectedIndex);
-        DevelopmentProfile profile = getDevelopmentProfile(profileName);
-        StageController<OpenDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_DEVELOPMENT_PROFILE, "Open Development Profile");
-        Stage stage = stageController.getStage();
-        OpenDevelopmentProfileSceneController controller = stageController.getController();
+        try {
+            String profileName = developmentProfileList.getItems().get(selectedIndex);
+            DevelopmentProfile profile = getDevelopmentProfile(profileName);
+            StageController<OpenDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_DEVELOPMENT_PROFILE, "Open Development Profile");
+            Stage stage = stageController.getStage();
+            OpenDevelopmentProfileSceneController controller = stageController.getController();
 
-        stage.show();
-        controller.openProfile(profile);
+            stage.show();
+            controller.openProfile(profile);
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onAddDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+    public void onAddDevelopmentProfileButtonClick(ActionEvent event) {
         if (ServerProfileHandler.getProfiles().isEmpty()) {
             Alert alert = AlertUtil.createAlert(("Cannot create a profile as no servers have been defined.\n\n"
                                                + "Go to Profiles -> Servers ... to setup one or more servers."));
@@ -220,16 +276,24 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             return;
         }
         
-        StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Add Development Profile");
-        Stage stage = stageController.getStage();
-        AddEditDevelopmentProfileSceneController controller = stageController.getController();
-        
-        stage.show();
-        controller.setProcessor(this);
+        try {
+            StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Add Development Profile");
+            Stage stage = stageController.getStage();
+            AddEditDevelopmentProfileSceneController controller = stageController.getController();
+
+            stage.show();
+            controller.setProcessor(this);
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
 
     @FXML
-    public void onEditDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+    public void onEditDevelopmentProfileButtonClick(ActionEvent event) {
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {
@@ -238,24 +302,32 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             
             return;
         }
-        
-        currentlySelectedIndex = selectedIndex;
-        
-        String profileName = developmentProfileList.getItems().get(selectedIndex);
-        DevelopmentProfile profile = getDevelopmentProfile(profileName);
-        
-        StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Edit Development Profile");
-        Stage stage = stageController.getStage();
-        AddEditDevelopmentProfileSceneController controller = stageController.getController();
-        
-        stage.show();
-        controller.setProcessor(this);
-        
-        controller.editDevelopmentProfile(profile);
+
+        try {
+            String profileName = developmentProfileList.getItems().get(selectedIndex);
+            DevelopmentProfile profile = getDevelopmentProfile(profileName);
+
+            StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Edit Development Profile");
+            Stage stage = stageController.getStage();
+            AddEditDevelopmentProfileSceneController controller = stageController.getController();
+
+            stage.show();
+            controller.setProcessor(this);
+
+            controller.editDevelopmentProfile(profile);
+
+            currentlySelectedIndex = selectedIndex;
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
 
     @FXML
-    public void onDeleteDevelopmentProfileButtonClick(ActionEvent event) throws IOException {
+    public void onDeleteDevelopmentProfileButtonClick(ActionEvent event) {
         int selectedIndex = developmentProfileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex == -1) {

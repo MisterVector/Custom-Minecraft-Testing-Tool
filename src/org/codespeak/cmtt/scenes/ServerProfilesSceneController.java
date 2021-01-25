@@ -17,6 +17,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
@@ -79,17 +81,25 @@ public class ServerProfilesSceneController implements Initializable {
     }
     
     @FXML
-    public void onAddProfileButtonClick(ActionEvent event) throws IOException {
-        StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Add Server Profile");
-        AddEditServerProfileSceneController controller = stageController.getController();
-        Stage stage = stageController.getStage();
+    public void onAddProfileButtonClick(ActionEvent event) {
+        try {
+            StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Add Server Profile");
+            AddEditServerProfileSceneController controller = stageController.getController();
+            Stage stage = stageController.getStage();
 
-        stage.show();
-        controller.setController(this);
+            stage.show();
+            controller.setController(this);
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onEditProfileButtonClick(ActionEvent event) throws IOException {
+    public void onEditProfileButtonClick(ActionEvent event) {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
@@ -99,22 +109,30 @@ public class ServerProfilesSceneController implements Initializable {
             return;
         }
         
-        currentlySelectedIndex = selectedIndex;
-        
-        String profileName = profileList.getItems().get(selectedIndex);
-        ServerProfile profile = getServerProfile(profileName);
-        
-        StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Edit Server Profile");
-        AddEditServerProfileSceneController controller = stageController.getController();
-        Stage stage = stageController.getStage();
-        
-        stage.show();
-        controller.setController(this);
-        controller.editServerProfile(profile);
+        try {
+            String profileName = profileList.getItems().get(selectedIndex);
+            ServerProfile profile = getServerProfile(profileName);
+
+            StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Edit Server Profile");
+            AddEditServerProfileSceneController controller = stageController.getController();
+            Stage stage = stageController.getStage();
+
+            stage.show();
+            controller.setController(this);
+            controller.editServerProfile(profile);
+
+            currentlySelectedIndex = selectedIndex;
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
-    public void onDeleteProfileButtonClick(ActionEvent event) throws IOException {
+    public void onDeleteProfileButtonClick(ActionEvent event) {
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
@@ -143,7 +161,7 @@ public class ServerProfilesSceneController implements Initializable {
     }
     
     @FXML
-    public void onBrowseFilesButtonClick(ActionEvent event) throws IOException {
+    public void onBrowseFilesButtonClick(ActionEvent event) {
         MultipleSelectionModel<String> selectionModel = profileList.getSelectionModel();
         int currentlySelectedIndex = selectionModel.getSelectedIndex();
         
@@ -154,12 +172,20 @@ public class ServerProfilesSceneController implements Initializable {
             return;
         }
         
-        String serverName = selectionModel.getSelectedItem();
-        ServerProfile serverProfile = ServerProfileHandler.getProfile(serverName);
-        Path profileLocation = serverProfile.getProfileLocation().toAbsolutePath();
-        Desktop desktop = Desktop.getDesktop();
-        
-        desktop.open(profileLocation.toFile());
+        try {
+            String serverName = selectionModel.getSelectedItem();
+            ServerProfile serverProfile = ServerProfileHandler.getProfile(serverName);
+            Path profileLocation = serverProfile.getProfileLocation().toAbsolutePath();
+            Desktop desktop = Desktop.getDesktop();
+
+            desktop.open(profileLocation.toFile());
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
