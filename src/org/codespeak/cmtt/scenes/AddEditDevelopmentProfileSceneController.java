@@ -66,9 +66,9 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML ListView<String> pluginList;
 
     private JVMFlagsProfile getJVMFlagsProfile(String name) {
-        for (JVMFlagsProfile jvmFlagsProfile : availableJVMFlagsProfiles) {
-            if (jvmFlagsProfile.getName().equalsIgnoreCase(name)) {
-                return jvmFlagsProfile;
+        for (JVMFlagsProfile profile : availableJVMFlagsProfiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
             }
         }
         
@@ -76,9 +76,9 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     }
     
     private ServerProfile getServerProfile(String name) {
-        for (ServerProfile serverProfile : availableServerProfiles) {
-            if (serverProfile.getName().equalsIgnoreCase(name)) {
-                return serverProfile;
+        for (ServerProfile profile : availableServerProfiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
             }
         }
         

@@ -23,6 +23,7 @@ import org.codespeak.cmtt.util.SceneUtil;
 import org.json.JSONObject;
 
 /**
+ * The main class
  *
  * @author Vector
  */

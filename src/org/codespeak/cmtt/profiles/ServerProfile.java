@@ -215,6 +215,10 @@ public class ServerProfile extends ResourceProfile {
         }            
     }
 
+    /**
+     * Converts this object to JSON
+     * @return JSON representation of this object
+     */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         int id = super.getId();
@@ -232,6 +236,11 @@ public class ServerProfile extends ResourceProfile {
         return json;
     }
     
+    /**
+     * Constructs a ServerProfile object from JSON
+     * @param json JSON object to construct a ServerProfile object from
+     * @return ServerProfile object from JSON
+     */
     public static ServerProfile fromJSON(JSONObject json) {
         int id = 0;
         String name = "";

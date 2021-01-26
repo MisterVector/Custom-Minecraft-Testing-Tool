@@ -272,6 +272,10 @@ public class DevelopmentProfile extends ResourceProfile {
         }
     }
     
+    /**
+     * Converts this object to JSON
+     * @return JSON object representing this object
+     */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         JSONArray pluginsJson = new JSONArray();

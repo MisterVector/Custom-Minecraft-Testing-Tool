@@ -41,9 +41,9 @@ public class JVMFlagsSceneController implements Initializable {
     @FXML private Button cancelEditButton;
     
     private JVMFlagsProfile getJVMFlagsProfile(String name) {
-        for (JVMFlagsProfile jvmFlagsProfile : availableJVMFlagsProfiles) {
-            if (jvmFlagsProfile.getName().equalsIgnoreCase(name)) {
-                return jvmFlagsProfile;
+        for (JVMFlagsProfile profile : availableJVMFlagsProfiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
             }
         }
         

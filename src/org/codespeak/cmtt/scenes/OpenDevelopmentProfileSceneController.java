@@ -55,9 +55,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     private ServerProfile getServerProfile(String profileName) {
-        for (ServerProfile serverProfile : allServerProfiles) {
-            if (serverProfile.getName().equalsIgnoreCase(profileName)) {
-                return serverProfile;
+        for (ServerProfile profile : allServerProfiles) {
+            if (profile.getName().equalsIgnoreCase(profileName)) {
+                return profile;
             }
         }
         
@@ -79,9 +79,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         List<ServerProfile> serverProfiles = ServerProfileHandler.getProfiles();
         ObservableList<String> serverProfileChoiceItems = serverProfileChoice.getItems();
         
-        for (ServerProfile serverProfile : serverProfiles) {
-            serverProfileChoiceItems.add(serverProfile.getName());
-            allServerProfiles.add(serverProfile);
+        for (ServerProfile profile : serverProfiles) {
+            serverProfileChoiceItems.add(profile.getName());
+            allServerProfiles.add(profile);
         }
     }    
     
@@ -104,9 +104,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onSelectTestServer() {
         String profileName = serverProfileChoice.getSelectionModel().getSelectedItem();
-        ServerProfile serverProfile = getServerProfile(profileName);
+        ServerProfile profile = getServerProfile(profileName);
         
-        selectServerProfile(serverProfile);
+        selectServerProfile(profile);
     }
     
     @FXML

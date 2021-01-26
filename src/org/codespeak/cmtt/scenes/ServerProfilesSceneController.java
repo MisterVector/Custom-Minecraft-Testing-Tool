@@ -26,7 +26,7 @@ import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.SceneUtil;
 
 /**
- * Controller for the ServerProfilesScene scene
+ * Controller for the server profiles scene
  *
  * @author Vector
  */
@@ -38,9 +38,9 @@ public class ServerProfilesSceneController implements Initializable {
     @FXML private ListView<String> profileList;
     
     private ServerProfile getServerProfile(String profileName) {
-        for (ServerProfile serverProfile : availableServerProfiles) {
-            if (serverProfile.getName().equalsIgnoreCase(profileName)) {
-                return serverProfile;
+        for (ServerProfile profile : availableServerProfiles) {
+            if (profile.getName().equalsIgnoreCase(profileName)) {
+                return profile;
             }
         }
         
@@ -163,9 +163,9 @@ public class ServerProfilesSceneController implements Initializable {
     @FXML
     public void onBrowseFilesButtonClick(ActionEvent event) {
         MultipleSelectionModel<String> selectionModel = profileList.getSelectionModel();
-        int currentlySelectedIndex = selectionModel.getSelectedIndex();
+        int selectedIndex = selectionModel.getSelectedIndex();
         
-        if (currentlySelectedIndex == -1) {
+        if (selectedIndex == -1) {
             Alert alert = AlertUtil.createAlert("Select a profile first.");
             alert.show();
             

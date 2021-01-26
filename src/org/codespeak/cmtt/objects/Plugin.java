@@ -135,8 +135,8 @@ public class Plugin implements Cloneable {
     }
     
     /**
-     * Converts this Plugin object to JSON
-     * @return JSON representation of this Plugin object
+     * Converts this object to JSON
+     * @return JSON representation of this object
      */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();

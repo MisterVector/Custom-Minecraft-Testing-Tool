@@ -36,9 +36,9 @@ public class DevelopmentProfileHandler {
      * @return development profile represented by its ID
      */
     public static DevelopmentProfile getProfile(int ID) {
-        for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            if (developmentProfile.getId() == ID) {
-                return developmentProfile;
+        for (DevelopmentProfile profile : developmentProfiles) {
+            if (profile.getId() == ID) {
+                return profile;
             }
         }
         
@@ -51,9 +51,9 @@ public class DevelopmentProfileHandler {
      * @return development profile
      */
     public static DevelopmentProfile getProfile(String name) {
-        for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            if (developmentProfile.getName().equalsIgnoreCase(name)) {
-                return developmentProfile;
+        for (DevelopmentProfile profile : developmentProfiles) {
+            if (profile.getName().equalsIgnoreCase(name)) {
+                return profile;
             }
         }
         
@@ -108,8 +108,8 @@ public class DevelopmentProfileHandler {
 
         JSONArray developmentProfilesJson = new JSONArray();
         
-        for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            developmentProfilesJson.put(developmentProfile.toJSON());
+        for (DevelopmentProfile profile : developmentProfiles) {
+            developmentProfilesJson.put(profile.toJSON());
         }
         
         json.put("development_profiles", developmentProfilesJson);

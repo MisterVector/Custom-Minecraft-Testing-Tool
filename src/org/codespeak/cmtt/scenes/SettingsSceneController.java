@@ -16,7 +16,7 @@ import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
 
 /**
- * FXML controller class for the settings scene
+ * Controller class for the settings scene
  *
  * @author Vector
  */

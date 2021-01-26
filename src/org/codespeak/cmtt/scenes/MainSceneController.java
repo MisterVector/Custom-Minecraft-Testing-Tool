@@ -48,9 +48,9 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML private ListView<String> developmentProfileList;
     
     private DevelopmentProfile getDevelopmentProfile(String profileName) {
-        for (DevelopmentProfile developmentProfile : availableDevelopmentProfiles) {
-            if (developmentProfile.getName().equalsIgnoreCase(profileName)) {
-                return developmentProfile;
+        for (DevelopmentProfile profile : availableDevelopmentProfiles) {
+            if (profile.getName().equalsIgnoreCase(profileName)) {
+                return profile;
             }
         }
         
@@ -62,9 +62,9 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         List<DevelopmentProfile> developmentProfiles = DevelopmentProfileHandler.getProfiles();
         ObservableList<String> developmentProfileItems = developmentProfileList.getItems();
         
-        for (DevelopmentProfile developmentProfile : developmentProfiles) {
-            developmentProfileItems.add(developmentProfile.getName());
-            availableDevelopmentProfiles.add(developmentProfile);
+        for (DevelopmentProfile profile : developmentProfiles) {
+            developmentProfileItems.add(profile.getName());
+            availableDevelopmentProfiles.add(profile);
         }
     }    
 
@@ -138,7 +138,6 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     public void onSettingsMenuItemClick(ActionEvent event) {
         try {
             StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings");
-            SettingsSceneController controller = stageController.getController();
             Stage stage = stageController.getStage();
 
             stage.show();            

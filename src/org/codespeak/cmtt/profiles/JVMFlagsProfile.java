@@ -38,8 +38,8 @@ public class JVMFlagsProfile extends Profile {
     }
     
     /**
-     * Gets a JSON object from this class
-     * @return JSON representation of this class
+     * Converts this object to JSON
+     * @return JSON representation of this object
      */
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
