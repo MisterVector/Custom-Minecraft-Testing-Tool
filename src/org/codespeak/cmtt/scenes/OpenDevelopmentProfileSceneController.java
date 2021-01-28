@@ -157,6 +157,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         commands.add("-jar");
         commands.add("server.jar");
+        commands.add("--world");
+        commands.add(openedProfile.getServerWorldName());
 
         ServerTypes serverType = serverProfile.getServerType();
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());

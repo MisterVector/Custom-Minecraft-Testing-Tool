@@ -60,6 +60,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML TextArea jvmFlagsStringInput;
     @FXML ComboBox<String> jvmFlagsProfileChoice;
     @FXML ComboBox<String> serverProfilesChoice;
+    @FXML TextField serverWorldNameInput;
     @FXML CheckBox serverWorldsCheck;
     @FXML CheckBox updateOutdatedServerAutomaticallyCheck;
     @FXML CheckBox useServerGUICheck;
@@ -181,6 +182,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         lowerMemoryInput.setText(developmentProfile.getLowerMemory());
         upperMemoryInput.setText(developmentProfile.getUpperMemory());
         jvmFlagsStringInput.setText(developmentProfile.getJVMFlagsString());
+        serverWorldNameInput.setText(developmentProfile.getServerWorldName());
         serverWorldsCheck.setSelected(developmentProfile.isUsingServerWorlds());
         updateOutdatedServerAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedServerAutomatically());
         useServerGUICheck.setSelected(developmentProfile.isUsingServerGUI());
@@ -342,6 +344,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String upperMemory = upperMemoryInput.getText();
         String jvmFlagsString = jvmFlagsStringInput.getText();
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
+        String serverWorldName = serverWorldNameInput.getText();
         boolean serverWorlds = serverWorldsCheck.isSelected();
         boolean updateOutdatedServerAutomatically = updateOutdatedServerAutomaticallyCheck.isSelected();
         boolean useServerGUI = useServerGUICheck.isSelected();
@@ -349,6 +352,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         ConditionalAlert ca = new ConditionalAlert();
         Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
                         .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server for testing has not been chosen.")
+                        .addCondition(StringUtil.isNullOrEmpty(serverWorldName), "Server world name is blank.")
                         .getAlert();
         
         if (alert == null) {
@@ -401,6 +405,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setJVMFlagsString(jvmFlagsString);
             editedDevelopmentProfile.setServerProfile(serverProfile);
             editedDevelopmentProfile.setPlugins(plugins);
+            editedDevelopmentProfile.setServerWorldName(serverWorldName);
             editedDevelopmentProfile.setUsingServerWorlds(serverWorlds);
             editedDevelopmentProfile.setUpdateOutdatedServerAutomatically(updateOutdatedServerAutomatically);
             editedDevelopmentProfile.setUsingServerGUI(useServerGUI);
@@ -413,7 +418,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             
             profile.update();
         } else {
-            profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorlds,
+            profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds,
                                              updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);

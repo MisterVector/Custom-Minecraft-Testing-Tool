@@ -27,26 +27,28 @@ public class DevelopmentProfile extends ResourceProfile {
     private String upperMemory;
     private String jvmFlagsString;
     private ServerProfile serverProfile;
+    private String serverWorldName;
     private boolean serverWorlds;
     private boolean updateOutdatedServerAutomatically;
     private boolean useServerGUI;
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                    ServerProfile serverProfile, boolean serverWorlds, boolean updateOutdatedServerAutomatically,
-                                    boolean useServerGUI, List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorlds, updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                    ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
+                                    boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                     ServerProfile serverProfile, boolean serverWorlds, boolean updateOutdatedServerAutomatically,
-                                     boolean useServerGUI, List<Plugin> plugins) {
+                                     ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
+                                     boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
         this.upperMemory = upperMemory;
         this.jvmFlagsString = jvmFlagsString;
         this.serverProfile = serverProfile;
+        this.serverWorldName = serverWorldName;
         this.serverWorlds = serverWorlds;
         this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
         this.useServerGUI = useServerGUI;
@@ -116,6 +118,22 @@ public class DevelopmentProfile extends ResourceProfile {
      */
     public void setServerProfile(ServerProfile serverProfile) {
         this.serverProfile = serverProfile;
+    }
+    
+    /**
+     * Gets the server world name
+     * @return server world name
+     */
+    public String getServerWorldName() {
+        return serverWorldName;
+    }
+    
+    /**
+     * Sets the server world name
+     * @param serverWorldName server world name
+     */
+    public void setServerWorldName(String serverWorldName) {
+        this.serverWorldName = serverWorldName;
     }
     
     /**
@@ -293,6 +311,7 @@ public class DevelopmentProfile extends ResourceProfile {
         json.put("upper_memory", upperMemory);
         json.put("jvm_flags_string", jvmFlagsString);
         json.put("server_profile", serverProfile.getId());
+        json.put("server_world_name", serverWorldName);
         json.put("server_worlds", serverWorlds);
         json.put("update_outdated_server_automatically", updateOutdatedServerAutomatically);
         json.put("use_server_gui", useServerGUI);
@@ -313,6 +332,7 @@ public class DevelopmentProfile extends ResourceProfile {
         String upperMemory = "";
         String jvmFlagsString = "";
         ServerProfile serverProfile = null;
+        String serverWorldName = "";
         boolean serverWorlds = false;
         boolean updateOutdatedServerAutomatically = false;
         boolean useServerGUI = false;
@@ -342,6 +362,10 @@ public class DevelopmentProfile extends ResourceProfile {
             serverProfile = ServerProfileHandler.getProfile(json.getInt("server_profile"));
         }
         
+        if (json.has("server_world_name")) {
+            serverWorldName = json.getString("server_world_name");
+        }
+        
         if (json.has("server_worlds")) {
             serverWorlds = json.getBoolean("server_worlds");
         }
@@ -364,7 +388,7 @@ public class DevelopmentProfile extends ResourceProfile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, serverWorlds, updateOutdatedServerAutomatically,
+                                            serverProfile, serverWorldName, serverWorlds, updateOutdatedServerAutomatically,
                                             useServerGUI, plugins);
     }
     

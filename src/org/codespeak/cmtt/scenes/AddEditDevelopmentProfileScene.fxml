@@ -54,16 +54,16 @@
          </font>
       </Label>
       <ComboBox fx:id="serverProfilesChoice" layoutX="660.0" layoutY="59.0" prefHeight="25.0" prefWidth="257.0" />
-      <CheckBox fx:id="serverWorldsCheck" layoutX="491.0" layoutY="100.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
+      <CheckBox fx:id="serverWorldsCheck" layoutX="492.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
          <font>
             <Font size="14.0" />
          </font></CheckBox>
-      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="491.0" layoutY="132.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="492.0" layoutY="162.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="useServerGUICheck" layoutX="493.0" layoutY="163.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
+      <CheckBox fx:id="useServerGUICheck" layoutX="494.0" layoutY="193.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
          <font>
             <Font size="14.0" />
          </font>
@@ -79,5 +79,11 @@
       <Button layoutX="632.0" layoutY="616.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
       <Button layoutX="747.0" layoutY="665.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="844.0" layoutY="665.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
+      <Label layoutX="492.0" layoutY="100.0" text="Server World Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="serverWorldNameInput" layoutX="660.0" layoutY="96.0" prefHeight="25.0" prefWidth="257.0" text="world" />
    </children>
 </AnchorPane>
