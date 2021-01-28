@@ -21,7 +21,9 @@ import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.StageController;
+import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
+import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.SceneUtil;
 
@@ -152,6 +154,25 @@ public class ServerProfilesSceneController implements Initializable {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
             ServerProfile profile = getServerProfile(profileName);
+            List<DevelopmentProfile> developmentProfiles = DevelopmentProfileHandler.getProfilesUsingServerProfile(profile);
+            int developmentProfilesSize = developmentProfiles.size();
+            
+            if (developmentProfilesSize > 0) {
+                String profilesInUse = "";
+                
+                for (DevelopmentProfile developmentProfile : developmentProfiles) {
+                    if (!profilesInUse.isEmpty()) {
+                        profilesInUse += "\n";
+                    }
+                    
+                    profilesInUse += developmentProfile.getName();
+                }
+                
+                Alert alert = AlertUtil.createAlert("Cannot delete profile. It is in use by the following development profile" + (developmentProfilesSize > 1 ? "s" : "") + ":\n\n" + profilesInUse);
+                alert.show();
+                
+                return;
+            }
             
             profile.remove();
             

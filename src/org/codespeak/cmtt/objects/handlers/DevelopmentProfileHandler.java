@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
+import org.codespeak.cmtt.profiles.ServerProfile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -58,6 +59,25 @@ public class DevelopmentProfileHandler {
         }
         
         return null;
+    }
+
+    /**
+     * Gets a list of development profiles using the specified server profile
+     * @param serverProfile server profile to check for each development profile
+     * @return list of development profiles using the specified server profile
+     */
+    public static List<DevelopmentProfile> getProfilesUsingServerProfile(ServerProfile serverProfile) {
+        List<DevelopmentProfile> ret = new ArrayList<DevelopmentProfile>();
+        
+        for (DevelopmentProfile profile : developmentProfiles) {
+            ServerProfile currentServerProfile = profile.getServerProfile();
+            
+            if (currentServerProfile.equals(serverProfile)) {
+                ret.add(profile);
+            }
+        }
+        
+        return ret;
     }
     
     /**
