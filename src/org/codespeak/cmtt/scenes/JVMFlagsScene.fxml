@@ -15,6 +15,11 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="58.0" prefHeight="27.0" prefWidth="462.0" text="Profile Details">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
       <Label layoutX="19.0" layoutY="95.0" text="Profile Name">
          <font>
             <Font size="14.0" />
@@ -27,21 +32,16 @@
          </font>
       </Label>
       <TextArea fx:id="flagsStringInput" layoutX="19.0" layoutY="161.0" prefHeight="112.0" prefWidth="462.0" />
+      <Label alignment="TOP_CENTER" layoutX="19.0" layoutY="283.0" prefHeight="20.0" prefWidth="462.0" text="Profile List">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
       <ListView fx:id="profileList" layoutX="21.0" layoutY="319.0" prefHeight="239.0" prefWidth="462.0" />
       <Button fx:id="addModifyProfileButton" layoutX="18.0" layoutY="569.0" mnemonicParsing="false" onAction="#onAddModifyProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Add Profile" />
       <Button layoutX="135.0" layoutY="570.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Edit Profile" />
       <Button fx:id="cancelEditButton" disable="true" layoutX="252.0" layoutY="569.0" mnemonicParsing="false" onAction="#onCancelEditButtonClick" prefHeight="25.0" prefWidth="107.0" text="Cancel Edit" />
       <Button layoutX="374.0" layoutY="570.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="25.0" prefWidth="107.0" text="Delete Profile" />
       <Button layoutX="374.0" layoutY="629.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="107.0" text="Close" />
-      <Label alignment="TOP_CENTER" layoutX="19.0" layoutY="283.0" prefHeight="20.0" prefWidth="462.0" text="Profile List">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="58.0" prefHeight="27.0" prefWidth="462.0" text="Profile Details">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

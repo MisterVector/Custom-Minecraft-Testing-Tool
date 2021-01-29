@@ -24,12 +24,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="394.0" layoutY="166.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="78.0" text="OK" />
-      <Button layoutX="501.0" layoutY="166.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="78.0" text="Close" />
       <CheckBox fx:id="checkUpdateOnStartupCheck" layoutX="18.0" layoutY="138.0" mnemonicParsing="false" text="Check Update On Startup">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
+      <Button layoutX="394.0" layoutY="166.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="78.0" text="OK" />
+      <Button layoutX="501.0" layoutY="166.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="78.0" text="Close" />
    </children>
 </AnchorPane>

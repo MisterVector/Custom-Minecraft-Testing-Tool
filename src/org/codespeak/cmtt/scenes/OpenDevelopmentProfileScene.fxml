@@ -19,6 +19,7 @@
          </font>
       </Label>
       <ComboBox fx:id="serverProfileChoice" layoutX="143.0" layoutY="62.0" onAction="#onSelectTestServer" prefHeight="25.0" prefWidth="268.0" />
+      <Button layoutX="425.0" layoutY="62.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
       <Label layoutX="13.0" layoutY="98.0" text="Minecraft Version">
          <font>
             <Font size="14.0" />
@@ -40,9 +41,8 @@
          </font>
       </Label>
       <Button layoutX="15.0" layoutY="170.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Start Server" />
-      <Button disable="true" layoutX="288.0" layoutY="170.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Update Server" />
-      <Button layoutX="425.0" layoutY="62.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
-      <Button layoutX="425.0" layoutY="170.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
       <Button layoutX="153.0" layoutY="170.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="120.0" text="Open Logs Folder" />
+      <Button disable="true" layoutX="288.0" layoutY="170.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Update Server" />
+      <Button layoutX="425.0" layoutY="170.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
    </children>
 </AnchorPane>

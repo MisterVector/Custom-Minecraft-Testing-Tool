@@ -54,6 +54,12 @@
          </font>
       </Label>
       <ComboBox fx:id="serverProfilesChoice" layoutX="660.0" layoutY="59.0" prefHeight="25.0" prefWidth="257.0" />
+      <Label layoutX="492.0" layoutY="100.0" text="Server World Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="serverWorldNameInput" layoutX="660.0" layoutY="96.0" prefHeight="25.0" prefWidth="257.0" text="world" />
       <CheckBox fx:id="serverWorldsCheck" layoutX="492.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
          <font>
             <Font size="14.0" />
@@ -79,11 +85,5 @@
       <Button layoutX="632.0" layoutY="616.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
       <Button layoutX="747.0" layoutY="665.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="844.0" layoutY="665.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
-      <Label layoutX="492.0" layoutY="100.0" text="Server World Name">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="serverWorldNameInput" layoutX="660.0" layoutY="96.0" prefHeight="25.0" prefWidth="257.0" text="world" />
    </children>
 </AnchorPane>
