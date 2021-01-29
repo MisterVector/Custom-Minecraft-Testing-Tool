@@ -178,6 +178,8 @@ public class ServerProfilesSceneController implements Initializable {
             
             items.remove(selectedIndex);
             availableServerProfiles.remove(profile);
+            
+            ServerProfileHandler.deleteProfile(profile.getId());
         }
     }
     
