@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="226.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="264.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
    <children>
       <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="35.0" prefWidth="673.0" text="Add Server Profile">
          <font>
@@ -32,8 +32,13 @@
          </font>
       </Label>
       <ComboBox fx:id="serverTypeChoices" layoutX="141.0" layoutY="118.0" onAction="#onSelectServerType" prefHeight="25.0" prefWidth="196.0" />
-      <Button layoutX="16.0" layoutY="153.0" mnemonicParsing="false" onAction="#onSelectServerFileButtonClick" prefHeight="25.0" prefWidth="111.0" text="Select Server File" />
-      <Label fx:id="serverPathLabel" layoutX="141.0" layoutY="156.0">
+      <Label layoutX="14.0" layoutY="154.0" text="Server File Location">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#onSelectServerFileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Select File ..." />
+      <Label fx:id="serverPathLabel" layoutX="138.0" layoutY="189.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -50,7 +55,7 @@
          </font>
       </Label>
       <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="545.0" layoutY="91.0" prefHeight="25.0" prefWidth="176.0" />
-      <Button layoutX="523.0" layoutY="187.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="629.0" layoutY="187.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
+      <Button layoutX="523.0" layoutY="224.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="629.0" layoutY="224.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>
