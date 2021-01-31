@@ -23,6 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.Settings;
+import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
 import org.codespeak.cmtt.objects.StageController;
@@ -224,6 +227,16 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onAddPluginButtonClick(ActionEvent event) {
         FileChooser chooser = new FileChooser();
+        Settings settings = Configuration.getSettings();
+        String pluginJarfileBaseDirectoryRaw = settings.getSetting(SettingFields.PLUGIN_JARFILE_BASE_DIRECTORY);
+        
+        if (!StringUtil.isNullOrEmpty(pluginJarfileBaseDirectoryRaw)) {
+            File pluginJarfileBaseDirectory = new File(pluginJarfileBaseDirectoryRaw);
+
+            if (pluginJarfileBaseDirectory.exists()) {
+                chooser.setInitialDirectory(pluginJarfileBaseDirectory);
+            }
+        }
         
         chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
 

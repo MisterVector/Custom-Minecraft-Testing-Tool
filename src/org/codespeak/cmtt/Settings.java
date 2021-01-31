@@ -15,6 +15,7 @@ public class Settings {
 
     public enum SettingFields {
         MINECRAFT_LAUNCHER_LOCATION("minecraft_launcher_location", ""),
+        PLUGIN_JARFILE_BASE_DIRECTORY("plugin_jarfile_base_directory", ""),
         CHECK_UPDATE_ON_STARTUP("check_update_on_startup", true);
         
         private final String key;

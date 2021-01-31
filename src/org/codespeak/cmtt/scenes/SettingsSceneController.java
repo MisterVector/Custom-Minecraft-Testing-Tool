@@ -9,11 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
+import org.codespeak.cmtt.util.StringUtil;
 
 /**
  * Controller class for the settings scene
@@ -26,6 +28,7 @@ public class SettingsSceneController implements Initializable {
     
     @FXML Label settingsLabel;
     @FXML Label minecraftLauncherLocationLabel;
+    @FXML Label pluginJarfileBaseDirectoryLabel;
     @FXML CheckBox checkUpdateOnStartupCheck;
     
     /**
@@ -36,6 +39,7 @@ public class SettingsSceneController implements Initializable {
         settings = Configuration.getSettings();
         
         minecraftLauncherLocationLabel.setText(settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION));
+        pluginJarfileBaseDirectoryLabel.setText(settings.getSetting(SettingFields.PLUGIN_JARFILE_BASE_DIRECTORY));
         checkUpdateOnStartupCheck.setSelected(settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP));
     }    
 
@@ -50,8 +54,29 @@ public class SettingsSceneController implements Initializable {
     }
     
     @FXML
+    public void onPluginJarfileBaseDirectorSelectDirectory(ActionEvent event) {
+        DirectoryChooser chooser = new DirectoryChooser();
+        String pluginJarfileBaseDirectoryRaw = pluginJarfileBaseDirectoryLabel.getText();
+        
+        if (!StringUtil.isNullOrEmpty(pluginJarfileBaseDirectoryRaw)) {
+            File pluginJarfileBaseDirectory = new File(pluginJarfileBaseDirectoryRaw);
+            
+            if (pluginJarfileBaseDirectory.exists()) {
+                chooser.setInitialDirectory(pluginJarfileBaseDirectory);
+            }
+        }
+        
+        File chosenDirectory = chooser.showDialog(null);
+        
+        if (chosenDirectory != null) {
+            pluginJarfileBaseDirectoryLabel.setText(chosenDirectory.toString());
+        }
+    }
+    
+    @FXML
     public void onOKButtonClick(ActionEvent event) {
         settings.setSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION, minecraftLauncherLocationLabel.getText());
+        settings.setSetting(SettingFields.PLUGIN_JARFILE_BASE_DIRECTORY, pluginJarfileBaseDirectoryLabel.getText());
         settings.setSetting(SettingFields.CHECK_UPDATE_ON_STARTUP, checkUpdateOnStartupCheck.isSelected());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
