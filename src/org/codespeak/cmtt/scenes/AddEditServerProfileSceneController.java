@@ -16,6 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.Settings;
+import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.ServerTypes;
@@ -99,6 +102,17 @@ public class AddEditServerProfileSceneController implements Initializable {
 
         if (serverPath != null) {
             chooser.setInitialDirectory(serverPath.getParent().toFile());
+        } else {
+            Settings settings = Configuration.getSettings();
+            String serverJarfileBaseDirectoryRaw = settings.getSetting(SettingFields.SERVER_JARFILE_BASE_DIRECTORY);
+            
+            if (!StringUtil.isNullOrEmpty(serverJarfileBaseDirectoryRaw)) {
+                File serverJarfileBaseDirectory = new File(serverJarfileBaseDirectoryRaw);
+                
+                if (serverJarfileBaseDirectory.exists()) {
+                    chooser.setInitialDirectory(serverJarfileBaseDirectory);
+                }
+            }
         }
         
         File chosenFile = chooser.showOpenDialog(null);

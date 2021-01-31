@@ -29,6 +29,7 @@ public class SettingsSceneController implements Initializable {
     @FXML Label settingsLabel;
     @FXML Label minecraftLauncherLocationLabel;
     @FXML Label pluginJarfileBaseDirectoryLabel;
+    @FXML Label serverJarfileBaseDirectoryLabel;
     @FXML CheckBox checkUpdateOnStartupCheck;
     
     /**
@@ -40,6 +41,7 @@ public class SettingsSceneController implements Initializable {
         
         minecraftLauncherLocationLabel.setText(settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION));
         pluginJarfileBaseDirectoryLabel.setText(settings.getSetting(SettingFields.PLUGIN_JARFILE_BASE_DIRECTORY));
+        serverJarfileBaseDirectoryLabel.setText(settings.getSetting(SettingFields.SERVER_JARFILE_BASE_DIRECTORY));
         checkUpdateOnStartupCheck.setSelected(settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP));
     }    
 
@@ -74,9 +76,30 @@ public class SettingsSceneController implements Initializable {
     }
     
     @FXML
+    public void onServerJarfileBaseDirectorSelectDirectory(ActionEvent event) {
+        DirectoryChooser chooser = new DirectoryChooser();
+        String serverJarfileBaseDirectoryRaw = serverJarfileBaseDirectoryLabel.getText();
+        
+        if (!StringUtil.isNullOrEmpty(serverJarfileBaseDirectoryRaw)) {
+            File serverJarfileBaseDirectory = new File(serverJarfileBaseDirectoryRaw);
+            
+            if (serverJarfileBaseDirectory.exists()) {
+                chooser.setInitialDirectory(serverJarfileBaseDirectory);
+            }
+        }
+        
+        File chosenDirectory = chooser.showDialog(null);
+        
+        if (chosenDirectory != null) {
+            serverJarfileBaseDirectoryLabel.setText(chosenDirectory.toString());
+        }
+    }
+    
+    @FXML
     public void onOKButtonClick(ActionEvent event) {
         settings.setSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION, minecraftLauncherLocationLabel.getText());
         settings.setSetting(SettingFields.PLUGIN_JARFILE_BASE_DIRECTORY, pluginJarfileBaseDirectoryLabel.getText());
+        settings.setSetting(SettingFields.SERVER_JARFILE_BASE_DIRECTORY, serverJarfileBaseDirectoryLabel.getText());
         settings.setSetting(SettingFields.CHECK_UPDATE_ON_STARTUP, checkUpdateOnStartupCheck.isSelected());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
