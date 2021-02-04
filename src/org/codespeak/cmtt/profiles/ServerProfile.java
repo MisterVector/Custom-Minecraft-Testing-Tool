@@ -160,6 +160,25 @@ public class ServerProfile extends ResourceProfile {
     }
 
     /**
+     * Gets the path to the eula.txt file for this server profile
+     * @return 
+     */
+    public Path getEULALocation() {
+        return getProfileLocation().resolve("eula.txt");
+    }
+    
+    /**
+     * Checks if the server file in the profile directory is present
+     * @return if the server file in the profile directory is present
+     */
+    public boolean hasNecessaryFiles() {
+        Path serverLocation = getServerLocation();
+        Path eulaLocation = getEULALocation();
+        
+        return serverLocation.toFile().exists() && eulaLocation.toFile().exists();
+    }
+    
+    /**
      * Checks if this server has an update
      * @return if this server has an update 
      */
@@ -190,12 +209,24 @@ public class ServerProfile extends ResourceProfile {
     
     @Override
     public void update() {
-        Path existingServerFile = getServerLocation();
-
+        File fileProfileLocation = getProfileLocation().toFile();
+        Path serverFile = getServerLocation();
+        Path eulaFile = getEULALocation();
+        
+        if (!fileProfileLocation.exists()) {
+            fileProfileLocation.mkdirs();
+        }
+        
         try {
-            Files.copy(serverPath, existingServerFile, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(serverPath, serverFile, StandardCopyOption.REPLACE_EXISTING);
             
             checksum = MiscUtil.getChecksum(serverPath);
+            
+            if (!eulaFile.toFile().exists()) {
+                String eulaText = MiscUtil.getEULAText();
+
+                Files.write(eulaFile, eulaText.getBytes());
+            }
         } catch (IOException ex) {
 
         }            

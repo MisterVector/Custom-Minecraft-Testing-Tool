@@ -126,7 +126,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
 
-        if (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.hasUpdate()) {
+        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.hasUpdate())) {
             serverProfile.update();
         }
         
