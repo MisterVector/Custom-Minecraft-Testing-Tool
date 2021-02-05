@@ -17,7 +17,7 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class ServerProfile extends ResourceProfile {
+public class ServerProfile extends Profile {
    
     private String minecraftVersion;
     private ServerTypes serverType;
@@ -188,26 +188,9 @@ public class ServerProfile extends ResourceProfile {
         return !checkChecksum.equals(checksum);
     }
     
-    @Override
-    public void finishSetup() {
-        Path profileFolder = getProfileLocation();
-        Path profileServerFile = getServerLocation();
-        Path profileEULAFile = profileFolder.resolve("eula.txt");
-        String eulaText = MiscUtil.getEULAText();
-
-        profileFolder.toFile().mkdir();
-
-        try {
-            Files.copy(serverPath, profileServerFile);
-            Files.write(profileEULAFile, eulaText.getBytes());
-
-            checksum = MiscUtil.getChecksum(serverPath);
-        } catch (IOException ex) {
-
-        }            
-    }
-    
-    @Override
+    /**
+     * Updates this server profile. Makes sure all files are in place as well
+     */
     public void update() {
         File fileProfileLocation = getProfileLocation().toFile();
         Path serverFile = getServerLocation();
@@ -232,7 +215,9 @@ public class ServerProfile extends ResourceProfile {
         }            
     }
     
-    @Override
+    /**
+     * Removes this profile and all files associated with it
+     */
     public void remove() {
         Path profileFolder = getProfileLocation();
 

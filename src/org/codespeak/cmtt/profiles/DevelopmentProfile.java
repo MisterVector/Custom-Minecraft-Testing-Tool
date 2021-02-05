@@ -21,7 +21,7 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class DevelopmentProfile extends ResourceProfile {
+public class DevelopmentProfile extends Profile {
 
     private String lowerMemory;
     private String upperMemory;
@@ -232,49 +232,9 @@ public class DevelopmentProfile extends ResourceProfile {
         return getLocation().resolve("plugins");
     }
     
-    @Override
-    public void finishSetup() {
-        Path pluginsLocation = getPluginsLocation();
-        
-        pluginsLocation.toFile().mkdirs();
-        
-        for (Plugin plugin : plugins) {
-            Path pluginSourcePath = plugin.getPath();
-            Path pluginPath = pluginsLocation.resolve(plugin.getFileName());
-            String checksum = MiscUtil.getChecksum(pluginSourcePath);
-            
-            try {
-                Files.copy(pluginSourcePath, pluginPath);
-                
-                plugin.setChecksum(checksum);
-            } catch (IOException ex) {
-                
-            }
-        }
-    }
-    
-    @Override
-    public void update() {
-        Path pluginsLocation = getPluginsLocation();
-        
-        for (Plugin plugin : plugins) {
-            Path sourcePath = plugin.getPath();
-            String checksum = MiscUtil.getChecksum(sourcePath);
-            String originalChecksum = plugin.getChecksum();
-            
-            if (!checksum.equals(originalChecksum)) {
-                Path localPath = pluginsLocation.resolve(plugin.getFileName());
-                
-                try {
-                    Files.copy(sourcePath, localPath, StandardCopyOption.REPLACE_EXISTING);                    
-                } catch (IOException ex) {
-                    
-                }
-            }
-        }
-    }
-    
-    @Override
+    /**
+     * Removes this profile and all files associated with it
+     */
     public void remove() {
         Path profileLocation = getLocation();
         
