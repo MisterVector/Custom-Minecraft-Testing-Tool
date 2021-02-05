@@ -1,5 +1,6 @@
 package org.codespeak.cmtt.objects;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -97,25 +98,34 @@ public class Plugin implements Cloneable {
     }
     
     /**
-     * Updates this plugin if it is outdated or hasn't been copied yet
+     * Updates this plugin if it is outdated or hasn't been copied yet. It makes
+     * sure that the plugin directory exists as well
      * @param pluginsLocation location of the plugins folder this plugin
      * resides in 
      */
     public void updateIfNeeded(Path pluginsLocation) {
+        File filePluginsLocation = pluginsLocation.toFile();
         Path pluginFilePath = pluginsLocation.resolve(path.getFileName().toString());
         String tempChecksum = null;
         boolean update = false;
         
-        if (!pluginFilePath.toFile().exists()) {
+        if (!filePluginsLocation.exists()) {
+            filePluginsLocation.mkdirs();
+
             update = true;
+        } else {
+            if (!pluginFilePath.toFile().exists()) {
+                update = true;
+            }
         }
         
         if (!update) {
             String checkChecksum = MiscUtil.getChecksum(path);
 
             if (!checkChecksum.equals(checksum)) {
-                update = true;
                 tempChecksum = checkChecksum;
+                
+                update = true;
             }
         }
 

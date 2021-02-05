@@ -428,15 +428,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             }
             
             profile = editedDevelopmentProfile;
-            
-            profile.update();
         } else {
             profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds,
                                              updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);
-
-            profile.finishSetup();
         }
 
         processor.processDevelopmentProfile(profile, editMode);
