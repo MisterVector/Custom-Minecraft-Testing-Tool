@@ -166,7 +166,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         if (!openedProfile.isUsingServerWorlds()) {
             commands.add("--" + worldsArgument);
 
-            Path worldsLocation = openedProfile.getLocation().resolve("worlds").resolve(Integer.toString(serverProfile.getId())).toAbsolutePath();
+            Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
             File fileWorldsLocation = worldsLocation.toFile();
 
             if (!fileWorldsLocation.exists()) {

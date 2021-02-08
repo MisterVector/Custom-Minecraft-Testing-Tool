@@ -225,6 +225,15 @@ public class DevelopmentProfile extends Profile {
     }
     
     /**
+     * Gets the world location from the specified server profile
+     * @param profile server profile to get world location from
+     * @return location of server world
+     */
+    public Path getWorldLocation(ServerProfile profile) {
+        return getLocation().resolve("worlds").resolve(Integer.toString(profile.getId())).toAbsolutePath();        
+    }
+    
+    /**
      * Gets the location of this development profile's plugins folder
      * @return location of this development profile's plugins folder
      */
