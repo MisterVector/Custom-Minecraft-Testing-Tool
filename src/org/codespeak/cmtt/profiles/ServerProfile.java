@@ -221,14 +221,16 @@ public class ServerProfile extends Profile {
     public void remove() {
         Path profileFolder = getProfileLocation();
 
-        try {
-            Files.walk(profileFolder)
-                 .sorted(Comparator.reverseOrder())
-                 .map(Path::toFile)
-                 .forEach(File::delete);
-        } catch (IOException ex) {
+        if (profileFolder.toFile().exists()) {
+            try {
+                Files.walk(profileFolder)
+                     .sorted(Comparator.reverseOrder())
+                     .map(Path::toFile)
+                     .forEach(File::delete);
+            } catch (IOException ex) {
 
-        }            
+            }            
+        }
     }
 
     /**
