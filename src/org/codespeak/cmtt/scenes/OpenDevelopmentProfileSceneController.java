@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -42,6 +43,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML private ComboBox<String> serverProfileChoice;
     @FXML private Label minecraftVersionLabel;
     @FXML private Label serverTypeLabel;
+    @FXML private Button updateServerButton;
     
     private List<String> getListFromJVMFlags(String jvmFlagsString) {
         List<String> ret = new ArrayList<String>();
@@ -99,6 +101,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         serverProfileChoice.getSelectionModel().select(serverProfile.getName());                
         selectServerProfile(serverProfile);
+        
+        if (openedProfile.isUpdatingOutdatedServerAutomatically()) {
+            updateServerButton.setDisable(true);
+        }
     }
     
     @FXML
@@ -235,6 +241,30 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         }
     }
             
+    @FXML
+    public void onUpdateServerButtonClick(ActionEvent event) {
+        Path serverPath = serverProfile.getServerPath();
+        
+        if (!serverPath.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("Cannot update server. The source file does not exist.");
+            alert.show();
+            
+            return;
+        }
+        
+        if (!serverProfile.hasNecessaryFiles() || serverProfile.hasUpdate()) {
+            serverProfile.update();
+            
+            Alert alert = AlertUtil.createAlert("The server has been updated.");
+            alert.show();
+            
+            return;
+        }
+        
+        Alert alert = AlertUtil.createAlert("The server is already up-to-date.");
+        alert.show();
+    }
+    
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
