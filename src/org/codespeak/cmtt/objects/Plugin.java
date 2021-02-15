@@ -96,6 +96,18 @@ public class Plugin implements Cloneable {
     public Plugin copy() {
         return new Plugin(id, Paths.get(path.toString()), checksum);
     }
+
+    /**
+     * Checks if the plugin file in the plugins folder exists
+     * @param pluginsFolderLocation the plugin folder that this plugin
+     * resides in
+     * @return if the plugin file in the plugins folder exists
+     */
+    public boolean hasPluginFile(Path pluginsFolderLocation) {
+        Path pluginLocation = pluginsFolderLocation.resolve(path.getFileName());
+        
+        return pluginLocation.toFile().exists();
+    }
     
     /**
      * Updates this plugin if it is outdated or hasn't been copied yet. It makes

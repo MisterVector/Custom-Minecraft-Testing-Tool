@@ -190,7 +190,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             
             if (!plugins.isEmpty()) {
                 for (Plugin plugin : plugins) {
-                    if (openedProfile.isUpdatingOutdatedPluginsAutomatically()) {
+                    if (!plugin.hasPluginFile(pluginsLocation) || openedProfile.isUpdatingOutdatedPluginsAutomatically()) {
                         plugin.updateIfNeeded(pluginsLocation);                        
                     }
                 }
