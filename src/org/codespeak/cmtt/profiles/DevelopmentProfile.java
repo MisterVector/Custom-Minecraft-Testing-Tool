@@ -29,19 +29,22 @@ public class DevelopmentProfile extends Profile {
     private ServerProfile serverProfile;
     private String serverWorldName;
     private boolean serverWorlds;
+    private boolean updateOudatedPluginsAutomatically;
     private boolean updateOutdatedServerAutomatically;
     private boolean useServerGUI;
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
                                     ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
-                                    boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds, updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                    boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
+                                    List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
                                      ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
-                                     boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
+                                     boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
+                                     List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
@@ -50,6 +53,7 @@ public class DevelopmentProfile extends Profile {
         this.serverProfile = serverProfile;
         this.serverWorldName = serverWorldName;
         this.serverWorlds = serverWorlds;
+        this.updateOudatedPluginsAutomatically = updateOutdatedPluginsAutomatically;
         this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
         this.useServerGUI = useServerGUI;
         this.plugins = plugins;
@@ -151,6 +155,26 @@ public class DevelopmentProfile extends Profile {
      */
     public void setUsingServerWorlds(boolean serverWorlds) {
         this.serverWorlds = serverWorlds;
+    }
+    
+    /**
+     * Gets if this development profile is updating outdated
+     * plugins automatically
+     * @return if this development profile is updating outdated
+     * plugins automatically
+     */
+    public boolean isUpdatingOutdatedPluginsAutomatically() {
+        return updateOudatedPluginsAutomatically;
+    }
+    
+    /**
+     * Gets if this development profile is updating outdated
+     * plugins automatically
+     * @param updateOutdatedPluginsAutomatically if this development profile is
+     * updating outdated plugins automatically
+     */
+    public void setUpdatingOutdatedPluginsAutomatically(boolean updateOutdatedPluginsAutomatically) {
+        this.updateOudatedPluginsAutomatically = updateOutdatedPluginsAutomatically;
     }
     
     /**
@@ -282,6 +306,7 @@ public class DevelopmentProfile extends Profile {
         json.put("server_profile", serverProfile.getId());
         json.put("server_world_name", serverWorldName);
         json.put("server_worlds", serverWorlds);
+        json.put("update_outdated_plugins_automatically", updateOudatedPluginsAutomatically);
         json.put("update_outdated_server_automatically", updateOutdatedServerAutomatically);
         json.put("use_server_gui", useServerGUI);
         json.put("plugins", pluginsJson);
@@ -303,6 +328,7 @@ public class DevelopmentProfile extends Profile {
         ServerProfile serverProfile = null;
         String serverWorldName = "";
         boolean serverWorlds = false;
+        boolean updateOutdatedPluginsAutomatically = false;
         boolean updateOutdatedServerAutomatically = false;
         boolean useServerGUI = false;
         List<Plugin> plugins = new ArrayList<Plugin>();
@@ -339,6 +365,10 @@ public class DevelopmentProfile extends Profile {
             serverWorlds = json.getBoolean("server_worlds");
         }
         
+        if (json.has("update_outdated_plugins_automatically")) {
+            updateOutdatedPluginsAutomatically = json.getBoolean("update_outdated_plugins_automatically");
+        }
+        
         if (json.has("update_outdated_server_automatically")) {
             updateOutdatedServerAutomatically = json.getBoolean("update_outdated_server_automatically");
         }
@@ -357,8 +387,8 @@ public class DevelopmentProfile extends Profile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, serverWorldName, serverWorlds, updateOutdatedServerAutomatically,
-                                            useServerGUI, plugins);
+                                            serverProfile, serverWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
+                                            updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
 }

@@ -65,6 +65,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML ComboBox<String> serverProfilesChoice;
     @FXML TextField serverWorldNameInput;
     @FXML CheckBox serverWorldsCheck;
+    @FXML CheckBox updateOutdatedPluginsAutomaticallyCheck;
     @FXML CheckBox updateOutdatedServerAutomaticallyCheck;
     @FXML CheckBox useServerGUICheck;
     @FXML ListView<String> pluginList;
@@ -187,6 +188,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         jvmFlagsStringInput.setText(developmentProfile.getJVMFlagsString());
         serverWorldNameInput.setText(developmentProfile.getServerWorldName());
         serverWorldsCheck.setSelected(developmentProfile.isUsingServerWorlds());
+        updateOutdatedPluginsAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedPluginsAutomatically());
         updateOutdatedServerAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedServerAutomatically());
         useServerGUICheck.setSelected(developmentProfile.isUsingServerGUI());
         serverProfilesChoice.getSelectionModel().select(developmentProfile.getServerProfile().getName());
@@ -359,6 +361,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
         String serverWorldName = serverWorldNameInput.getText();
         boolean serverWorlds = serverWorldsCheck.isSelected();
+        boolean updateOutdatedPluginsAutomatically = updateOutdatedPluginsAutomaticallyCheck.isSelected();
         boolean updateOutdatedServerAutomatically = updateOutdatedServerAutomaticallyCheck.isSelected();
         boolean useServerGUI = useServerGUICheck.isSelected();
 
@@ -420,6 +423,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setPlugins(plugins);
             editedDevelopmentProfile.setServerWorldName(serverWorldName);
             editedDevelopmentProfile.setUsingServerWorlds(serverWorlds);
+            editedDevelopmentProfile.setUpdatingOutdatedPluginsAutomatically(updateOutdatedPluginsAutomatically);
             editedDevelopmentProfile.setUpdateOutdatedServerAutomatically(updateOutdatedServerAutomatically);
             editedDevelopmentProfile.setUsingServerGUI(useServerGUI);
 
@@ -430,7 +434,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             profile = editedDevelopmentProfile;
         } else {
             profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds,
-                                             updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                             updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);
         }
