@@ -110,49 +110,35 @@ public class Plugin implements Cloneable {
     }
     
     /**
+     * Checks if this plugin has an update
+     * @return if this plugin has an update
+     */
+    public boolean hasUpdate() {
+        String currentChecksum = MiscUtil.getChecksum(path);
+        
+        return !currentChecksum.equals(checksum);
+    }
+    
+    /**
      * Updates this plugin if it is outdated or hasn't been copied yet. It makes
      * sure that the plugin directory exists as well
      * @param pluginsLocation location of the plugins folder this plugin
      * resides in 
      */
-    public void updateIfNeeded(Path pluginsLocation) {
+    public void update(Path pluginsLocation) {
         File filePluginsLocation = pluginsLocation.toFile();
         Path pluginFilePath = pluginsLocation.resolve(path.getFileName().toString());
-        String tempChecksum = null;
-        boolean update = false;
         
         if (!filePluginsLocation.exists()) {
             filePluginsLocation.mkdirs();
-
-            update = true;
-        } else {
-            if (!pluginFilePath.toFile().exists()) {
-                update = true;
-            }
-        }
-        
-        if (!update) {
-            String checkChecksum = MiscUtil.getChecksum(path);
-
-            if (!checkChecksum.equals(checksum)) {
-                tempChecksum = checkChecksum;
-                
-                update = true;
-            }
         }
 
-        if (update) {
-            try {
-                Files.copy(path, pluginFilePath, StandardCopyOption.REPLACE_EXISTING);
+        try {
+            Files.copy(path, pluginFilePath, StandardCopyOption.REPLACE_EXISTING);
 
-                if (tempChecksum != null) {
-                    checksum = tempChecksum;
-                } else {
-                    checksum = MiscUtil.getChecksum(path);
-                }
-            } catch (IOException ex) {
+            checksum = MiscUtil.getChecksum(path);
+        } catch (IOException ex) {
 
-            }
         }
     }
     
