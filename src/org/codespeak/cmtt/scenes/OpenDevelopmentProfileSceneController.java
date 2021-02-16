@@ -43,6 +43,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML private ComboBox<String> serverProfileChoice;
     @FXML private Label minecraftVersionLabel;
     @FXML private Label serverTypeLabel;
+    @FXML private Button updatePluginsButton;
     @FXML private Button updateServerButton;
     
     private List<String> getListFromJVMFlags(String jvmFlagsString) {
@@ -101,6 +102,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         serverProfileChoice.getSelectionModel().select(serverProfile.getName());                
         selectServerProfile(serverProfile);
+        
+        if (openedProfile.isUpdatingOutdatedPluginsAutomatically()) {
+            updatePluginsButton.setDisable(true);
+        }
         
         if (openedProfile.isUpdatingOutdatedServerAutomatically()) {
             updateServerButton.setDisable(true);
@@ -264,6 +269,37 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         }
         
         Alert alert = AlertUtil.createAlert("The server is already up-to-date.");
+        alert.show();
+    }
+
+    @FXML
+    public void onUpdatePluginsButtonClick(ActionEvent event) {
+        List<Plugin> plugins = openedProfile.getPlugins();
+        Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
+        int pluginsUpdated = 0;
+        
+        if (plugins.isEmpty()) {
+            Alert alert = AlertUtil.createAlert("This profile has no plugins.");
+            alert.show();
+            
+            return;
+        }
+
+        for (Plugin plugin : plugins) {
+            if (plugin.hasUpdate()) {
+                plugin.update(pluginsLocation);
+                
+                pluginsUpdated++;
+            }
+        }
+        
+        String updateMsg = "All plugins are up-to-date.";
+        
+        if (pluginsUpdated > 0) {
+            updateMsg = pluginsUpdated + " plugin" + (pluginsUpdated > 1 ? "s were" : " was") + " updated.";
+        }
+        
+        Alert alert = AlertUtil.createAlert(updateMsg);
         alert.show();
     }
     

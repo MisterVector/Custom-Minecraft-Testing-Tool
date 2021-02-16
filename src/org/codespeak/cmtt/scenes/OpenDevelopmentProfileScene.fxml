@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="207.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="207.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
    <children>
-      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="519.0" text="\%p">
+      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="643.0" text="\%p">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -18,8 +18,8 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="serverProfileChoice" layoutX="143.0" layoutY="62.0" onAction="#onSelectTestServer" prefHeight="25.0" prefWidth="268.0" />
-      <Button layoutX="425.0" layoutY="62.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
+      <ComboBox fx:id="serverProfileChoice" layoutX="143.0" layoutY="62.0" onAction="#onSelectTestServer" prefHeight="25.0" prefWidth="392.0" />
+      <Button layoutX="551.0" layoutY="62.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
       <Label layoutX="13.0" layoutY="98.0" text="Minecraft Version">
          <font>
             <Font size="14.0" />
@@ -43,6 +43,7 @@
       <Button layoutX="15.0" layoutY="170.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Start Server" />
       <Button layoutX="153.0" layoutY="170.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="120.0" text="Open Logs Folder" />
       <Button fx:id="updateServerButton" layoutX="288.0" layoutY="170.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Update Server" />
-      <Button layoutX="425.0" layoutY="170.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button layoutX="551.0" layoutY="170.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button fx:id="updatePluginsButton" layoutX="425.0" layoutY="170.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Plugins" />
    </children>
 </AnchorPane>
