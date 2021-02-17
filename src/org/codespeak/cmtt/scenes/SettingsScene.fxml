@@ -46,12 +46,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox fx:id="checkUpdateOnStartupCheck" layoutX="14.0" layoutY="274.0" mnemonicParsing="false" text="Check Update On Startup">
+      <CheckBox fx:id="checkUpdateOnStartupCheck" layoutX="357.0" layoutY="270.0" mnemonicParsing="false" text="Check Update On Startup">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
       <Button layoutX="390.0" layoutY="304.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="78.0" text="OK" />
       <Button layoutX="501.0" layoutY="304.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="78.0" text="Close" />
+      <CheckBox fx:id="rememberSelectedDevelopmentProfileCheck" layoutX="18.0" layoutY="272.0" mnemonicParsing="false" text="Remember Selected Development Profile">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
    </children>
 </AnchorPane>

@@ -17,6 +17,7 @@ public class Settings {
         MINECRAFT_LAUNCHER_LOCATION("minecraft_launcher_location", ""),
         PLUGIN_JARFILE_BASE_DIRECTORY("plugin_jarfile_base_directory", ""),
         SERVER_JARFILE_BASE_DIRECTORY("server_jarfile_base_directory", ""),
+        REMEMBER_SELECTED_DEVELOPMENT_PROFILE("remember_selected_development_profile", false),
         CHECK_UPDATE_ON_STARTUP("check_update_on_startup", true);
         
         private final String key;

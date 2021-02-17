@@ -31,6 +31,7 @@ import org.json.JSONObject;
 public class CustomMinecraftTestingTool extends Application {
     
     private static CustomMinecraftTestingTool instance = null;
+    private static MainSceneController mainSceneController = null;
     
     public CustomMinecraftTestingTool() {
         instance = this;
@@ -41,14 +42,18 @@ public class CustomMinecraftTestingTool extends Application {
         StageController<MainSceneController> stageController = SceneUtil.getScene(SceneTypes.MAIN, Configuration.PROGRAM_NAME);
         stage = stageController.getStage();
         
-        MainSceneController controller = stageController.getController();
+        mainSceneController = stageController.getController();
         
         stage.show();
-        controller.checkVersion(true);
+        mainSceneController.checkVersion(true);
     }
 
     @Override
     public void stop() throws FileNotFoundException {
+        int selectedDevelopmentProfileIndex = mainSceneController.getSelectedDevelopmentProfileIndex();
+        
+        MappedDataHandler.setMappedData("selected_development_profile", selectedDevelopmentProfileIndex);
+        
         saveData();
         Configuration.saveSettings();
     }

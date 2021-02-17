@@ -29,6 +29,7 @@ import org.codespeak.cmtt.objects.ProcessorContext;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
+import org.codespeak.cmtt.objects.handlers.MappedDataHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.util.AlertUtil;
@@ -59,12 +60,24 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Settings settings = Configuration.getSettings();
         List<DevelopmentProfile> developmentProfiles = DevelopmentProfileHandler.getProfiles();
         ObservableList<String> developmentProfileItems = developmentProfileList.getItems();
+        boolean rememberSelectedDevelopmentProfile = settings.getSetting(SettingFields.REMEMBER_SELECTED_DEVELOPMENT_PROFILE);
+        int selectedDevelopmentProfile = -1;
+
+        if (MappedDataHandler.hasMappedData("selected_development_profile")) {
+            selectedDevelopmentProfile = MappedDataHandler.getMappedData("selected_development_profile");
+        }
         
         for (DevelopmentProfile profile : developmentProfiles) {
             developmentProfileItems.add(profile.getName());
             availableDevelopmentProfiles.add(profile);
+        }
+        
+        if (rememberSelectedDevelopmentProfile && selectedDevelopmentProfile > -1
+                && selectedDevelopmentProfile <= developmentProfileItems.size() - 1) {
+            developmentProfileList.getSelectionModel().select(selectedDevelopmentProfile);
         }
     }    
 
@@ -88,6 +101,14 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         return ProcessorContext.MAIN_SCENE;
     }
 
+    /**
+     * Gets the currently selected development profile index
+     * @return currently selected development profile index
+     */
+    public int getSelectedDevelopmentProfileIndex() {
+        return developmentProfileList.getSelectionModel().getSelectedIndex();
+    }
+    
     /**
      * Checks for a new version of the program
      * @param startup if the program's version is being checked at startup
