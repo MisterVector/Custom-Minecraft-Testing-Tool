@@ -16,6 +16,7 @@ import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
+import org.codespeak.cmtt.objects.handlers.MappedDataHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.scenes.MainSceneController;
 import org.codespeak.cmtt.scenes.SceneTypes;
@@ -96,6 +97,7 @@ public class CustomMinecraftTestingTool extends Application {
                 JVMFlagsProfileHandler.loadProfilesFromJSON(json);
                 ServerProfileHandler.loadProfilesFromJSON(json);
                 DevelopmentProfileHandler.loadProfilesFromJSON(json);
+                MappedDataHandler.loadFromJSON(json);
             } catch (IOException ex) {
                 
             }
@@ -111,6 +113,7 @@ public class CustomMinecraftTestingTool extends Application {
         JVMFlagsProfileHandler.saveProfilesToJSON(json);
         ServerProfileHandler.saveProfilesToJSON(json);
         DevelopmentProfileHandler.saveProfilesToJSON(json);
+        MappedDataHandler.saveToJSON(json);
         
         PrintWriter writer = new PrintWriter(new FileOutputStream(new File(Configuration.DATA_FILE)));
         writer.write(json.toString(4));
