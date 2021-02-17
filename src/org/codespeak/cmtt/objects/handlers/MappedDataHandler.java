@@ -37,7 +37,7 @@ public class MappedDataHandler {
      * @param key key being checked
      * @return if the mapped data contains the specified key
      */
-    public boolean hasMappedData(String key) {
+    public static boolean hasMappedData(String key) {
         return mappedData.containsKey(key);
     }
     
