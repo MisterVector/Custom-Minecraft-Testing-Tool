@@ -50,6 +50,22 @@ public enum ServerTypes {
     }
     
     /**
+     * Checks to see if this server type is among the list of passed in
+     * server types
+     * @param types various server types to check for
+     * @return if this server type exists in one of the passed in server types
+     */
+    public boolean is(ServerTypes... types) {
+        for (ServerTypes type : types) {
+            if (type == this) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
      * Gets a server type from its name
      * @param name name of server type
      * @return server type from its name
