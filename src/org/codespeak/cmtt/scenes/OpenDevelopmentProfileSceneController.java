@@ -187,7 +187,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add(worldsLocation.toString());
         }            
 
-        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.CUSTOM)) {
+        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT, ServerTypes.PAPER, ServerTypes.CUSTOM)) {
             String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
 
             List<Plugin> plugins = openedProfile.getPlugins();
