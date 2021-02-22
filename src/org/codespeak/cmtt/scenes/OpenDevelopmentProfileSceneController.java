@@ -175,7 +175,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
         if (!openedProfile.isUsingServerWorlds()) {
-            commands.add("--" + worldsArgument);
+            commands.add(worldsArgument);
 
             Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
             File fileWorldsLocation = worldsLocation.toFile();
@@ -200,7 +200,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                     }
                 }
 
-                commands.add("--" + pluginsArgument);
+                commands.add(pluginsArgument);
                 commands.add(pluginsLocation.toString());
             }
         }

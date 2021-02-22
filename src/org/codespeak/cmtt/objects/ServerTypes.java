@@ -7,9 +7,9 @@ package org.codespeak.cmtt.objects;
  */
 public enum ServerTypes {
     
-    BUKKIT("Bukkit", "plugins", "world-dir"),
-    SPIGOT("Spigot", "plugins", "world-dir"),
-    PAPER("Paper", "plugins", "world-dir"),
+    BUKKIT("Bukkit", "--plugins", "--world-dir"),
+    SPIGOT("Spigot", "--plugins", "--world-dir"),
+    PAPER("Paper", "--plugins", "--world-dir"),
     VANILLA("Vanilla", "", "universe"),
     CUSTOM("Custom");
     
