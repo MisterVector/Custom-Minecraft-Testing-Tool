@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="264.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="264.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
    <children>
-      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="35.0" prefWidth="673.0" text="Add Server Profile">
+      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="35.0" prefWidth="733.0" text="Add Server Profile">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -48,14 +48,14 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customPluginsArgumentInput" disable="true" layoutX="545.0" layoutY="61.0" prefHeight="25.0" prefWidth="176.0" />
+      <TextField fx:id="customPluginsArgumentInput" disable="true" layoutX="569.0" layoutY="58.0" prefHeight="25.0" prefWidth="176.0" />
       <Label layoutX="361.0" layoutY="94.0" text="Custom Worlds Argument">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="545.0" layoutY="91.0" prefHeight="25.0" prefWidth="176.0" />
-      <Button layoutX="523.0" layoutY="224.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="629.0" layoutY="224.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
+      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="176.0" />
+      <Button layoutX="551.0" layoutY="225.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="657.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>
