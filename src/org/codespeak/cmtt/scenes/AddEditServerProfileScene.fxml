@@ -49,13 +49,19 @@
          </font>
       </Label>
       <TextField fx:id="customPluginsArgumentInput" disable="true" layoutX="569.0" layoutY="58.0" prefHeight="25.0" prefWidth="176.0" />
-      <Label layoutX="361.0" layoutY="94.0" text="Custom Worlds Argument">
+      <Label layoutX="361.0" layoutY="94.0" text="Custom World Name Argument">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="176.0" />
-      <Button layoutX="551.0" layoutY="225.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="657.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
+      <TextField fx:id="customWorldNameArgumentInput" disable="true" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="176.0" />
+      <Label layoutX="361.0" layoutY="125.0" text="Custom Worlds Argument">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="569.0" layoutY="118.0" prefHeight="25.0" prefWidth="176.0" />
+      <Button layoutX="545.0" layoutY="225.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="651.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>

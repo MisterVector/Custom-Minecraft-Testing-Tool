@@ -22,19 +22,20 @@ public class ServerProfile extends Profile {
     private String minecraftVersion;
     private ServerTypes serverType;
     private String customPluginsArgument;
+    private String customWorldNameArgument;
     private String customWorldsArgument;
     private Path serverPath;
     private String checksum;
     
     public ServerProfile(String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument,
-                         Path serverPath, String checksum) {
-        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldsArgument, serverPath, checksum);
+                         String customPluginsArgument, String customWorldNameArgument,
+                         String customWorldsArgument, Path serverPath, String checksum) {
+        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
     }
     
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldsArgument,
-                         Path serverPath, String checksum) {
+                         String customPluginsArgument, String customWorldNameArgument,
+                         String customWorldsArgument, Path serverPath, String checksum) {
         super(id, name);
 
         this.minecraftVersion = minecraftVersion;
@@ -42,6 +43,7 @@ public class ServerProfile extends Profile {
         this.checksum = checksum;
         this.serverType = serverType;
         this.customPluginsArgument = customPluginsArgument;
+        this.customWorldNameArgument = customWorldNameArgument;
         this.customWorldsArgument = customWorldsArgument;
     }
     
@@ -92,6 +94,23 @@ public class ServerProfile extends Profile {
      */
     public void setCustomPluginsArgument(String customPluginsArgument) {
         this.customPluginsArgument = customPluginsArgument;
+    }
+    
+    /**
+     * Gets the name of the custom argument for changing the world name
+     * @return name of the custom argument for changing the world name
+     */
+    public String getCustomWorldNameArgument() {
+        return customWorldNameArgument;
+    }
+    
+    /**
+     * Sets the name of the custom argument for changing the world name
+     * @param customWorldNameArgument name of the custom argument for changing
+     * the world name
+     */
+    public void setCustomWorldNameArgument(String customWorldNameArgument) {
+        this.customWorldNameArgument = customWorldNameArgument;
     }
     
     /**
@@ -247,6 +266,7 @@ public class ServerProfile extends Profile {
         json.put("minecraft_version", minecraftVersion);
         json.put("server_type", serverType.getName());
         json.put("custom_plugins_argument", customPluginsArgument);
+        json.put("custom_world_name_argument", customWorldNameArgument);
         json.put("custom_worlds_argument", customWorldsArgument);
         json.put("server_path", serverPath);
         json.put("checksum", checksum);
@@ -265,6 +285,7 @@ public class ServerProfile extends Profile {
         String minecraftVersion = "";
         ServerTypes serverType = ServerTypes.BUKKIT;
         String customPluginsArgument = "";
+        String customWorldNameArgument = "";
         String customWorldsArgument = "";
         Path serverPath = null;
         String checksum = "";
@@ -289,6 +310,10 @@ public class ServerProfile extends Profile {
             customPluginsArgument = json.getString("custom_plugins_argument");
         }
         
+        if (json.has("custom_world_name_argument")) {
+            customWorldNameArgument = json.getString("custom_world_name_argument");
+        }
+        
         if (json.has("custom_worlds_argument")) {
             customWorldsArgument = json.getString("custom_worlds_argument");
         }
@@ -302,7 +327,7 @@ public class ServerProfile extends Profile {
         }
         
         return new ServerProfile(id, name, minecraftVersion, serverType, customPluginsArgument,
-                                 customWorldsArgument, serverPath, checksum);
+                                 customWorldNameArgument, customWorldsArgument, serverPath, checksum);
     }
     
 }

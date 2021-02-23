@@ -44,6 +44,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private TextField minecraftVersionInput;
     @FXML private ComboBox<String> serverTypeChoices;
     @FXML private TextField customPluginsArgumentInput;
+    @FXML private TextField customWorldNameArgumentInput;
     @FXML private TextField customWorldsArgumentInput;
     @FXML private Label serverPathLabel;
     
@@ -76,6 +77,7 @@ public class AddEditServerProfileSceneController implements Initializable {
         minecraftVersionInput.setText(profile.getMinecraftVersion());
         serverTypeChoices.getSelectionModel().select(profile.getServerType().getName());
         customPluginsArgumentInput.setText(profile.getCustomPluginsArgument());
+        customWorldNameArgumentInput.setText(profile.getCustomWorldNameArgument());
         customWorldsArgumentInput.setText(profile.getCustomWorldsArgument());
         serverPath = profile.getServerPath();
         serverPathLabel.setText(serverPath.toString());
@@ -93,6 +95,7 @@ public class AddEditServerProfileSceneController implements Initializable {
         boolean disableInput = currentServerType != ServerTypes.CUSTOM;
         
         customPluginsArgumentInput.setDisable(disableInput);
+        customWorldNameArgumentInput.setDisable(disableInput);
         customWorldsArgumentInput.setDisable(disableInput);
     }
     
@@ -145,6 +148,7 @@ public class AddEditServerProfileSceneController implements Initializable {
         String minecraftVersion = minecraftVersionInput.getText();
         String serverTypeChosen = serverTypeChoices.getSelectionModel().getSelectedItem();
         String customPluginsArgument = customPluginsArgumentInput.getText();
+        String customWorldNameArgument = customWorldNameArgumentInput.getText();
         String customWorldsArgument = customWorldsArgumentInput.getText();
         ServerTypes serverType = null;
         
@@ -159,6 +163,7 @@ public class AddEditServerProfileSceneController implements Initializable {
                         .addCondition(serverPath == null, "Select a file for the server.")
                         .ifTrue(serverType == ServerTypes.CUSTOM)
                             .addCondition(StringUtil.isNullOrEmpty(customPluginsArgument), "Custom plugins argument is empty.")
+                            .addCondition(StringUtil.isNullOrEmpty(customWorldNameArgument), "Custom world name argument is empty.")
                             .addCondition(StringUtil.isNullOrEmpty(customWorldsArgument), "Custom worlds argument is empty.")
                         .endIf()
                         .getAlert();
@@ -188,6 +193,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             editedServerProfile.setMinecraftVersion(minecraftVersion);
             editedServerProfile.setServerType(serverType);
             editedServerProfile.setCustomPluginsArgument(customPluginsArgument);
+            editedServerProfile.setCustomWorldNameArgument(customWorldNameArgument);
             editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
             editedServerProfile.setServerPath(serverPath);
             
@@ -199,7 +205,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             profile = editedServerProfile;
         } else {
             profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
-                                        customWorldsArgument, serverPath, "");
+                                        customWorldNameArgument, customWorldsArgument, serverPath, "");
 
             ServerProfileHandler.addProfile(profile);
         }

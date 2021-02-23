@@ -7,23 +7,25 @@ package org.codespeak.cmtt.objects;
  */
 public enum ServerTypes {
     
-    BUKKIT("Bukkit", "--plugins", "--world-dir"),
-    SPIGOT("Spigot", "--plugins", "--world-dir"),
-    PAPER("Paper", "--plugins", "--world-dir"),
-    VANILLA("Vanilla", "", "--universe"),
+    BUKKIT("Bukkit", "--plugins", "--world", "--world-dir"),
+    SPIGOT("Spigot", "--plugins", "--world", "--world-dir"),
+    PAPER("Paper", "--plugins", "--world", "--world-dir"),
+    VANILLA("Vanilla", "", "--world", "--universe"),
     CUSTOM("Custom");
     
     private final String name;
     private final String pluginsArgument;
+    private final String worldNameArgument;
     private final String worldsArgument;
     
     private ServerTypes(String name) {
-        this(name, "", "");
+        this(name, "", "", "");
     }
     
-    private ServerTypes(String name, String pluginsArgument, String worldsArgument) {
+    private ServerTypes(String name, String pluginsArgument, String worldNameArgument, String worldsArgument) {
         this.name = name;
         this.pluginsArgument = pluginsArgument;
+        this.worldNameArgument = worldNameArgument;
         this.worldsArgument = worldsArgument;
     }
     
@@ -41,6 +43,14 @@ public enum ServerTypes {
      */
     public String getPluginsArgument() {
         return pluginsArgument;
+    }
+    
+    /**
+     * Gets the name of the argument for changing the world name
+     * @return name of the argument for changing the world name
+     */
+    public String getWorldNameArgument() {
+        return worldNameArgument;
     }
     
     /**
