@@ -233,7 +233,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
         
-        if (!StringUtil.isNullOrEmpty(pluginsArgument) && serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT, ServerTypes.PAPER, ServerTypes.CUSTOM)) {
+        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
             List<Plugin> plugins = openedProfile.getPlugins();
             Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
             
