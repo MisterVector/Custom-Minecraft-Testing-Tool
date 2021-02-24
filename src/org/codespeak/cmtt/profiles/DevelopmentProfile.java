@@ -27,7 +27,7 @@ public class DevelopmentProfile extends Profile {
     private String upperMemory;
     private String jvmFlagsString;
     private ServerProfile serverProfile;
-    private String serverWorldName;
+    private String customServerWorldName;
     private boolean serverWorlds;
     private boolean updateOudatedPluginsAutomatically;
     private boolean updateOutdatedServerAutomatically;
@@ -35,14 +35,14 @@ public class DevelopmentProfile extends Profile {
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                    ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
+                                    ServerProfile serverProfile, String customServerWorldName, boolean serverWorlds,
                                     boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
                                     List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, serverWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                     ServerProfile serverProfile, String serverWorldName, boolean serverWorlds,
+                                     ServerProfile serverProfile, String customServerWorldName, boolean serverWorlds,
                                      boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
                                      List<Plugin> plugins) {
         super(id, name);
@@ -51,7 +51,7 @@ public class DevelopmentProfile extends Profile {
         this.upperMemory = upperMemory;
         this.jvmFlagsString = jvmFlagsString;
         this.serverProfile = serverProfile;
-        this.serverWorldName = serverWorldName;
+        this.customServerWorldName = customServerWorldName;
         this.serverWorlds = serverWorlds;
         this.updateOudatedPluginsAutomatically = updateOutdatedPluginsAutomatically;
         this.updateOutdatedServerAutomatically = updateOutdatedServerAutomatically;
@@ -125,19 +125,19 @@ public class DevelopmentProfile extends Profile {
     }
     
     /**
-     * Gets the server world name
-     * @return server world name
+     * Gets the custom server world name
+     * @return custom server world name
      */
-    public String getServerWorldName() {
-        return serverWorldName;
+    public String getCustomServerWorldName() {
+        return customServerWorldName;
     }
     
     /**
-     * Sets the server world name
-     * @param serverWorldName server world name
+     * Sets the custom server world name
+     * @param customServerWorldName custom server world name
      */
-    public void setServerWorldName(String serverWorldName) {
-        this.serverWorldName = serverWorldName;
+    public void setCustomServerWorldName(String customServerWorldName) {
+        this.customServerWorldName = customServerWorldName;
     }
     
     /**
@@ -304,7 +304,7 @@ public class DevelopmentProfile extends Profile {
         json.put("upper_memory", upperMemory);
         json.put("jvm_flags_string", jvmFlagsString);
         json.put("server_profile", serverProfile.getId());
-        json.put("server_world_name", serverWorldName);
+        json.put("custom_server_world_name", customServerWorldName);
         json.put("server_worlds", serverWorlds);
         json.put("update_outdated_plugins_automatically", updateOudatedPluginsAutomatically);
         json.put("update_outdated_server_automatically", updateOutdatedServerAutomatically);
@@ -326,7 +326,7 @@ public class DevelopmentProfile extends Profile {
         String upperMemory = "";
         String jvmFlagsString = "";
         ServerProfile serverProfile = null;
-        String serverWorldName = "";
+        String customServerWorldName = "";
         boolean serverWorlds = false;
         boolean updateOutdatedPluginsAutomatically = false;
         boolean updateOutdatedServerAutomatically = false;
@@ -357,8 +357,8 @@ public class DevelopmentProfile extends Profile {
             serverProfile = ServerProfileHandler.getProfile(json.getInt("server_profile"));
         }
         
-        if (json.has("server_world_name")) {
-            serverWorldName = json.getString("server_world_name");
+        if (json.has("custom_server_world_name")) {
+            customServerWorldName = json.getString("custom_server_world_name");
         }
         
         if (json.has("server_worlds")) {
@@ -387,7 +387,7 @@ public class DevelopmentProfile extends Profile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
-                                            serverProfile, serverWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
+                                            serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
                                             updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     

@@ -171,9 +171,12 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         ServerTypes serverType = serverProfile.getServerType();
         String customWorldNameArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldNameArgument() : serverType.getWorldNameArgument());
+        String customServerWorldName = openedProfile.getCustomServerWorldName();
         
-        commands.add(customWorldNameArgument);
-        commands.add(openedProfile.getServerWorldName());
+        if (!StringUtil.isNullOrEmpty(customWorldNameArgument) && !StringUtil.isNullOrEmpty((customServerWorldName))) {
+            commands.add(customWorldNameArgument);
+            commands.add(customServerWorldName);            
+        }
 
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
