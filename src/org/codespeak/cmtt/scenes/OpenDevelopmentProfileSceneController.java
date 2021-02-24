@@ -180,7 +180,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
 
-        if (!openedProfile.isUsingServerWorlds()) {
+        if (!StringUtil.isNullOrEmpty(worldsArgument) && !openedProfile.isUsingServerWorlds()) {
             commands.add(worldsArgument);
 
             Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
@@ -193,9 +193,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add(worldsLocation.toString());
         }            
 
-        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT, ServerTypes.PAPER, ServerTypes.CUSTOM)) {
-            String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
-
+        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        
+        if (!StringUtil.isNullOrEmpty(pluginsArgument) && serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT, ServerTypes.PAPER, ServerTypes.CUSTOM)) {
             List<Plugin> plugins = openedProfile.getPlugins();
             Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
             

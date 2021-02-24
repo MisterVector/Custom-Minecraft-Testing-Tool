@@ -161,11 +161,6 @@ public class AddEditServerProfileSceneController implements Initializable {
                         .addCondition(StringUtil.isNullOrEmpty(minecraftVersion), "Minecraft version is empty.")
                         .addCondition(serverType == null, "Server type has not been chosen.")
                         .addCondition(serverPath == null, "Select a file for the server.")
-                        .ifTrue(serverType == ServerTypes.CUSTOM)
-                            .addCondition(StringUtil.isNullOrEmpty(customPluginsArgument), "Custom plugins argument is empty.")
-                            .addCondition(StringUtil.isNullOrEmpty(customWorldNameArgument), "Custom world name argument is empty.")
-                            .addCondition(StringUtil.isNullOrEmpty(customWorldsArgument), "Custom worlds argument is empty.")
-                        .endIf()
                         .getAlert();
 
         if (alert == null) {
