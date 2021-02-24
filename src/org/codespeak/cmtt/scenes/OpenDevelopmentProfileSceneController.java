@@ -74,6 +74,36 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         this.serverProfile = serverProfile;
     }
     
+    private Alert getFailedStartAlert() {
+        if (!serverProfile.hasNecessaryFiles()) {
+            Path serverPath = serverProfile.getServerPath();
+            
+            if (!serverPath.toFile().exists()) {
+                return AlertUtil.createAlert("The server file cannot be found. Unable to start Minecraft server.");                
+            }
+        }
+
+        ServerTypes serverType = serverProfile.getServerType();
+        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        
+        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
+            List<Plugin> plugins = openedProfile.getPlugins();
+            Path pluginsFolderLocation = openedProfile.getPluginsLocation();
+            
+            for (Plugin plugin : plugins) {
+                if (!plugin.hasPluginFile(pluginsFolderLocation)) {
+                    Path pluginPath = plugin.getPath();
+                    
+                    if (!pluginPath.toFile().exists()) {
+                        return AlertUtil.createAlert("One or more plugins cannot be found. Unable to start Minecraft server.");
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -137,6 +167,14 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
 
+        Alert checkAlert = getFailedStartAlert();
+        
+        if (checkAlert != null) {
+            checkAlert.show();
+            
+            return;
+        }
+        
         if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.hasUpdate())) {
             serverProfile.update();
         }
