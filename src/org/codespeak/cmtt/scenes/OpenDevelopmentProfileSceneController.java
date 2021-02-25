@@ -319,7 +319,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onUpdatePluginsButtonClick(ActionEvent event) {
         List<Plugin> plugins = openedProfile.getPlugins();
-        Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
         
         if (plugins.isEmpty()) {
             Alert alert = AlertUtil.createAlert("This profile has no plugins.");
@@ -328,6 +327,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             return;
         }
 
+        Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
         int upToDatePlugins = plugins.size();
         int pluginsUpdated = 0;
         int pluginsFailedUpdate = 0;
@@ -336,7 +336,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             Path path = plugin.getPath();
             
             if (path.toFile().exists()) {
-                if (plugin.hasUpdate()) {
+                if (!plugin.hasPluginFile(pluginsLocation) || plugin.hasUpdate()) {
                     plugin.update(pluginsLocation);
 
                     pluginsUpdated++;
