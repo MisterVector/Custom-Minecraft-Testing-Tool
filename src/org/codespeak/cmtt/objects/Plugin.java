@@ -110,13 +110,25 @@ public class Plugin implements Cloneable {
     }
     
     /**
+     * Checks if this plugin can update
+     * @return if this plugin can update
+     */
+    public boolean canUpdate() {
+        if (!path.toFile().exists()) {
+            return false;
+        }
+        
+        return hasUpdate();
+    }
+    
+    /**
      * Checks if this plugin has an update
      * @return if this plugin has an update
      */
     public boolean hasUpdate() {
         String currentChecksum = MiscUtil.getChecksum(path);
-        
-        return !currentChecksum.equals(checksum);
+
+        return !currentChecksum.equals(checksum);            
     }
     
     /**

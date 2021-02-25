@@ -198,6 +198,18 @@ public class ServerProfile extends Profile {
     }
     
     /**
+     * Checks if this server can update
+     * @return if this server can update
+     */
+    public boolean canUpdate() {
+        if (!serverPath.toFile().exists()) {
+            return false;
+        }
+        
+        return hasUpdate();
+    }
+    
+    /**
      * Checks if this server has an update
      * @return if this server has an update 
      */

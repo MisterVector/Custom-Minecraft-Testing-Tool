@@ -175,7 +175,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             return;
         }
         
-        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.hasUpdate())) {
+        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
             serverProfile.update();
         }
         
@@ -239,7 +239,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             
             if (!plugins.isEmpty()) {
                 for (Plugin plugin : plugins) {
-                    if (!plugin.hasPluginFile(pluginsLocation) || (openedProfile.isUpdatingOutdatedPluginsAutomatically() && plugin.hasUpdate())) {
+                    if (!plugin.hasPluginFile(pluginsLocation) || (openedProfile.isUpdatingOutdatedPluginsAutomatically() && plugin.canUpdate())) {
                         plugin.update(pluginsLocation);                        
                     }
                 }
