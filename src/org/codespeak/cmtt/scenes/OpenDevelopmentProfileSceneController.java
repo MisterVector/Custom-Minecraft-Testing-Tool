@@ -320,7 +320,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     public void onUpdatePluginsButtonClick(ActionEvent event) {
         List<Plugin> plugins = openedProfile.getPlugins();
         Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
-        int pluginsUpdated = 0;
         
         if (plugins.isEmpty()) {
             Alert alert = AlertUtil.createAlert("This profile has no plugins.");
@@ -329,18 +328,46 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             return;
         }
 
+        int upToDatePlugins = plugins.size();
+        int pluginsUpdated = 0;
+        int pluginsFailedUpdate = 0;
+
         for (Plugin plugin : plugins) {
-            if (plugin.hasUpdate()) {
-                plugin.update(pluginsLocation);
-                
-                pluginsUpdated++;
+            Path path = plugin.getPath();
+            
+            if (path.toFile().exists()) {
+                if (plugin.hasUpdate()) {
+                    plugin.update(pluginsLocation);
+
+                    pluginsUpdated++;
+                    upToDatePlugins--;
+                }
+            } else {
+                pluginsFailedUpdate++;
+                upToDatePlugins--;
             }
         }
         
-        String updateMsg = "All plugins are up-to-date.";
-        
-        if (pluginsUpdated > 0) {
-            updateMsg = pluginsUpdated + " plugin" + (pluginsUpdated > 1 ? "s were" : " was") + " updated.";
+        String updateMsg = "";
+
+        if (pluginsUpdated > 0 || pluginsFailedUpdate > 0) {
+            if (pluginsUpdated > 0) {
+                updateMsg = pluginsUpdated + " plugin" + (pluginsUpdated > 1 ? "s were" : " was") + " updated.";
+            }
+
+            if (pluginsFailedUpdate > 0) {
+                if (!updateMsg.isEmpty()) {
+                    updateMsg += "\n";
+                }
+                
+                updateMsg += pluginsFailedUpdate + " plugin" + (pluginsFailedUpdate > 1 ? "s" : "") + " failed to update.";
+            }
+            
+            if (upToDatePlugins > 0) {
+                updateMsg += "\n" + upToDatePlugins + " plugin" + (upToDatePlugins > 1 ? "s are" : " is") + " up-to-date.";
+            }
+        } else {
+            updateMsg = "All plugins are up-to-date.";
         }
         
         Alert alert = AlertUtil.createAlert(updateMsg);
