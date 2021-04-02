@@ -41,7 +41,6 @@ public class ConditionalAlert {
     }
     
     private List<ConditionMessage> conditions = new ArrayList<ConditionMessage>();
-    private Boolean extraCondition = null;
     
     public ConditionalAlert() {
 
@@ -54,34 +53,11 @@ public class ConditionalAlert {
      * @return this object
      */
     public ConditionalAlert addCondition(Boolean condition, String message) {
-        if (extraCondition == null || extraCondition) {
-            conditions.add(new ConditionMessage(condition, message));
-        }
+        conditions.add(new ConditionMessage(condition, message));
         
         return this;
     }
-    
-    /**
-     * Adds an extra condition to evaluate
-     * @param extraCondition extra condition to evaluate
-     * @return this object
-     */
-    public ConditionalAlert ifTrue(boolean extraCondition) {
-        this.extraCondition = extraCondition;
-        
-        return this;
-    }
-    
-    /**
-     * Removes the extra condition
-     * @return this object
-     */
-    public ConditionalAlert endIf() {
-        extraCondition = null;
-        
-        return this;
-    }
-    
+   
     /**
      * Gets an alert representing the first true condition
      * @return this object
