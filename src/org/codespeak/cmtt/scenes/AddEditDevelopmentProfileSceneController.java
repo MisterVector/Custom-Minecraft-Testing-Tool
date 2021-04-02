@@ -48,6 +48,9 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditDevelopmentProfileSceneController implements Initializable {
 
+    private static final long MIN_XMS = 1048576L;
+    private static final long MIN_XMX = 1048576L;
+    
     private DevelopmentProfileProcessor processor = null;
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
@@ -141,6 +144,48 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         return null;
     }
     
+    private static long getLongValue(String str) {
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException nfe) {
+            return 0;
+        }
+    }
+
+    private static long getValueFromMemoryArg(String memoryArg) {
+        long val = getLongValue(memoryArg);
+        
+        if (val == 0) {
+            int lengthMinusOne = memoryArg.length() - 1;
+            char endChar = Character.toUpperCase(memoryArg.charAt(lengthMinusOne));
+            long valueWithoutChar = getLongValue(memoryArg.substring(0, lengthMinusOne));
+
+            if (valueWithoutChar == 0) {
+                return 0;
+            }
+            
+            switch (endChar) {
+                case 'K':
+                        val = (valueWithoutChar * 1024);
+                        break;
+                case 'M':
+                        val = (valueWithoutChar * 1048576);
+                        break;
+                case 'G':
+                        val = (valueWithoutChar * 1073741824);
+                        break;
+            }
+        }
+        
+        return val;
+    }
+
+    private static boolean isValidMemoryArg(String memoryArg, long minValue) {
+        long val = getValueFromMemoryArg(memoryArg);
+        
+        return (val >= minValue && (val % 1024 == 0));
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -368,6 +413,8 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         ConditionalAlert ca = new ConditionalAlert();
         Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
                         .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server for testing has not been chosen.")
+                        .addCondition(!StringUtil.isNullOrEmpty(lowerMemory) && !isValidMemoryArg(lowerMemory, MIN_XMS), "Lower memory is not a valid value.")
+                        .addCondition(!StringUtil.isNullOrEmpty(upperMemory) && !isValidMemoryArg(upperMemory, MIN_XMX), "Upper memory is not a valid value.")
                         .getAlert();
         
         if (alert == null) {
