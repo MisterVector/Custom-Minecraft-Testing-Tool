@@ -410,12 +410,17 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         boolean updateOutdatedServerAutomatically = updateOutdatedServerAutomaticallyCheck.isSelected();
         boolean useServerGUI = useServerGUICheck.isSelected();
 
-        ConditionalAlert ca = new ConditionalAlert();
-        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
+        ConditionalAlert ca = new ConditionalAlert()
+                        .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
                         .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server for testing has not been chosen.")
                         .addCondition(!StringUtil.isNullOrEmpty(lowerMemory) && !isValidMemoryArg(lowerMemory, MIN_XMS), "Lower memory is not a valid value.")
-                        .addCondition(!StringUtil.isNullOrEmpty(upperMemory) && !isValidMemoryArg(upperMemory, MIN_XMX), "Upper memory is not a valid value.")
-                        .getAlert();
+                        .addCondition(!StringUtil.isNullOrEmpty(upperMemory) && !isValidMemoryArg(upperMemory, MIN_XMX), "Upper memory is not a valid value.");
+        
+        if (!StringUtil.isNullOrEmpty(lowerMemory) && !StringUtil.isNullOrEmpty(upperMemory)) {
+            ca.addCondition(getValueFromMemoryArg(lowerMemory) > getValueFromMemoryArg(upperMemory), "Lower memory value is higher than the upper memory value.");
+        }
+        
+        Alert alert = ca.getAlert();
         
         if (alert == null) {
             DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
