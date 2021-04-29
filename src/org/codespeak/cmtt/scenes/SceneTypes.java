@@ -8,7 +8,7 @@ package org.codespeak.cmtt.scenes;
 public enum SceneTypes {
     
     MAIN("MainScene.fxml"),
-    JVM_FLAGS("JVMFlagsScene.fxml"),
+    JVM_FLAGS_PROFILES("JVMFlagsProfilesScene.fxml"),
     ADD_EDIT_JVM_FLAGS_PROFILE("AddEditJVMFlagsProfileScene.fxml"),
     SERVER_PROFILES("ServerProfilesScene.fxml"),
     ADD_EDIT_SERVER_PROFILE("AddEditServerProfileScene.fxml"),

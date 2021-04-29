@@ -23,7 +23,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditJVMFlagsProfileSceneController implements Initializable {
 
-    private JVMFlagsSceneController controller = null;
+    private JVMFlagsProfilesSceneController controller = null;
     private JVMFlagsProfile editedProfile = null;
     private boolean editMode = false;
     
@@ -43,7 +43,7 @@ public class AddEditJVMFlagsProfileSceneController implements Initializable {
      * Sets the JVM Flags Scene controller
      * @param controller JVM Flags Scene controller
      */
-    public void setController(JVMFlagsSceneController controller) {
+    public void setController(JVMFlagsProfilesSceneController controller) {
         this.controller = controller;
     }
     

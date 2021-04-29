@@ -30,7 +30,7 @@ import org.codespeak.cmtt.util.SceneUtil;
  *
  * @author Vector
  */
-public class JVMFlagsSceneController implements Initializable {
+public class JVMFlagsProfilesSceneController implements Initializable {
 
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private int currentlySelectedIndex = -1;
