@@ -1,5 +1,6 @@
 package org.codespeak.cmtt.scenes;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.ConditionalAlert;
+import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.objects.ProgramException;
+import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.util.AlertUtil;
-import org.codespeak.cmtt.util.StringUtil;
+import org.codespeak.cmtt.util.SceneUtil;
 
 /**
  * Controller for the JVM flags profile scene
@@ -30,15 +33,9 @@ import org.codespeak.cmtt.util.StringUtil;
 public class JVMFlagsSceneController implements Initializable {
 
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
-    private JVMFlagsProfile editedProfile = null;
-    private int editedIndex = -1;
-    private boolean isEditMode = false;
+    private int currentlySelectedIndex = -1;
     
-    @FXML private TextField profileNameInput;
-    @FXML private TextArea flagsStringInput;
     @FXML private ListView<String> profileList;
-    @FXML private Button addModifyProfileButton;
-    @FXML private Button cancelEditButton;
     
     private JVMFlagsProfile getJVMFlagsProfile(String name) {
         for (JVMFlagsProfile profile : availableJVMFlagsProfiles) {
@@ -65,55 +62,40 @@ public class JVMFlagsSceneController implements Initializable {
             availableJVMFlagsProfiles.add(profile);
         }
     }    
-    
-    @FXML
-    public void onAddModifyProfileButtonClick(ActionEvent event) {
-        String profileName = profileNameInput.getText();
-        String flagsString = flagsStringInput.getText();
-        
-        ConditionalAlert ca = new ConditionalAlert();
-        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is eempty.")
-                        .addCondition(StringUtil.isNullOrEmpty(flagsString), "Flags string is empty.")
-                        .getAlert();
-                
-        if (alert == null) {
-            JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
 
-            alert = ca.addCondition(existingProfile != null && existingProfile != editedProfile, "A profile by that name already exists.")
-                      .getAlert();
-        }
+    /**
+     * Finishes adding or editing a JVM Flags profile
+     * @param profile the JVM Flags profile being added or edited
+     * @param editMode whether the profile is being edited
+     */
+    public void finishAddEditJVMFlagsProfile(JVMFlagsProfile profile, boolean editMode) {
+        ObservableList<String> items = profileList.getItems();
+        String profileName = profile.getName();
         
-        if (alert != null) {
-            alert.show();
-
-            return;
-        }
-
-        flagsString = StringUtil.getUnduplicatedString(flagsString);
-        
-        if (isEditMode) {
-            editedProfile.setName(profileName);
-            editedProfile.setFlagsString(flagsString);
-            
-            profileList.getItems().set(editedIndex, profileName);
-            
-            cancelEditButton.setDisable(true);
-            editedProfile = null;
-            editedIndex = -1;
-            
-            addModifyProfileButton.setText("Add Profile");
-            isEditMode = false;
+        if (editMode) {
+            items.set(currentlySelectedIndex, profileName);
         } else {
-            JVMFlagsProfile profile = new JVMFlagsProfile(profileName, flagsString);
-            
-            JVMFlagsProfileHandler.addProfile(profile);
-
-            profileList.getItems().add(profileName);
+            items.add(profileName);
             availableJVMFlagsProfiles.add(profile);
         }
-        
-        profileNameInput.clear();
-        flagsStringInput.clear();
+    }
+    
+    @FXML
+    public void onAddProfileButtonClick(ActionEvent event) {
+        try {
+            StageController<AddEditJVMFlagsProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_JVM_FLAGS_PROFILE, "Add JVM Flags Profile");
+            AddEditJVMFlagsProfileSceneController controller = stageController.getController();
+            Stage stage = stageController.getStage();
+            
+            controller.setController(this);
+            stage.show();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+            
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
@@ -127,40 +109,30 @@ public class JVMFlagsSceneController implements Initializable {
             return;
         }
 
+        currentlySelectedIndex = selectedIndex;
+        
         String profileName = profileList.getItems().get(selectedIndex);
-        editedProfile = getJVMFlagsProfile(profileName);
+        JVMFlagsProfile profile = getJVMFlagsProfile(profileName);
         
-        profileNameInput.setText(profileName);
-        flagsStringInput.setText(editedProfile.getFlagsString());
-        
-        isEditMode = true;
-        editedIndex = selectedIndex;
-        addModifyProfileButton.setText("Modify Profile");
-        cancelEditButton.setDisable(false);
-    }
-    
-    @FXML
-    public void onCancelEditButtonClick(ActionEvent event) {
-        profileNameInput.clear();
-        flagsStringInput.clear();
-        
-        editedProfile = null;
-        editedIndex = -1;
-        isEditMode = false;
-        
-        cancelEditButton.setDisable(true);
-        addModifyProfileButton.setText("Add Profile");
+        try {
+            StageController<AddEditJVMFlagsProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_JVM_FLAGS_PROFILE, "Edit JVM Flags Profile");
+            AddEditJVMFlagsProfileSceneController controller = stageController.getController();
+            Stage stage = stageController.getStage();
+            
+            controller.setController(this);
+            controller.editJVMFlagsProfile(profile);
+            stage.show();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+            
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
     public void onDeleteProfileButtonClick(ActionEvent event) {
-        if (isEditMode) {
-            Alert alert = AlertUtil.createAlert("Cancel edit first before deleting a profile.");
-            alert.show();
-            
-            return;
-        }
-        
         int selectedIndex = profileList.getSelectionModel().getSelectedIndex();
         
         if (selectedIndex < 0) {
