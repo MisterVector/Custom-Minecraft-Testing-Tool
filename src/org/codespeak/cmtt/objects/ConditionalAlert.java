@@ -59,26 +59,35 @@ public class ConditionalAlert {
     }
    
     /**
-     * Gets an alert representing the first true condition
-     * @return this object
+     * Gets an alert representing all true conditions
+     * @return an alert object if at least one condition is true
      */
     public Alert getAlert() {
-        Alert ret = null;
+        String finalMessage = "";
         
         for (ConditionMessage cm : conditions) {
             Boolean condition = cm.getCondition();
             String message = cm.getMessage();
 
             if (condition) {
-                ret = new Alert(Alert.AlertType.INFORMATION, message);
-                ret.setTitle(Configuration.PROGRAM_NAME);
-                ret.setHeaderText("");
+                if (!finalMessage.isEmpty()) {
+                    finalMessage += "\n";
+                }
                 
-                break;
+                finalMessage += message;
             }
         }
         
-        return ret;
+        if (!finalMessage.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, finalMessage);
+
+            alert.setTitle(Configuration.PROGRAM_NAME);
+            alert.setHeaderText("");
+            
+            return alert;
+        } else {
+            return null;
+        }
     }
 
 }
