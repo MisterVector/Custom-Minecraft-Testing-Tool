@@ -156,24 +156,23 @@ public class AddEditServerProfileSceneController implements Initializable {
             serverType = ServerTypes.fromName(serverTypeChosen);
         }
 
-        ConditionalAlert ca = new ConditionalAlert();
-        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is empty.")
+        ConditionalAlert ca = new ConditionalAlert()
+                        .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is empty.")
                         .addCondition(StringUtil.isNullOrEmpty(minecraftVersion), "Minecraft version is empty.")
                         .addCondition(serverType == null, "Server type has not been chosen.")
-                        .addCondition(serverPath == null, "Select a file for the server.")
-                        .getAlert();
+                        .addCondition(serverPath == null, "Select a file for the server.");
 
-        if (alert == null) {
-            alert = ca.addCondition(!serverPath.toFile().exists(), "The server file no longer exists.")
-                      .getAlert();
+        if (serverPath != null) {
+            ca.addCondition(!serverPath.toFile().exists(), "The server file no longer exists.");
         }
         
-        if (alert == null) {
+        if (!StringUtil.isNullOrEmpty(profileName)) {
             ServerProfile existingProfile = ServerProfileHandler.getProfile(profileName);
 
-            alert = ca.addCondition(existingProfile != null && existingProfile != editedServerProfile, "A profile by that name already exists.")
-                      .getAlert();
+            ca.addCondition(existingProfile != null && existingProfile != editedServerProfile, "A profile by that name already exists.");
         }
+        
+        Alert alert = ca.getAlert();
         
         if (alert != null) {
             alert.show();

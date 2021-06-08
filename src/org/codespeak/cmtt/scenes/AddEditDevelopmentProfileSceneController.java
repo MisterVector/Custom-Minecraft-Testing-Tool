@@ -420,14 +420,13 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             ca.addCondition(getValueFromMemoryArg(lowerMemory) > getValueFromMemoryArg(upperMemory), "Lower memory value is higher than the upper memory value.");
         }
         
-        Alert alert = ca.getAlert();
-        
-        if (alert == null) {
+        if (!StringUtil.isNullOrEmpty(profileName)) {
             DevelopmentProfile existingProfile = DevelopmentProfileHandler.getProfile(profileName);
 
-            alert = ca.addCondition(existingProfile != null && existingProfile != editedDevelopmentProfile, "A profile by that name already exists.")
-                      .getAlert();
+            ca.addCondition(existingProfile != null && existingProfile != editedDevelopmentProfile, "A profile by that name already exists.");
         }
+        
+        Alert alert = ca.getAlert();
         
         if (alert != null) {
             alert.show();

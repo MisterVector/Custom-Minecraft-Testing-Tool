@@ -65,17 +65,17 @@ public class AddEditJVMFlagsProfileSceneController implements Initializable {
         String profileName = profileNameInput.getText();
         String flagsString = flagsStringInput.getText();
         
-        ConditionalAlert ca = new ConditionalAlert();
-        Alert alert = ca.addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is eempty.")
-                        .addCondition(StringUtil.isNullOrEmpty(flagsString), "Flags string is empty.")
-                        .getAlert();
+        ConditionalAlert ca = new ConditionalAlert()
+                        .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is eempty.")
+                        .addCondition(StringUtil.isNullOrEmpty(flagsString), "Flags string is empty.");
                 
-        if (alert == null) {
+        if (!StringUtil.isNullOrEmpty(profileName)) {
             JVMFlagsProfile existingProfile = JVMFlagsProfileHandler.getProfile(profileName);
 
-            alert = ca.addCondition(existingProfile != null && existingProfile != editedProfile, "A profile by that name already exists.")
-                      .getAlert();
+            ca.addCondition(existingProfile != null && existingProfile != editedProfile, "A profile by that name already exists.");
         }
+        
+        Alert alert = ca.getAlert();
         
         if (alert != null) {
             alert.show();
