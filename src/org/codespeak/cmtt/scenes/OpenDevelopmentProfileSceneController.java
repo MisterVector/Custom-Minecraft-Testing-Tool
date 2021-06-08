@@ -4,8 +4,10 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -155,6 +157,35 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         openedProfile.setServerProfile(serverProfile);
         
         Alert alert = AlertUtil.createAlert("Profile has been updated with the new server.");
+        alert.show();
+    }
+    
+    @FXML
+    public void onDeleteLocalWorldsButtonClick(ActionEvent event) {
+        Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
+        File localWorldsFile = localWorldsPath.toFile();
+
+        if (!localWorldsFile.exists()) {
+            Alert alert = AlertUtil.createAlert("The local worlds for the selected server do not exist.");
+            alert.show();
+            
+            return;
+        }
+
+        String message = "";
+        
+        try {
+            Files.walk(localWorldsPath)
+                 .sorted(Comparator.reverseOrder())
+                 .map(Path::toFile)
+                 .forEach(File::delete);
+
+            message = "The local worlds for the selected server have been deleted.";
+        } catch (IOException ex) {
+            message = "The local worlds for the selected server could not be completely deleted.";
+        }
+
+        Alert alert = AlertUtil.createAlert(message);
         alert.show();
     }
     
