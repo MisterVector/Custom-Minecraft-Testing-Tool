@@ -41,7 +41,7 @@ public class AboutSceneController implements Initializable {
         try {
             Desktop desktop = Desktop.getDesktop();
 
-            desktop.browse(new URI(codeSpeakLinkLabel.getText()));
+            desktop.browse(new URI(Configuration.SITE_URL));
         } catch (IOException | URISyntaxException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
             Alert alert = ex2.buildAlert();
