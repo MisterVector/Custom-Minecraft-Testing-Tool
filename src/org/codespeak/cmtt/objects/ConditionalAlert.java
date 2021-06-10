@@ -3,6 +3,7 @@ package org.codespeak.cmtt.objects;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import org.codespeak.cmtt.Configuration;
 
 /**
@@ -79,10 +80,10 @@ public class ConditionalAlert {
         }
         
         if (!finalMessage.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, finalMessage);
+            Alert alert = new Alert(AlertType.WARNING, finalMessage);
 
             alert.setTitle(Configuration.PROGRAM_NAME);
-            alert.setHeaderText("");
+            alert.setHeaderText("Configuration Issues");
             
             return alert;
         } else {
