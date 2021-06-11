@@ -258,10 +258,15 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add("-Xmx" + upperMemory);
         }
 
+        ServerTypes serverType = serverProfile.getServerType();
+        
+        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT)) {
+            commands.add("-DIReallyKnowWhatIAmDoingISwear");
+        }
+        
         commands.add("-jar");
         commands.add("server.jar");
         
-        ServerTypes serverType = serverProfile.getServerType();
         String customWorldNameArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldNameArgument() : serverType.getWorldNameArgument());
         String customServerWorldName = openedProfile.getCustomServerWorldName();
         
