@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -187,6 +188,28 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         Alert alert = AlertUtil.createAlert(message);
         alert.show();
+    }
+
+    @FXML
+    public void onOpenLocalWorldsFolderButtonClick(ActionEvent event) {
+        Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
+        File localWorldsFolder = localWorldsPath.toFile();
+        
+        if (!localWorldsFolder.exists()) {
+            Alert alert = AlertUtil.createAlert("The local worlds for this server do not exist!");
+            alert.show();
+            
+            return;
+        }
+        
+        Desktop desktop = Desktop.getDesktop();
+        
+        try {
+            desktop.open(localWorldsFolder);
+        } catch (IOException ex) {
+            Alert alert = AlertUtil.createAlert("Unable to open the local worlds folder for this server.");
+            alert.show();
+        }
     }
     
     @FXML

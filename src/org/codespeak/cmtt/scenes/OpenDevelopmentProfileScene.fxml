@@ -40,7 +40,8 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="163.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="647.0" text="Delete Local Worlds" />
+      <Button layoutX="14.0" layoutY="163.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
+      <Button layoutX="347.0" layoutY="163.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
       <Button layoutX="17.0" layoutY="200.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Start Server" />
       <Button layoutX="155.0" layoutY="200.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="120.0" text="Open Logs Folder" />
       <Button fx:id="updateServerButton" layoutX="290.0" layoutY="200.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Update Server" />
