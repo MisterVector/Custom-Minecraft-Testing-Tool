@@ -64,6 +64,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML TextField lowerMemoryInput;
     @FXML TextField upperMemoryInput;
     @FXML TextArea jvmFlagsStringInput;
+    @FXML TextArea minecraftServerArgumentsInput;
     @FXML ComboBox<String> jvmFlagsProfileChoice;
     @FXML ComboBox<String> serverProfilesChoice;
     @FXML TextField customServerWorldNameInput;
@@ -231,6 +232,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         lowerMemoryInput.setText(developmentProfile.getLowerMemory());
         upperMemoryInput.setText(developmentProfile.getUpperMemory());
         jvmFlagsStringInput.setText(developmentProfile.getJVMFlagsString());
+        minecraftServerArgumentsInput.setText(developmentProfile.getMinecraftServerArguments());
         customServerWorldNameInput.setText(developmentProfile.getCustomServerWorldName());
         serverWorldsCheck.setSelected(developmentProfile.isUsingServerWorlds());
         updateOutdatedPluginsAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedPluginsAutomatically());
@@ -403,6 +405,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String lowerMemory = lowerMemoryInput.getText();
         String upperMemory = upperMemoryInput.getText();
         String jvmFlagsString = jvmFlagsStringInput.getText();
+        String minecraftServerArguments = minecraftServerArgumentsInput.getText();
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
         String customServerWorldName = customServerWorldNameInput.getText();
         boolean serverWorlds = serverWorldsCheck.isSelected();
@@ -461,6 +464,10 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             jvmFlagsString = StringUtil.getUnduplicatedString(jvmFlagsString);
         }
         
+        if (!StringUtil.isNullOrEmpty(minecraftServerArguments)) {
+            minecraftServerArguments = StringUtil.getUnduplicatedString(minecraftServerArguments);
+        }
+        
         ServerProfile serverProfile = getServerProfile(serverProfileName);
         DevelopmentProfile profile = null;
 
@@ -469,6 +476,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setLowerMemory(lowerMemory);
             editedDevelopmentProfile.setUpperMemory(upperMemory);
             editedDevelopmentProfile.setJVMFlagsString(jvmFlagsString);
+            editedDevelopmentProfile.setMinecraftServerArguments(minecraftServerArguments);
             editedDevelopmentProfile.setServerProfile(serverProfile);
             editedDevelopmentProfile.setPlugins(plugins);
             editedDevelopmentProfile.setCustomServerWorldName(customServerWorldName);
@@ -483,8 +491,9 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             
             profile = editedDevelopmentProfile;
         } else {
-            profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, serverProfile, customServerWorldName, serverWorlds,
-                                             updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
+            profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments, serverProfile,
+                                             customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
+                                             updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);
         }

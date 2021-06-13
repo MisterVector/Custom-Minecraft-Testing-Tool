@@ -256,6 +256,16 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         commands.add("-jar");
         commands.add("server.jar");
         
+        String minecraftServerArguments = openedProfile.getMinecraftServerArguments();
+        
+        if (!StringUtil.isNullOrEmpty(minecraftServerArguments)) {
+            List<String> args = StringUtil.splitStringToList(minecraftServerArguments);
+            
+            for (String arg : args) {
+                commands.add(arg);
+            }
+        }
+        
         String customWorldNameArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldNameArgument() : serverType.getWorldNameArgument());
         String customServerWorldName = openedProfile.getCustomServerWorldName();
         

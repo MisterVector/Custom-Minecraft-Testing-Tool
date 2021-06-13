@@ -26,6 +26,7 @@ public class DevelopmentProfile extends Profile {
     private String lowerMemory;
     private String upperMemory;
     private String jvmFlagsString;
+    private String minecraftServerArguments;
     private ServerProfile serverProfile;
     private String customServerWorldName;
     private boolean serverWorlds;
@@ -35,21 +36,22 @@ public class DevelopmentProfile extends Profile {
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                    ServerProfile serverProfile, String customServerWorldName, boolean serverWorlds,
-                                    boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
-                                    List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                    String minecraftServerArguments, ServerProfile serverProfile, String customServerWorldName,
+                                    boolean serverWorlds, boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically,
+                                    boolean useServerGUI, List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments, serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                     ServerProfile serverProfile, String customServerWorldName, boolean serverWorlds,
-                                     boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically, boolean useServerGUI,
-                                     List<Plugin> plugins) {
+                                     String minecraftServerArguments, ServerProfile serverProfile, String customServerWorldName,
+                                     boolean serverWorlds, boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically,
+                                     boolean useServerGUI, List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
         this.upperMemory = upperMemory;
         this.jvmFlagsString = jvmFlagsString;
+        this.minecraftServerArguments = minecraftServerArguments;
         this.serverProfile = serverProfile;
         this.customServerWorldName = customServerWorldName;
         this.serverWorlds = serverWorlds;
@@ -107,6 +109,23 @@ public class DevelopmentProfile extends Profile {
         this.jvmFlagsString = jvmFlagsString;
     }
     
+    /**
+     * Gets the minecraft server arguments for this development profile
+     * @return minecraft server arguments for this development profile
+     */
+    public String getMinecraftServerArguments() {
+        return minecraftServerArguments;
+    }
+    
+    /**
+     * Sets the minecraft server arguments for this development profile
+     * @param minecraftServerArguments minecraft server arguments for this
+     * development profile
+     */
+    public void setMinecraftServerArguments(String minecraftServerArguments) {
+        this.minecraftServerArguments = minecraftServerArguments;
+    }
+
     /**
      * Gets the server profile used with this development profile
      * @return server profile used with this development profile
@@ -303,6 +322,7 @@ public class DevelopmentProfile extends Profile {
         json.put("lower_memory", lowerMemory);
         json.put("upper_memory", upperMemory);
         json.put("jvm_flags_string", jvmFlagsString);
+        json.put("minecraft_server_arguments", minecraftServerArguments);
         json.put("server_profile", serverProfile.getId());
         json.put("custom_server_world_name", customServerWorldName);
         json.put("server_worlds", serverWorlds);
@@ -325,6 +345,7 @@ public class DevelopmentProfile extends Profile {
         String lowerMemory = "";
         String upperMemory = "";
         String jvmFlagsString = "";
+        String minecraftServerArguments = "";
         ServerProfile serverProfile = null;
         String customServerWorldName = "";
         boolean serverWorlds = false;
@@ -351,6 +372,10 @@ public class DevelopmentProfile extends Profile {
         
         if (json.has("jvm_flags_string")) {
             jvmFlagsString = json.getString("jvm_flags_string");
+        }
+        
+        if (json.has("minecraft_server_arguments")) {
+            minecraftServerArguments = json.getString("minecraft_server_arguments");
         }
         
         if (json.has("server_profile")) {
@@ -386,7 +411,7 @@ public class DevelopmentProfile extends Profile {
             }
         }
         
-        return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString,
+        return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments,
                                             serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
                                             updateOutdatedServerAutomatically, useServerGUI, plugins);
     }

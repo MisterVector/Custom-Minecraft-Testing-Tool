@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="705.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="766.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditDevelopmentProfileSceneController">
    <children>
       <Label fx:id="mainHeaderLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="903.0" text="Add Development Profile">
          <font>
@@ -48,44 +48,50 @@
       </Label>
       <ComboBox fx:id="jvmFlagsProfileChoice" layoutX="17.0" layoutY="348.0" prefHeight="25.0" prefWidth="375.0" />
       <Button layoutX="407.0" layoutY="348.0" mnemonicParsing="false" onAction="#onInsertButtonClick" prefHeight="25.0" prefWidth="60.0" text="Insert" />
-      <Label layoutX="492.0" layoutY="61.0" text="Select Server For Testing">
+      <Label layoutX="493.0" layoutY="62.0" text="Minecraft Server Arguments">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="serverProfilesChoice" layoutX="683.0" layoutY="59.0" prefHeight="25.0" prefWidth="234.0" />
-      <Label layoutX="492.0" layoutY="100.0" text="Custom Server World Name">
+      <TextArea fx:id="minecraftServerArgumentsInput" layoutX="493.0" layoutY="88.0" prefHeight="162.0" prefWidth="424.0" />
+      <Label layoutX="493.0" layoutY="261.0" text="Select Server For Testing">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customServerWorldNameInput" layoutX="683.0" layoutY="96.0" prefHeight="25.0" prefWidth="234.0" />
-      <CheckBox fx:id="serverWorldsCheck" layoutX="492.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
+      <ComboBox fx:id="serverProfilesChoice" layoutX="684.0" layoutY="259.0" prefHeight="25.0" prefWidth="234.0" />
+      <Label layoutX="493.0" layoutY="300.0" text="Custom Server World Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="customServerWorldNameInput" layoutX="684.0" layoutY="296.0" prefHeight="25.0" prefWidth="234.0" />
+      <CheckBox fx:id="serverWorldsCheck" layoutX="493.0" layoutY="330.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
          <font>
             <Font size="14.0" />
          </font></CheckBox>
-      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="492.0" layoutY="190.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="493.0" layoutY="390.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="useServerGUICheck" layoutX="492.0" layoutY="220.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
+      <CheckBox fx:id="useServerGUICheck" layoutX="493.0" layoutY="420.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="389.0" prefHeight="27.0" prefWidth="903.0" text="Plugin List">
+      <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="455.0" prefHeight="27.0" prefWidth="903.0" text="Plugin List">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ListView fx:id="pluginList" layoutX="15.0" layoutY="421.0" prefHeight="186.0" prefWidth="903.0" />
-      <Button layoutX="14.0" layoutY="616.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Add Plugin" />
-      <Button layoutX="325.0" layoutY="616.0" mnemonicParsing="false" onAction="#onChangePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Change Plugin" />
-      <Button layoutX="632.0" layoutY="616.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
-      <Button layoutX="747.0" layoutY="665.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
-      <Button layoutX="844.0" layoutY="665.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
-      <CheckBox fx:id="updateOutdatedPluginsAutomaticallyCheck" layoutX="492.0" layoutY="160.0" mnemonicParsing="false" text="Update Outdated Plugins Automatically">
+      <ListView fx:id="pluginList" layoutX="16.0" layoutY="487.0" prefHeight="186.0" prefWidth="903.0" />
+      <Button layoutX="15.0" layoutY="682.0" mnemonicParsing="false" onAction="#onAddPluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Add Plugin" />
+      <Button layoutX="326.0" layoutY="682.0" mnemonicParsing="false" onAction="#onChangePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Change Plugin" />
+      <Button layoutX="633.0" layoutY="682.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
+      <Button layoutX="748.0" layoutY="724.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
+      <Button layoutX="845.0" layoutY="724.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
+      <CheckBox fx:id="updateOutdatedPluginsAutomaticallyCheck" layoutX="493.0" layoutY="360.0" mnemonicParsing="false" text="Update Outdated Plugins Automatically">
          <font>
             <Font size="14.0" />
          </font>
