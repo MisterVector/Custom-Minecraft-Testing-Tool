@@ -44,4 +44,20 @@ public class StringUtil {
         return finalString;
     }
     
+    /**
+     * Splits a given string and adds its elements to a list
+     * @param input the input string
+     * @return a list of elements split from a string
+     */
+    public static List<String> splitStringToList(String input) {
+        List<String> ret = new ArrayList<String>();
+        String[] parts = input.split(" ");
+        
+        for (String part : parts) {
+            ret.add(part);
+        }
+        
+        return ret;
+    }
+    
 }

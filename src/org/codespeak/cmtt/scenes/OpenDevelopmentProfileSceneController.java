@@ -49,17 +49,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML private Button updatePluginsButton;
     @FXML private Button updateServerButton;
     
-    private List<String> getListFromJVMFlags(String jvmFlagsString) {
-        List<String> ret = new ArrayList<String>();
-        String[] parts = jvmFlagsString.split(" ");
-        
-        for (String part : parts) {
-            ret.add(part);
-        }
-        
-        return ret;
-    }
-    
     private ServerProfile getServerProfile(String profileName) {
         for (ServerProfile profile : allServerProfiles) {
             if (profile.getName().equalsIgnoreCase(profileName)) {
@@ -245,7 +234,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         commands.add("java");
         
         if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
-            List<String> flagList = getListFromJVMFlags(jvmFlagsString);
+            List<String> flagList = StringUtil.splitStringToList(jvmFlagsString);
             
             commands.addAll(flagList);
         }
