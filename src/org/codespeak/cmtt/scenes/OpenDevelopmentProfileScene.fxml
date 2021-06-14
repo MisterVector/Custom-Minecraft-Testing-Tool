@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="239.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="281.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
    <children>
       <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="643.0" text="\%p">
          <font>
@@ -40,12 +40,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="163.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
-      <Button layoutX="347.0" layoutY="163.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
-      <Button layoutX="17.0" layoutY="200.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Start Server" />
-      <Button layoutX="155.0" layoutY="200.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="120.0" text="Open Logs Folder" />
-      <Button fx:id="updateServerButton" layoutX="290.0" layoutY="200.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="120.0" text="Update Server" />
-      <Button layoutX="553.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
-      <Button fx:id="updatePluginsButton" layoutX="427.0" layoutY="200.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Plugins" />
+      <Button layoutX="14.0" layoutY="200.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
+      <Button layoutX="347.0" layoutY="200.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
+      <Button layoutX="15.0" layoutY="163.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
+      <Button layoutX="177.0" layoutY="163.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
+      <Button fx:id="updateServerButton" layoutX="347.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />
+      <Button layoutX="554.0" layoutY="242.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button fx:id="updatePluginsButton" layoutX="511.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Plugins" />
    </children>
 </AnchorPane>
