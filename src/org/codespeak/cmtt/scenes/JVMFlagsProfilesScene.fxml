@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.JVMFlagsProfilesSceneController">
+<AnchorPane id="AnchorPane" prefHeight="392.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.JVMFlagsProfilesSceneController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="12.0" layoutY="14.0" prefHeight="35.0" prefWidth="476.0" text="JVM Flags Profile Management">
          <font>

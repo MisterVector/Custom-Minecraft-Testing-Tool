@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="408.0" prefWidth="493.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.ServerProfilesSceneController">
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="492.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.ServerProfilesSceneController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="462.0" text="Server Profile Management">
          <font>

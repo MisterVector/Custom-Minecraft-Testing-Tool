@@ -6,54 +6,54 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="346.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.SettingsSceneController">
+<AnchorPane id="AnchorPane" prefHeight="334.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.SettingsSceneController">
    <children>
-      <Label fx:id="settingsLabel" alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="565.0" text="Settings">
+      <Label fx:id="settingsLabel" alignment="TOP_CENTER" layoutX="18.0" layoutY="14.0" prefHeight="30.0" prefWidth="565.0" text="Settings">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="64.0" text="Minecraft Launcher Location">
+      <Label layoutX="17.0" layoutY="52.0" text="Minecraft Launcher Location">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="95.0" mnemonicParsing="false" onAction="#onMinecraftLauncherselectFile" text="Select File ..." />
-      <Label fx:id="minecraftLauncherLocationLabel" layoutX="102.0" layoutY="99.0">
+      <Button layoutX="17.0" layoutY="83.0" mnemonicParsing="false" onAction="#onMinecraftLauncherselectFile" text="Select File ..." />
+      <Label fx:id="minecraftLauncherLocationLabel" layoutX="105.0" layoutY="87.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="133.0" text="Plugin Jarfile Base Directory">
+      <Label layoutX="17.0" layoutY="121.0" text="Plugin Jarfile Base Directory">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#onPluginJarfileBaseDirectorSelectDirectory" prefHeight="25.0" prefWidth="111.0" text="Select Directory ..." />
-      <Label fx:id="pluginJarfileBaseDirectoryLabel" layoutX="132.0" layoutY="167.0">
+      <Button layoutX="17.0" layoutY="152.0" mnemonicParsing="false" onAction="#onPluginJarfileBaseDirectorSelectDirectory" prefHeight="25.0" prefWidth="111.0" text="Select Directory ..." />
+      <Label fx:id="pluginJarfileBaseDirectoryLabel" layoutX="135.0" layoutY="155.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="205.0" text="Server Jarfile Base Directory">
+      <Label layoutX="17.0" layoutY="193.0" text="Server Jarfile Base Directory">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="236.0" mnemonicParsing="false" onAction="#onServerJarfileBaseDirectorSelectDirectory" text="Select Directory ..." />
-      <Label fx:id="serverJarfileBaseDirectoryLabel" layoutX="132.0" layoutY="240.0">
+      <Button layoutX="17.0" layoutY="224.0" mnemonicParsing="false" onAction="#onServerJarfileBaseDirectorSelectDirectory" text="Select Directory ..." />
+      <Label fx:id="serverJarfileBaseDirectoryLabel" layoutX="135.0" layoutY="228.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox fx:id="checkUpdateOnStartupCheck" layoutX="357.0" layoutY="270.0" mnemonicParsing="false" text="Check Update On Startup">
+      <CheckBox fx:id="checkUpdateOnStartupCheck" layoutX="360.0" layoutY="258.0" mnemonicParsing="false" text="Check Update On Startup">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <Button layoutX="390.0" layoutY="304.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="78.0" text="OK" />
-      <Button layoutX="501.0" layoutY="304.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="78.0" text="Close" />
-      <CheckBox fx:id="rememberSelectedDevelopmentProfileCheck" layoutX="18.0" layoutY="272.0" mnemonicParsing="false" text="Remember Selected Development Profile">
+      <Button layoutX="393.0" layoutY="292.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="78.0" text="OK" />
+      <Button layoutX="504.0" layoutY="292.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="78.0" text="Close" />
+      <CheckBox fx:id="rememberSelectedDevelopmentProfileCheck" layoutX="21.0" layoutY="260.0" mnemonicParsing="false" text="Remember Selected Development Profile">
          <font>
             <Font size="14.0" />
          </font>
