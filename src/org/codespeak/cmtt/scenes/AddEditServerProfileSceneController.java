@@ -102,9 +102,14 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML
     public void onSelectServerFileButtonClick(ActionEvent event) {
         FileChooser chooser = new FileChooser();
+        File workingFile = null;
 
         if (serverPath != null) {
-            chooser.setInitialDirectory(serverPath.getParent().toFile());
+            workingFile = MiscUtil.getWorkingFile(serverPath.getParent());
+        }
+        
+        if (workingFile != null) {
+            chooser.setInitialDirectory(workingFile);
         } else {
             Settings settings = Configuration.getSettings();
             String serverJarfileBaseDirectoryRaw = settings.getSetting(SettingFields.SERVER_JARFILE_BASE_DIRECTORY);

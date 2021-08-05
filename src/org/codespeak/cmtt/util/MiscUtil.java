@@ -1,5 +1,6 @@
 package org.codespeak.cmtt.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +49,28 @@ public class MiscUtil {
         }
     }
 
+    /**
+     * Gets a working file from the specified path by checking its parent until
+     * the file exists
+     * @param path path to search for a working file
+     * @return a working file from the specified path
+     */
+    public static File getWorkingFile(Path path) {
+        File fileTest = path.toFile();
+
+        while (!fileTest.exists()) {
+            path = path.getParent();
+            
+            if (path == null) {
+                return null;
+            }
+            
+            fileTest = path.toFile();
+        }
+        
+        return fileTest;
+    }
+    
     /**
      * Generates EULA text used in eula.txt
      * @return EULA text used in eula.txt
