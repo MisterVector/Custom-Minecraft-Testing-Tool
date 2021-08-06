@@ -1,7 +1,6 @@
 package org.codespeak.cmtt.scenes;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -21,14 +20,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.ConditionalAlert;
 import org.codespeak.cmtt.objects.DevelopmentProfileProcessor;
-import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;
 import org.codespeak.cmtt.objects.handlers.JVMFlagsProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
@@ -38,7 +35,6 @@ import org.codespeak.cmtt.objects.Plugin;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.MiscUtil;
-import org.codespeak.cmtt.util.SceneUtil;
 import org.codespeak.cmtt.util.StringUtil;
 
 /**

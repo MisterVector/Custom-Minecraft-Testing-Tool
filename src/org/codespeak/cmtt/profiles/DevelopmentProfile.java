@@ -6,13 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
-import org.codespeak.cmtt.util.MiscUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

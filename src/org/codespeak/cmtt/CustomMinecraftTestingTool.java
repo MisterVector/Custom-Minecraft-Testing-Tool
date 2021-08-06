@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.objects.ErrorType;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.objects.handlers.DevelopmentProfileHandler;

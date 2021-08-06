@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.objects.ProgramException;
-import org.codespeak.cmtt.util.AlertUtil;
 
 /**
  * Controller for the about scene
