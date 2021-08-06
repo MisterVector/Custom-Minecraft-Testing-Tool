@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -15,6 +17,8 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class MiscUtil {
 
+    public static final ExtensionFilter JARFILE_ONLY_FILTER = new ExtensionFilter("Jarfile (*.jar)", "*.jar");
+    
     private static MessageDigest digest = null;
     
     private static MessageDigest getDigest() {

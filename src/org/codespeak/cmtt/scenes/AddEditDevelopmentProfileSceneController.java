@@ -287,7 +287,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             }
         }
         
-        chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
+        chooser.getExtensionFilters().add(MiscUtil.JARFILE_ONLY_FILTER);
 
         File fileChosen = chooser.showOpenDialog(null);
         
@@ -340,7 +340,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             chooser.setInitialDirectory(workingFile);
         }
         
-        chooser.getExtensionFilters().add(new ExtensionFilter("Jarfile (*.jar)", "*.jar"));
+        chooser.getExtensionFilters().add(MiscUtil.JARFILE_ONLY_FILTER);
 
         File fileChosen = chooser.showOpenDialog(null);
         
