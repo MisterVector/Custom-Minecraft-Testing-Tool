@@ -221,10 +221,13 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             serverProfile.update();
         }
         
+        String windowTitle = "Deveopment profile: " + openedProfile.getName() + " Selected server: " + serverProfile.getName();
+        
         if (OS.indexOf("win") > -1) {
             commands.add("cmd");
             commands.add("/c");
             commands.add("start");
+            commands.add(windowTitle);
         } else {
             commands.add("/bin/bash");
             commands.add("-c");
