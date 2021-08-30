@@ -251,7 +251,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML
     public void onAboutMenuItemClick(ActionEvent event) {
         try {
-            StageController<AboutSceneController> stageController = SceneUtil.getScene(SceneTypes.ABOUT, "About");
+            StageController<AboutSceneController> stageController = SceneUtil.getScene(SceneTypes.ABOUT, "About " + Configuration.PROGRAM_NAME);
             Stage stage = stageController.getStage();
             AboutSceneController controller = stageController.getController();
             
