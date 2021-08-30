@@ -34,6 +34,7 @@ import org.codespeak.cmtt.util.SceneUtil;
  */
 public class ServerProfilesSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private int currentlySelectedIndex = -1;
     
@@ -66,6 +67,14 @@ public class ServerProfilesSceneController implements Initializable {
     }    
     
     /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
+    /**
      * Called when finished adding or editing a server profile
      * @param profile server profile being added or edited
      * @param editMode whether the server profile was edited
@@ -90,6 +99,7 @@ public class ServerProfilesSceneController implements Initializable {
             Stage stage = stageController.getStage();
 
             stage.show();
+            controller.setControllerStage(stage);
             controller.setController(this);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
@@ -121,6 +131,7 @@ public class ServerProfilesSceneController implements Initializable {
 
             stage.show();
             controller.setController(this);
+            controller.setControllerStage(stage);
             controller.editServerProfile(profile);
 
             currentlySelectedIndex = selectedIndex;
@@ -213,8 +224,7 @@ public class ServerProfilesSceneController implements Initializable {
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
 
 }

@@ -37,6 +37,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class OpenDevelopmentProfileSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private List<ServerProfile> allServerProfiles = new ArrayList<ServerProfile>();
     private DevelopmentProfile openedProfile = null;
     private ServerProfile serverProfile = null;
@@ -108,6 +109,14 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             allServerProfiles.add(profile);
         }
     }    
+    
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
     
     /**
      * Opens the specified development profile
@@ -436,8 +445,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }

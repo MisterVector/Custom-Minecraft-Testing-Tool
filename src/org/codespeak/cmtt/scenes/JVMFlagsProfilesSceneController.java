@@ -29,6 +29,7 @@ import org.codespeak.cmtt.util.SceneUtil;
  */
 public class JVMFlagsProfilesSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private int currentlySelectedIndex = -1;
     
@@ -61,6 +62,14 @@ public class JVMFlagsProfilesSceneController implements Initializable {
     }    
 
     /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
+    /**
      * Finishes adding or editing a JVM Flags profile
      * @param profile the JVM Flags profile being added or edited
      * @param editMode whether the profile is being edited
@@ -83,8 +92,9 @@ public class JVMFlagsProfilesSceneController implements Initializable {
             StageController<AddEditJVMFlagsProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_JVM_FLAGS_PROFILE, "Add JVM Flags Profile");
             AddEditJVMFlagsProfileSceneController controller = stageController.getController();
             Stage stage = stageController.getStage();
-            
+    
             controller.setController(this);
+            controller.setControllerStage(stage);
             stage.show();
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
@@ -117,6 +127,7 @@ public class JVMFlagsProfilesSceneController implements Initializable {
             Stage stage = stageController.getStage();
             
             controller.setController(this);
+            controller.setControllerStage(stage);
             controller.editJVMFlagsProfile(profile);
             stage.show();
         } catch (IOException ex) {
@@ -158,8 +169,7 @@ public class JVMFlagsProfilesSceneController implements Initializable {
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }

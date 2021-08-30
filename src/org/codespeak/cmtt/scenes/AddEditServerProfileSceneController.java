@@ -32,6 +32,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditServerProfileSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private ServerProfilesSceneController controller;
     private Path serverPath = null;
     private ServerProfile editedServerProfile = null;
@@ -59,6 +60,14 @@ public class AddEditServerProfileSceneController implements Initializable {
         }
     }    
 
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
     /**
      * Sets the ServerProfilesSceneController controller
      * @param controller ServerProfilesSceneController controller
@@ -209,15 +218,12 @@ public class AddEditServerProfileSceneController implements Initializable {
         }
 
         controller.finishAddEditServerProfile(profile, editMode);
-        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
 
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }

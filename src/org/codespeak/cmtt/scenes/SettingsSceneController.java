@@ -24,6 +24,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class SettingsSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private Settings settings = null;
     
     @FXML Label settingsLabel;
@@ -47,6 +48,14 @@ public class SettingsSceneController implements Initializable {
         checkUpdateOnStartupCheck.setSelected(settings.getSetting(SettingFields.CHECK_UPDATE_ON_STARTUP));
     }    
 
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
     @FXML
     public void onMinecraftLauncherselectFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -105,14 +114,13 @@ public class SettingsSceneController implements Initializable {
         settings.setSetting(SettingFields.REMEMBER_SELECTED_DEVELOPMENT_PROFILE, rememberSelectedDevelopmentProfileCheck.isSelected());
         settings.setSetting(SettingFields.CHECK_UPDATE_ON_STARTUP, checkUpdateOnStartupCheck.isSelected());
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
 
 }

@@ -24,6 +24,8 @@ import org.codespeak.cmtt.objects.ProgramException;
  */
 public class AboutSceneController implements Initializable {
 
+    private Stage controllerStage = null;
+    
     @FXML private Label headerLabel;
     @FXML private Label codeSpeakLinkLabel;
     
@@ -35,6 +37,14 @@ public class AboutSceneController implements Initializable {
         headerLabel.setText(Configuration.PROGRAM_NAME + " v" + Configuration.PROGRAM_VERSION);
     }    
  
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
     @FXML
     public void onCodeSpeakLinkClick() {
         try {
@@ -52,8 +62,7 @@ public class AboutSceneController implements Initializable {
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }

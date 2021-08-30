@@ -160,8 +160,10 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         try {
             StageController<SettingsSceneController> stageController = SceneUtil.getScene(SceneTypes.SETTINGS, "Settings");
             Stage stage = stageController.getStage();
-
+            SettingsSceneController controller = stageController.getController();
+            
             stage.show();            
+            controller.setControllerStage(stage);            
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
             Alert alert = ex2.buildAlert();
@@ -213,8 +215,12 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML
     public void onJVMFlagsMenuItemClick(ActionEvent event) {
         try {
-            Stage stage = SceneUtil.getScene(SceneTypes.JVM_FLAGS_PROFILES, "JVM Flags Profile Management").getStage();
+            StageController<JVMFlagsProfilesSceneController> stageController = SceneUtil.getScene(SceneTypes.JVM_FLAGS_PROFILES, "JVM Flags Profile Management");
+            Stage stage = stageController.getStage();
+            JVMFlagsProfilesSceneController controller = stageController.getController();
+
             stage.show();
+            controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
             Alert alert = ex2.buildAlert();
@@ -227,8 +233,12 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML
     public void onServersMenuItemClick(ActionEvent event) {
         try {
-            Stage stage = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profile Management").getStage();
+            StageController<ServerProfilesSceneController> stageController = SceneUtil.getScene(SceneTypes.SERVER_PROFILES, "Server Profile Management");
+            Stage stage = stageController.getStage();
+            ServerProfilesSceneController controller = stageController.getController();
+
             stage.show();
+            controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
             Alert alert = ex2.buildAlert();
@@ -241,8 +251,12 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     @FXML
     public void onAboutMenuItemClick(ActionEvent event) {
         try {
-            Stage stage = SceneUtil.getScene(SceneTypes.ABOUT, "About").getStage();
+            StageController<AboutSceneController> stageController = SceneUtil.getScene(SceneTypes.ABOUT, "About");
+            Stage stage = stageController.getStage();
+            AboutSceneController controller = stageController.getController();
+            
             stage.show();
+            controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
             Alert alert = ex2.buildAlert();
@@ -276,6 +290,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             OpenDevelopmentProfileSceneController controller = stageController.getController();
 
             stage.show();
+            controller.setControllerStage(stage);
             controller.openProfile(profile);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
@@ -302,6 +317,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             AddEditDevelopmentProfileSceneController controller = stageController.getController();
 
             stage.show();
+            controller.setControllerStage(stage);
             controller.setProcessor(this);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
@@ -332,8 +348,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             AddEditDevelopmentProfileSceneController controller = stageController.getController();
 
             stage.show();
+            controller.setControllerStage(stage);
             controller.setProcessor(this);
-
             controller.editDevelopmentProfile(profile);
 
             currentlySelectedIndex = selectedIndex;

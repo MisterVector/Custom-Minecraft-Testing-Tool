@@ -23,6 +23,7 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditJVMFlagsProfileSceneController implements Initializable {
 
+    private Stage controllerStage = null;
     private JVMFlagsProfilesSceneController controller = null;
     private JVMFlagsProfile editedProfile = null;
     private boolean editMode = false;
@@ -39,6 +40,14 @@ public class AddEditJVMFlagsProfileSceneController implements Initializable {
         
     }    
 
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
     /**
      * Sets the JVM Flags Scene controller
      * @param controller JVM Flags Scene controller
@@ -99,15 +108,12 @@ public class AddEditJVMFlagsProfileSceneController implements Initializable {
         }
         
         controller.finishAddEditJVMFlagsProfile(profile, editMode);
-        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }

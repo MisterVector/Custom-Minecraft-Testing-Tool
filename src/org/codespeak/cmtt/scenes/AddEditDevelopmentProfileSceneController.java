@@ -47,6 +47,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     private static final long MIN_XMS = 1048576L;
     private static final long MIN_XMX = 1048576L;
     
+    private Stage controllerStage = null;
     private DevelopmentProfileProcessor processor = null;
     private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
@@ -209,6 +210,14 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
     }    
 
+    /**
+     * Sets the stage representing this scene controller
+     * @param controllerStage stage representing this scene controller
+     */
+    public void setControllerStage(Stage controllerStage) {
+        this.controllerStage = controllerStage;
+    }
+    
     /**
      * Sets a development profile processor
      * @param processor development profile processor
@@ -499,15 +508,12 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
 
         processor.processDevelopmentProfile(profile, editMode);
-        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        controllerStage.close();
     }
     
 }
