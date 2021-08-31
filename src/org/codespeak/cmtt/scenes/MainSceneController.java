@@ -174,40 +174,6 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     }
 
     @FXML
-    public void onStartMinecraftMenuItemClick(ActionEvent event) {
-        Settings settings = Configuration.getSettings();
-        String minecraftLauncherLocation = settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION);
-        
-        if (StringUtil.isNullOrEmpty(minecraftLauncherLocation)) {
-            Alert alert = AlertUtil.createAlert("The Minecraft launcher location has not been set.");
-            alert.show();
-            
-            return;
-        }
-        
-        Path minecraftLauncherPath = Paths.get(minecraftLauncherLocation);
-        
-        if (!minecraftLauncherPath.toFile().exists()) {
-            Alert alert = AlertUtil.createAlert("The Minecraft launcher file does not exist.");
-            alert.show();
-            
-            return;
-        }
-
-        try {
-            ProcessBuilder pb = new ProcessBuilder(minecraftLauncherLocation);
-            pb.directory(minecraftLauncherPath.getParent().toFile());
-            pb.start();
-        } catch (IOException ex) {
-            ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
-
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
-        }
-    }
-    
-    @FXML
     public void onQuitMenuItemClick(ActionEvent event) {
         Platform.exit();
     }

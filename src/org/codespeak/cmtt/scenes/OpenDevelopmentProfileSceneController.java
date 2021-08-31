@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
@@ -148,6 +151,40 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         ServerProfile profile = getServerProfile(profileName);
         
         selectServerProfile(profile);
+    }
+
+    @FXML
+    public void onStartMinecraftLauncherMenuItemClick(ActionEvent event) {
+        Settings settings = Configuration.getSettings();
+        String minecraftLauncherLocation = settings.getSetting(Settings.SettingFields.MINECRAFT_LAUNCHER_LOCATION);
+        
+        if (StringUtil.isNullOrEmpty(minecraftLauncherLocation)) {
+            Alert alert = AlertUtil.createAlert("The Minecraft launcher location has not been set.");
+            alert.show();
+            
+            return;
+        }
+        
+        Path minecraftLauncherPath = Paths.get(minecraftLauncherLocation);
+        
+        if (!minecraftLauncherPath.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("The Minecraft launcher file does not exist.");
+            alert.show();
+            
+            return;
+        }
+
+        try {
+            ProcessBuilder pb = new ProcessBuilder(minecraftLauncherLocation);
+            pb.directory(minecraftLauncherPath.getParent().toFile());
+            pb.start();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
     }
     
     @FXML
