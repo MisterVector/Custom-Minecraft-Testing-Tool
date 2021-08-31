@@ -178,15 +178,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
-    public void onUpdateProfileButtonClick(ActionEvent event) {
-        openedProfile.setServerProfile(serverProfile);
-        
-        Alert alert = AlertUtil.createAlert("Profile has been updated with the new server.");
-        alert.show();
-    }
-    
-    @FXML
-    public void onDeleteLocalWorldsButtonClick(ActionEvent event) {
+    public void onDeleteLocalWorldsMenuItemClick(ActionEvent event) {
         Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
         File localWorldsFile = localWorldsPath.toFile();
 
@@ -211,6 +203,14 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         }
 
         Alert alert = AlertUtil.createAlert(message);
+        alert.show();
+    }
+    
+    @FXML
+    public void onUpdateProfileButtonClick(ActionEvent event) {
+        openedProfile.setServerProfile(serverProfile);
+        
+        Alert alert = AlertUtil.createAlert("Profile has been updated with the new server.");
         alert.show();
     }
 

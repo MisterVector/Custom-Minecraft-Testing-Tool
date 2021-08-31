@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="314.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
    <children>
       <MenuBar layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="680.0">
         <menus>
@@ -22,6 +22,7 @@
             <Menu mnemonicParsing="false" text="Server">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderMenuItemClick" text="Open Local Worlds Folder" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteLocalWorldsMenuItemClick" text="Delete Local Worlds" />
                </items>
             </Menu>
         </menus>
@@ -58,11 +59,10 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="15.0" layoutY="236.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
       <Button layoutX="16.0" layoutY="199.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
       <Button layoutX="178.0" layoutY="199.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
       <Button fx:id="updateServerButton" layoutX="348.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />
-      <Button layoutX="555.0" layoutY="278.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button layoutX="555.0" layoutY="240.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
       <Button fx:id="updatePluginsButton" layoutX="512.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Plugins" />
    </children>
 </AnchorPane>
