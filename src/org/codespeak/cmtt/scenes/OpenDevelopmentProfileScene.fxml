@@ -19,7 +19,11 @@
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Profile" />
-            <Menu mnemonicParsing="false" text="Server" />
+            <Menu mnemonicParsing="false" text="Server">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderMenuItemClick" text="Open Local Worlds Folder" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="16.0" layoutY="50.0" prefHeight="35.0" prefWidth="643.0" text="\%p">
@@ -55,7 +59,6 @@
          </font>
       </Label>
       <Button layoutX="15.0" layoutY="236.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
-      <Button layoutX="348.0" layoutY="236.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
       <Button layoutX="16.0" layoutY="199.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
       <Button layoutX="178.0" layoutY="199.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
       <Button fx:id="updateServerButton" layoutX="348.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />

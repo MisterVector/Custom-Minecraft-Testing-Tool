@@ -156,6 +156,28 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
+    public void onOpenLocalWorldsFolderMenuItemClick(ActionEvent event) {
+        Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
+        File localWorldsFolder = localWorldsPath.toFile();
+        
+        if (!localWorldsFolder.exists()) {
+            Alert alert = AlertUtil.createAlert("The local worlds for this server do not exist!");
+            alert.show();
+            
+            return;
+        }
+        
+        Desktop desktop = Desktop.getDesktop();
+        
+        try {
+            desktop.open(localWorldsFolder);
+        } catch (IOException ex) {
+            Alert alert = AlertUtil.createAlert("Unable to open the local worlds folder for this server.");
+            alert.show();
+        }
+    }
+    
+    @FXML
     public void onUpdateProfileButtonClick(ActionEvent event) {
         openedProfile.setServerProfile(serverProfile);
         
@@ -192,28 +214,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         alert.show();
     }
 
-    @FXML
-    public void onOpenLocalWorldsFolderButtonClick(ActionEvent event) {
-        Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
-        File localWorldsFolder = localWorldsPath.toFile();
-        
-        if (!localWorldsFolder.exists()) {
-            Alert alert = AlertUtil.createAlert("The local worlds for this server do not exist!");
-            alert.show();
-            
-            return;
-        }
-        
-        Desktop desktop = Desktop.getDesktop();
-        
-        try {
-            desktop.open(localWorldsFolder);
-        } catch (IOException ex) {
-            Alert alert = AlertUtil.createAlert("Unable to open the local worlds folder for this server.");
-            alert.show();
-        }
-    }
-    
     @FXML
     public void onStartServerButtonClick(ActionEvent event) {
         List<String> commands = new ArrayList<String>();
