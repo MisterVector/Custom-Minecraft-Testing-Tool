@@ -3,49 +3,63 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="281.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="314.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
    <children>
-      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="15.0" layoutY="14.0" prefHeight="35.0" prefWidth="643.0" text="\%p">
+      <MenuBar layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="680.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onCloseMenuItemClick" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Profile" />
+            <Menu mnemonicParsing="false" text="Server" />
+        </menus>
+      </MenuBar>
+      <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="16.0" layoutY="50.0" prefHeight="35.0" prefWidth="643.0" text="\%p">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="64.0" text="Server for testing">
+      <Label layoutX="15.0" layoutY="100.0" text="Server for testing">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="serverProfileChoice" layoutX="143.0" layoutY="62.0" onAction="#onSelectTestServer" prefHeight="25.0" prefWidth="392.0" />
-      <Button layoutX="551.0" layoutY="62.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
-      <Label layoutX="13.0" layoutY="98.0" text="Minecraft Version">
+      <ComboBox fx:id="serverProfileChoice" layoutX="144.0" layoutY="98.0" onAction="#onSelectTestServer" prefHeight="25.0" prefWidth="392.0" />
+      <Button layoutX="552.0" layoutY="98.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
+      <Label layoutX="14.0" layoutY="134.0" text="Minecraft Version">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="minecraftVersionLabel" layoutX="143.0" layoutY="98.0" text="\%v">
+      <Label fx:id="minecraftVersionLabel" layoutX="144.0" layoutY="134.0" text="\%v">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="130.0" text="Server Type">
+      <Label layoutX="15.0" layoutY="166.0" text="Server Type">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="serverTypeLabel" layoutX="144.0" layoutY="130.0" text="\%t">
+      <Label fx:id="serverTypeLabel" layoutX="145.0" layoutY="166.0" text="\%t">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="200.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
-      <Button layoutX="347.0" layoutY="200.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
-      <Button layoutX="15.0" layoutY="163.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
-      <Button layoutX="177.0" layoutY="163.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
-      <Button fx:id="updateServerButton" layoutX="347.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />
-      <Button layoutX="554.0" layoutY="242.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
-      <Button fx:id="updatePluginsButton" layoutX="511.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Plugins" />
+      <Button layoutX="15.0" layoutY="236.0" mnemonicParsing="false" onAction="#onDeleteLocalWorldsButtonClick" prefHeight="25.0" prefWidth="315.0" text="Delete Local Worlds" />
+      <Button layoutX="348.0" layoutY="236.0" mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderButtonClick" prefHeight="25.0" prefWidth="315.0" text="Open Local Worlds Folder" />
+      <Button layoutX="16.0" layoutY="199.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
+      <Button layoutX="178.0" layoutY="199.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
+      <Button fx:id="updateServerButton" layoutX="348.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />
+      <Button layoutX="555.0" layoutY="278.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button fx:id="updatePluginsButton" layoutX="512.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Plugins" />
    </children>
 </AnchorPane>

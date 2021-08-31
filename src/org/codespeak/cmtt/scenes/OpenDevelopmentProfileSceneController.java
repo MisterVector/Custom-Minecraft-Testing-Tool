@@ -151,6 +151,11 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
+    public void onCloseMenuItemClick(ActionEvent event) {
+        controllerStage.close();
+    }
+    
+    @FXML
     public void onUpdateProfileButtonClick(ActionEvent event) {
         openedProfile.setServerProfile(serverProfile);
         
