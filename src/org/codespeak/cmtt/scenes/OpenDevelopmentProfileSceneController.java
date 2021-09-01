@@ -191,6 +191,30 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     public void onCloseMenuItemClick(ActionEvent event) {
         controllerStage.close();
     }
+
+    @FXML
+    public void onOpenLatestLogMenuItemClick(ActionEvent event) {
+        Path logPath = serverProfile.getProfileLocation().resolve("logs").resolve("latest.log");
+        
+        if (!logPath.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("The latest log file does not exist.");
+            alert.show();
+            
+            return;
+        }
+        
+        Desktop desktop = Desktop.getDesktop();
+        
+        try {
+            desktop.browse(logPath.toUri());
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+            
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
+    }
     
     @FXML
     public void onOpenLocalWorldsFolderMenuItemClick(ActionEvent event) {

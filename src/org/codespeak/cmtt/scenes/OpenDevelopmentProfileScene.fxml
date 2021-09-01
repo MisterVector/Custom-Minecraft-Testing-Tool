@@ -24,6 +24,7 @@
           <Menu mnemonicParsing="false" text="Profile" />
             <Menu mnemonicParsing="false" text="Server">
                <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenLatestLogMenuItemClick" text="Open Latest Log" />
                   <MenuItem mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderMenuItemClick" text="Open Local Worlds Folder" />
                   <MenuItem mnemonicParsing="false" onAction="#onDeleteLocalWorldsMenuItemClick" text="Delete Local Worlds" />
                </items>
