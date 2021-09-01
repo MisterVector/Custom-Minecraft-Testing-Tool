@@ -217,6 +217,31 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     }
     
     @FXML
+    public void onOpenLogsFolderMenuItemClick(ActionEvent event) {
+        Path profileLocation = serverProfile.getProfileLocation();
+        Path logsFolder = profileLocation.resolve("logs");
+        
+        if (!logsFolder.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("Logs folder doesn't exist.");
+            alert.show();
+            
+            return;
+        }
+        
+        try {
+            Desktop desktop = Desktop.getDesktop();
+
+            desktop.browse(logsFolder.toUri());
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
+    }
+            
+    @FXML
     public void onOpenLocalWorldsFolderMenuItemClick(ActionEvent event) {
         Path localWorldsPath = openedProfile.getWorldLocation(serverProfile);
         File localWorldsFolder = localWorldsPath.toFile();
@@ -402,31 +427,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         }
     }
 
-    @FXML
-    public void onOpenLogsFolderButtonClick(ActionEvent event) {
-        Path profileLocation = serverProfile.getProfileLocation();
-        Path logsFolder = profileLocation.resolve("logs");
-        
-        if (!logsFolder.toFile().exists()) {
-            Alert alert = AlertUtil.createAlert("Logs folder doesn't exist.");
-            alert.show();
-            
-            return;
-        }
-        
-        try {
-            Desktop desktop = Desktop.getDesktop();
-
-            desktop.browse(logsFolder.toUri());
-        } catch (IOException ex) {
-            ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
-
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
-        }
-    }
-            
     @FXML
     public void onUpdateServerButtonClick(ActionEvent event) {
         Path serverPath = serverProfile.getServerPath();

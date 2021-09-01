@@ -25,6 +25,7 @@
             <Menu mnemonicParsing="false" text="Server">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#onOpenLatestLogMenuItemClick" text="Open Latest Log" />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenLogsFolderMenuItemClick" text="Open Logs Folder" />
                   <MenuItem mnemonicParsing="false" onAction="#onOpenLocalWorldsFolderMenuItemClick" text="Open Local Worlds Folder" />
                   <MenuItem mnemonicParsing="false" onAction="#onDeleteLocalWorldsMenuItemClick" text="Delete Local Worlds" />
                </items>
@@ -63,10 +64,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="16.0" layoutY="199.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Start Server" />
-      <Button layoutX="178.0" layoutY="199.0" mnemonicParsing="false" onAction="#onOpenLogsFolderButtonClick" prefHeight="25.0" prefWidth="152.0" text="Open Logs Folder" />
-      <Button fx:id="updateServerButton" layoutX="348.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Server" />
+      <Button layoutX="16.0" layoutY="199.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Start Server" />
+      <Button fx:id="updateServerButton" layoutX="238.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Server" />
       <Button layoutX="555.0" layoutY="240.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
-      <Button fx:id="updatePluginsButton" layoutX="512.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Update Plugins" />
+      <Button fx:id="updatePluginsButton" layoutX="462.0" layoutY="199.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Plugins" />
    </children>
 </AnchorPane>
