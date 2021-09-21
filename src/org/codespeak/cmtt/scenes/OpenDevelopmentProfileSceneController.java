@@ -29,6 +29,8 @@ import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.objects.Plugin;
 import org.codespeak.cmtt.objects.ProgramException;
+import org.codespeak.cmtt.objects.handlers.JavaProfileHandler;
+import org.codespeak.cmtt.profiles.JavaProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.StringUtil;
@@ -44,9 +46,11 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     private List<ServerProfile> allServerProfiles = new ArrayList<ServerProfile>();
     private DevelopmentProfile openedProfile = null;
     private ServerProfile serverProfile = null;
+    private JavaProfile javaProfile = null;
     
     @FXML private Label headerLabel;
     @FXML private ComboBox<String> serverProfileChoice;
+    @FXML private ComboBox<String> javaProfileChoice;
     @FXML private Label minecraftVersionLabel;
     @FXML private Label serverTypeLabel;
     @FXML private Button updatePluginsButton;
@@ -111,6 +115,17 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             serverProfileChoiceItems.add(profile.getName());
             allServerProfiles.add(profile);
         }
+        
+        List<JavaProfile> javaProfiles = JavaProfileHandler.getProfiles();
+        ObservableList<String> javaProfileItems = javaProfileChoice.getItems();
+        
+        javaProfileItems.add("System");
+        
+        for (JavaProfile profile : javaProfiles) {
+            String profileName = profile.getName();
+            
+            javaProfileItems.add(profileName);
+        }
     }    
     
     /**
@@ -131,10 +146,13 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         headerLabel.setText(profileName);
         
         serverProfile = profile.getServerProfile();
+        javaProfile = profile.getJavaProfile();
         openedProfile = profile;
 
         serverProfileChoice.getSelectionModel().select(serverProfile.getName());                
         selectServerProfile(serverProfile);
+        
+        javaProfileChoice.getSelectionModel().select(javaProfile != null ? javaProfile.getName() : "System");
         
         if (openedProfile.isUpdatingOutdatedPluginsAutomatically()) {
             updatePluginsButton.setDisable(true);
@@ -151,6 +169,18 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         ServerProfile profile = getServerProfile(profileName);
         
         selectServerProfile(profile);
+    }
+    
+    @FXML
+    public void onSelectJavaProfile() {
+        String profileName = javaProfileChoice.getSelectionModel().getSelectedItem();
+        JavaProfile javaProfile = null;
+        
+        if (!profileName.equalsIgnoreCase("system")) {
+            javaProfile = JavaProfileHandler.getProfile(profileName);            
+        }
+        
+        this.javaProfile = javaProfile;
     }
 
     @FXML
@@ -295,8 +325,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onUpdateProfileButtonClick(ActionEvent event) {
         openedProfile.setServerProfile(serverProfile);
+        openedProfile.setJavaProfile(javaProfile);
         
-        Alert alert = AlertUtil.createAlert("Profile has been updated with the new server.");
+        Alert alert = AlertUtil.createAlert("Profile has been updated with the new server and Java profile.");
         alert.show();
     }
 
@@ -333,7 +364,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add("-c");
         }
         
-        commands.add("java");
+        commands.add(javaProfile != null ? javaProfile.getJavaExecutablePath().toString() : "java");
         
         if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
             List<String> flagList = StringUtil.splitStringToList(jvmFlagsString);

@@ -39,7 +39,7 @@ public class ProgramException extends Exception {
         
         return AlertUtil.createAlert(alertType, "An error has occurred!\n\n" + super.getLocalizedMessage());
     }
-    
+            
     /**
      * Creates a program exception from the specified exception
      * @param ex the exception to convert to a program exception

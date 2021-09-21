@@ -25,6 +25,7 @@
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#onJVMFlagsMenuItemClick" text="JVM Flags ..." />
                   <MenuItem mnemonicParsing="false" onAction="#onServersMenuItemClick" text="Servers ..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onJavaProfilesMenuItemClick" text="Java Profiles ..." />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">

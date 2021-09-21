@@ -13,6 +13,8 @@ public enum SceneTypes {
     SERVER_PROFILES("ServerProfilesScene.fxml"),
     ADD_EDIT_SERVER_PROFILE("AddEditServerProfileScene.fxml"),
     ADD_EDIT_DEVELOPMENT_PROFILE("AddEditDevelopmentProfileScene.fxml"),
+    ADD_EDIT_JAVA_PROFILE("AddEditJavaProfileScene.fxml"),
+    JAVA_PROFILES("JavaProfilesScene.fxml"),
     OPEN_DEVELOPMENT_PROFILE("OpenDevelopmentProfileScene.fxml"),
     ABOUT("AboutScene.fxml"),
     SETTINGS("SettingsScene.fxml");

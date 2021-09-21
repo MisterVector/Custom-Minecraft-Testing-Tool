@@ -32,6 +32,8 @@ import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.objects.Plugin;
+import org.codespeak.cmtt.objects.handlers.JavaProfileHandler;
+import org.codespeak.cmtt.profiles.JavaProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.util.AlertUtil;
 import org.codespeak.cmtt.util.MiscUtil;
@@ -64,6 +66,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML TextArea minecraftServerArgumentsInput;
     @FXML ComboBox<String> jvmFlagsProfileChoice;
     @FXML ComboBox<String> serverProfilesChoice;
+    @FXML ComboBox<String> javaProfilesChoice;
     @FXML TextField customServerWorldNameInput;
     @FXML CheckBox serverWorldsCheck;
     @FXML CheckBox updateOutdatedPluginsAutomaticallyCheck;
@@ -208,6 +211,17 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             serverProfileItems.add(profileName);
             availableServerProfiles.add(profile);
         }
+        
+        List<JavaProfile> javaProfiles = JavaProfileHandler.getProfiles();
+        ObservableList<String> javaProfileItems = javaProfilesChoice.getItems();
+        
+        javaProfileItems.add("System");
+        
+        for (JavaProfile profile : javaProfiles) {
+            String profileName = profile.getName();
+            
+            javaProfileItems.add(profileName);
+        }
     }    
 
     /**
@@ -244,6 +258,11 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         updateOutdatedServerAutomaticallyCheck.setSelected(developmentProfile.isUpdatingOutdatedServerAutomatically());
         useServerGUICheck.setSelected(developmentProfile.isUsingServerGUI());
         serverProfilesChoice.getSelectionModel().select(developmentProfile.getServerProfile().getName());
+        
+        JavaProfile javaProfile = developmentProfile.getJavaProfile();
+
+        javaProfilesChoice.getSelectionModel().select((javaProfile != null ? javaProfile.getName() : "System"));
+        
         plugins = developmentProfile.copyPlugins();
         
         ObservableList<String> pluginItems = pluginList.getItems();
@@ -416,6 +435,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         String jvmFlagsString = jvmFlagsStringInput.getText();
         String minecraftServerArguments = minecraftServerArgumentsInput.getText();
         String serverProfileName = serverProfilesChoice.getSelectionModel().getSelectedItem();
+        String javaProfileName = javaProfilesChoice.getSelectionModel().getSelectedItem();
         String customServerWorldName = customServerWorldNameInput.getText();
         boolean serverWorlds = serverWorldsCheck.isSelected();
         boolean updateOutdatedPluginsAutomatically = updateOutdatedPluginsAutomaticallyCheck.isSelected();
@@ -425,6 +445,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         ConditionalAlert ca = new ConditionalAlert()
                         .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is blank.")
                         .addCondition(StringUtil.isNullOrEmpty(serverProfileName), "Server for testing has not been chosen.")
+                        .addCondition(StringUtil.isNullOrEmpty(javaProfileName), "Java profile has not been selected.")
                         .addCondition(!StringUtil.isNullOrEmpty(lowerMemory) && !isValidMemoryArg(lowerMemory, MIN_XMS), "Lower memory is not a valid value.")
                         .addCondition(!StringUtil.isNullOrEmpty(upperMemory) && !isValidMemoryArg(upperMemory, MIN_XMX), "Upper memory is not a valid value.");
         
@@ -478,8 +499,13 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
         }
         
         ServerProfile serverProfile = getServerProfile(serverProfileName);
+        JavaProfile javaProfile = null;
         DevelopmentProfile profile = null;
 
+        if (!javaProfileName.equalsIgnoreCase("system")) {
+            javaProfile = JavaProfileHandler.getProfile(javaProfileName);
+        }
+        
         if (editMode) {
             editedDevelopmentProfile.setName(profileName);
             editedDevelopmentProfile.setLowerMemory(lowerMemory);
@@ -487,6 +513,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             editedDevelopmentProfile.setJVMFlagsString(jvmFlagsString);
             editedDevelopmentProfile.setMinecraftServerArguments(minecraftServerArguments);
             editedDevelopmentProfile.setServerProfile(serverProfile);
+            editedDevelopmentProfile.setJavaProfile(javaProfile);
             editedDevelopmentProfile.setPlugins(plugins);
             editedDevelopmentProfile.setCustomServerWorldName(customServerWorldName);
             editedDevelopmentProfile.setUsingServerWorlds(serverWorlds);
@@ -501,7 +528,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             profile = editedDevelopmentProfile;
         } else {
             profile = new DevelopmentProfile(profileName, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments, serverProfile,
-                                             customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
+                                             javaProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
                                              updateOutdatedServerAutomatically, useServerGUI, plugins);
 
             DevelopmentProfileHandler.addDevelopmentProfile(profile);

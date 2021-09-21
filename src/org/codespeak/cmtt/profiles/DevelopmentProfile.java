@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.codespeak.cmtt.Configuration;
+import org.codespeak.cmtt.objects.handlers.JavaProfileHandler;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ public class DevelopmentProfile extends Profile {
     private String jvmFlagsString;
     private String minecraftServerArguments;
     private ServerProfile serverProfile;
+    private JavaProfile javaProfile;
     private String customServerWorldName;
     private boolean serverWorlds;
     private boolean updateOudatedPluginsAutomatically;
@@ -34,16 +36,16 @@ public class DevelopmentProfile extends Profile {
     private List<Plugin> plugins;
     
     public DevelopmentProfile(String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                    String minecraftServerArguments, ServerProfile serverProfile, String customServerWorldName,
-                                    boolean serverWorlds, boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically,
-                                    boolean useServerGUI, List<Plugin> plugins) {
-        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments, serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                    String minecraftServerArguments, ServerProfile serverProfile, JavaProfile javaProfile,
+                                    String customServerWorldName, boolean serverWorlds, boolean updateOutdatedPluginsAutomatically,
+                                    boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
+        this(-1, name, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments, serverProfile, javaProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically, useServerGUI, plugins);
     }
     
     public DevelopmentProfile(int id, String name, String lowerMemory, String upperMemory, String jvmFlagsString,
-                                     String minecraftServerArguments, ServerProfile serverProfile, String customServerWorldName,
-                                     boolean serverWorlds, boolean updateOutdatedPluginsAutomatically, boolean updateOutdatedServerAutomatically,
-                                     boolean useServerGUI, List<Plugin> plugins) {
+                                     String minecraftServerArguments, ServerProfile serverProfile, JavaProfile javaProfile,
+                                     String customServerWorldName, boolean serverWorlds, boolean updateOutdatedPluginsAutomatically,
+                                     boolean updateOutdatedServerAutomatically, boolean useServerGUI, List<Plugin> plugins) {
         super(id, name);
         
         this.lowerMemory = lowerMemory;
@@ -51,6 +53,7 @@ public class DevelopmentProfile extends Profile {
         this.jvmFlagsString = jvmFlagsString;
         this.minecraftServerArguments = minecraftServerArguments;
         this.serverProfile = serverProfile;
+        this.javaProfile = javaProfile;
         this.customServerWorldName = customServerWorldName;
         this.serverWorlds = serverWorlds;
         this.updateOudatedPluginsAutomatically = updateOutdatedPluginsAutomatically;
@@ -141,6 +144,26 @@ public class DevelopmentProfile extends Profile {
         this.serverProfile = serverProfile;
     }
     
+    /**
+     * Gets the java profile associated with this development profile. May be
+     * null, in which case the system-defined Java environment is
+     * used instead
+     * @return java profile associated with this development profile
+     */
+    public JavaProfile getJavaProfile() {
+        return javaProfile;
+    }
+    
+    /**
+     * Sets the java profile associated with this development profile. May be
+     * null, in which case the system-defined Java environment is
+     * used instead
+     * @param javaProfile java profile associated with this development profile
+     */
+    public void setJavaProfile(JavaProfile javaProfile) {
+        this.javaProfile = javaProfile;
+    }
+
     /**
      * Gets the custom server world name
      * @return custom server world name
@@ -322,6 +345,7 @@ public class DevelopmentProfile extends Profile {
         json.put("jvm_flags_string", jvmFlagsString);
         json.put("minecraft_server_arguments", minecraftServerArguments);
         json.put("server_profile", serverProfile.getId());
+        json.put("java_profile", (javaProfile != null ? javaProfile.getId() : 0));
         json.put("custom_server_world_name", customServerWorldName);
         json.put("server_worlds", serverWorlds);
         json.put("update_outdated_plugins_automatically", updateOudatedPluginsAutomatically);
@@ -345,6 +369,7 @@ public class DevelopmentProfile extends Profile {
         String jvmFlagsString = "";
         String minecraftServerArguments = "";
         ServerProfile serverProfile = null;
+        JavaProfile javaProfile = null;
         String customServerWorldName = "";
         boolean serverWorlds = false;
         boolean updateOutdatedPluginsAutomatically = false;
@@ -374,6 +399,14 @@ public class DevelopmentProfile extends Profile {
         
         if (json.has("minecraft_server_arguments")) {
             minecraftServerArguments = json.getString("minecraft_server_arguments");
+        }
+        
+        if (json.has("java_profile")) {
+            int javaProfileID = json.getInt("java_profile");
+            
+            if (javaProfileID > 0) {
+                javaProfile = JavaProfileHandler.getProfile(javaProfileID);
+            }
         }
         
         if (json.has("server_profile")) {
@@ -410,8 +443,9 @@ public class DevelopmentProfile extends Profile {
         }
         
         return new DevelopmentProfile(id, name, lowerMemory, upperMemory, jvmFlagsString, minecraftServerArguments,
-                                            serverProfile, customServerWorldName, serverWorlds, updateOutdatedPluginsAutomatically,
-                                            updateOutdatedServerAutomatically, useServerGUI, plugins);
+                                            serverProfile, javaProfile, customServerWorldName, serverWorlds,
+                                            updateOutdatedPluginsAutomatically, updateOutdatedServerAutomatically,
+                                            useServerGUI, plugins);
     }
     
 }

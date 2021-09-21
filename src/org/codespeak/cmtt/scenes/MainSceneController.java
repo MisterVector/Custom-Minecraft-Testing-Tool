@@ -215,6 +215,24 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
     }
     
     @FXML
+    public void onJavaProfilesMenuItemClick(ActionEvent event) {
+        try {
+            StageController<JavaProfilesSceneController> stageController = SceneUtil.getScene(SceneTypes.JAVA_PROFILES, "Java Profile Management");
+            Stage stage = stageController.getStage();
+            JavaProfilesSceneController controller = stageController.getController();
+
+            stage.show();
+            controller.setControllerStage(stage);
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+            Alert alert = ex2.buildAlert();
+
+            alert.show();
+            CustomMinecraftTestingTool.logError(ex2);
+        }
+    }
+    
+    @FXML
     public void onAboutMenuItemClick(ActionEvent event) {
         try {
             StageController<AboutSceneController> stageController = SceneUtil.getScene(SceneTypes.ABOUT, "About " + Configuration.PROGRAM_NAME);

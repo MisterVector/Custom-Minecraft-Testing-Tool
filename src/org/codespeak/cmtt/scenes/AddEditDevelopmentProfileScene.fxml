@@ -59,23 +59,23 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="serverProfilesChoice" layoutX="685.0" layoutY="64.0" prefHeight="25.0" prefWidth="234.0" />
-      <Label layoutX="494.0" layoutY="105.0" text="Custom Server World Name">
+      <ComboBox fx:id="serverProfilesChoice" layoutX="685.0" layoutY="63.0" prefHeight="25.0" prefWidth="234.0" />
+      <Label layoutX="494.0" layoutY="126.0" text="Custom Server World Name">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customServerWorldNameInput" layoutX="685.0" layoutY="101.0" prefHeight="25.0" prefWidth="234.0" />
-      <CheckBox fx:id="serverWorldsCheck" layoutX="494.0" layoutY="135.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
+      <TextField fx:id="customServerWorldNameInput" layoutX="685.0" layoutY="123.0" prefHeight="25.0" prefWidth="234.0" />
+      <CheckBox fx:id="serverWorldsCheck" layoutX="494.0" layoutY="156.0" mnemonicParsing="false" selected="true" text="Use Server's Worlds">
          <font>
             <Font size="14.0" />
          </font></CheckBox>
-      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="494.0" layoutY="195.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
+      <CheckBox fx:id="updateOutdatedServerAutomaticallyCheck" layoutX="494.0" layoutY="216.0" mnemonicParsing="false" text="Update Outdated Server Automatically">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="useServerGUICheck" layoutX="494.0" layoutY="225.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
+      <CheckBox fx:id="useServerGUICheck" layoutX="494.0" layoutY="246.0" mnemonicParsing="false" text="Use Server GUI (if supported)">
          <font>
             <Font size="14.0" />
          </font>
@@ -91,10 +91,16 @@
       <Button layoutX="632.0" layoutY="714.0" mnemonicParsing="false" onAction="#onDeletePluginButtonClick" prefHeight="25.0" prefWidth="285.0" text="Delete Plugin" />
       <Button layoutX="747.0" layoutY="756.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="74.0" text="OK" />
       <Button layoutX="844.0" layoutY="756.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="74.0" text="Close" />
-      <CheckBox fx:id="updateOutdatedPluginsAutomaticallyCheck" layoutX="494.0" layoutY="165.0" mnemonicParsing="false" text="Update Outdated Plugins Automatically">
+      <CheckBox fx:id="updateOutdatedPluginsAutomaticallyCheck" layoutX="494.0" layoutY="186.0" mnemonicParsing="false" text="Update Outdated Plugins Automatically">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
+      <Label layoutX="494.0" layoutY="96.0" text="Java Profile">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="javaProfilesChoice" layoutX="685.0" layoutY="93.0" prefHeight="25.0" prefWidth="234.0" />
    </children>
 </AnchorPane>
