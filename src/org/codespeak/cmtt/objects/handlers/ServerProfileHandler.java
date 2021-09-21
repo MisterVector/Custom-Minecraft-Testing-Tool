@@ -62,19 +62,15 @@ public class ServerProfileHandler {
     /**
      * Deletes a server profile from its ID
      * @param id ID of server profile
-     * @return Server Profile object of deleted profile
      */
-    public static ServerProfile deleteProfile(int id) {
+    public static void deleteProfile(int id) {
         for (Iterator<ServerProfile> it = serverProfiles.iterator(); it.hasNext();) {
             ServerProfile profile = it.next();
             
             if (profile.getId() == id) {
                 it.remove();
-                return profile;
             }
         }
-        
-        return null;
     }
     
     /**
