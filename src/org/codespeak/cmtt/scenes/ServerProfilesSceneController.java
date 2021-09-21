@@ -35,20 +35,9 @@ import org.codespeak.cmtt.util.SceneUtil;
 public class ServerProfilesSceneController implements Initializable {
 
     private Stage controllerStage = null;
-    private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> profileList;
-    
-    private ServerProfile getServerProfile(String profileName) {
-        for (ServerProfile profile : availableServerProfiles) {
-            if (profile.getName().equalsIgnoreCase(profileName)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
     
     /**
      * Initializes the controller class.
@@ -62,7 +51,6 @@ public class ServerProfilesSceneController implements Initializable {
             String profileName = profile.getName();
             
             items.add(profileName);
-            availableServerProfiles.add(profile);
         }
     }    
     
@@ -87,7 +75,6 @@ public class ServerProfilesSceneController implements Initializable {
             items.set(currentlySelectedIndex, profileName);
         } else {
             items.add(profileName);
-            availableServerProfiles.add(profile);
         }
     }
     
@@ -123,7 +110,7 @@ public class ServerProfilesSceneController implements Initializable {
         
         try {
             String profileName = profileList.getItems().get(selectedIndex);
-            ServerProfile profile = getServerProfile(profileName);
+            ServerProfile profile = ServerProfileHandler.getProfile(profileName);
 
             StageController<AddEditServerProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_SERVER_PROFILE, "Edit Server Profile");
             AddEditServerProfileSceneController controller = stageController.getController();
@@ -164,7 +151,7 @@ public class ServerProfilesSceneController implements Initializable {
         if (result == ButtonType.YES) {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
-            ServerProfile profile = getServerProfile(profileName);
+            ServerProfile profile = ServerProfileHandler.getProfile(profileName);
             List<DevelopmentProfile> developmentProfiles = DevelopmentProfileHandler.getProfilesUsingServerProfile(profile);
             int developmentProfilesSize = developmentProfiles.size();
             
@@ -188,7 +175,6 @@ public class ServerProfilesSceneController implements Initializable {
             profile.remove();
             
             items.remove(selectedIndex);
-            availableServerProfiles.remove(profile);
             
             ServerProfileHandler.deleteProfile(profile.getId());
         }

@@ -30,20 +30,9 @@ import org.codespeak.cmtt.util.SceneUtil;
 public class JVMFlagsProfilesSceneController implements Initializable {
 
     private Stage controllerStage = null;
-    private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
     private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> profileList;
-    
-    private JVMFlagsProfile getJVMFlagsProfile(String name) {
-        for (JVMFlagsProfile profile : availableJVMFlagsProfiles) {
-            if (profile.getName().equalsIgnoreCase(name)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
     
     /**
      * Initializes the controller class.
@@ -57,7 +46,6 @@ public class JVMFlagsProfilesSceneController implements Initializable {
             String name = profile.getName();
             
             items.add(name);
-            availableJVMFlagsProfiles.add(profile);
         }
     }    
 
@@ -82,7 +70,6 @@ public class JVMFlagsProfilesSceneController implements Initializable {
             items.set(currentlySelectedIndex, profileName);
         } else {
             items.add(profileName);
-            availableJVMFlagsProfiles.add(profile);
         }
     }
     
@@ -119,7 +106,7 @@ public class JVMFlagsProfilesSceneController implements Initializable {
         currentlySelectedIndex = selectedIndex;
         
         String profileName = profileList.getItems().get(selectedIndex);
-        JVMFlagsProfile profile = getJVMFlagsProfile(profileName);
+        JVMFlagsProfile profile = JVMFlagsProfileHandler.getProfile(profileName);
         
         try {
             StageController<AddEditJVMFlagsProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_JVM_FLAGS_PROFILE, "Edit JVM Flags Profile");
@@ -158,12 +145,11 @@ public class JVMFlagsProfilesSceneController implements Initializable {
         if (button == ButtonType.YES) {
             ObservableList<String> items = profileList.getItems();
             String profileName = items.get(selectedIndex);
-            JVMFlagsProfile profile = getJVMFlagsProfile(profileName);
+            JVMFlagsProfile profile = JVMFlagsProfileHandler.getProfile(profileName);
 
             JVMFlagsProfileHandler.deleteProfile(profile.getId());
             
             items.remove(selectedIndex);
-            availableJVMFlagsProfiles.remove(profile);
         }
     }
     

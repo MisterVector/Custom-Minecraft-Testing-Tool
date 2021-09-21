@@ -43,7 +43,6 @@ import org.codespeak.cmtt.util.StringUtil;
 public class OpenDevelopmentProfileSceneController implements Initializable {
 
     private Stage controllerStage = null;
-    private List<ServerProfile> allServerProfiles = new ArrayList<ServerProfile>();
     private DevelopmentProfile openedProfile = null;
     private ServerProfile serverProfile = null;
     private JavaProfile javaProfile = null;
@@ -55,16 +54,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML private Label serverTypeLabel;
     @FXML private Button updatePluginsButton;
     @FXML private Button updateServerButton;
-    
-    private ServerProfile getServerProfile(String profileName) {
-        for (ServerProfile profile : allServerProfiles) {
-            if (profile.getName().equalsIgnoreCase(profileName)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
     
     private void selectServerProfile(ServerProfile serverProfile) {
         minecraftVersionLabel.setText(serverProfile.getMinecraftVersion());
@@ -113,7 +102,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         for (ServerProfile profile : serverProfiles) {
             serverProfileChoiceItems.add(profile.getName());
-            allServerProfiles.add(profile);
         }
         
         List<JavaProfile> javaProfiles = JavaProfileHandler.getProfiles();
@@ -166,7 +154,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onSelectTestServer() {
         String profileName = serverProfileChoice.getSelectionModel().getSelectedItem();
-        ServerProfile profile = getServerProfile(profileName);
+        ServerProfile profile = ServerProfileHandler.getProfile(profileName);
         
         selectServerProfile(profile);
     }

@@ -51,8 +51,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     
     private Stage controllerStage = null;
     private DevelopmentProfileProcessor processor = null;
-    private List<JVMFlagsProfile> availableJVMFlagsProfiles = new ArrayList<JVMFlagsProfile>();
-    private List<ServerProfile> availableServerProfiles = new ArrayList<ServerProfile>();
     private List<Plugin> plugins = new ArrayList<Plugin>();
     private List<Path> pathsToDelete = new ArrayList<Path>();
     private DevelopmentProfile editedDevelopmentProfile = null;
@@ -74,26 +72,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
     @FXML CheckBox useServerGUICheck;
     @FXML ListView<String> pluginList;
 
-    private JVMFlagsProfile getJVMFlagsProfile(String name) {
-        for (JVMFlagsProfile profile : availableJVMFlagsProfiles) {
-            if (profile.getName().equalsIgnoreCase(name)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
-    
-    private ServerProfile getServerProfile(String name) {
-        for (ServerProfile profile : availableServerProfiles) {
-            if (profile.getName().equalsIgnoreCase(name)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
-    
     private Plugin getPlugin(String pathString) {
         for (Plugin plugin : plugins) {
             if (plugin.isPath(pathString)) {
@@ -199,7 +177,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             String profileName = profile.getName();
             
             jvmFlagsProfileItems.add(profileName);
-            availableJVMFlagsProfiles.add(profile);
         }
         
         List<ServerProfile> serverProfiles = ServerProfileHandler.getProfiles();
@@ -209,7 +186,6 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             String profileName = profile.getName();
             
             serverProfileItems.add(profileName);
-            availableServerProfiles.add(profile);
         }
         
         List<JavaProfile> javaProfiles = JavaProfileHandler.getProfiles();
@@ -286,7 +262,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             return;
         }
          
-        JVMFlagsProfile profile = getJVMFlagsProfile(jvmFlagsProfileName);
+        JVMFlagsProfile profile = JVMFlagsProfileHandler.getProfile(jvmFlagsProfileName);
         String existingJVMFlagsString = jvmFlagsStringInput.getText();
         
         if (!existingJVMFlagsString.endsWith(" ")) {
@@ -498,7 +474,7 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             minecraftServerArguments = StringUtil.getUnduplicatedString(minecraftServerArguments);
         }
         
-        ServerProfile serverProfile = getServerProfile(serverProfileName);
+        ServerProfile serverProfile = ServerProfileHandler.getProfile(serverProfileName);
         JavaProfile javaProfile = null;
         DevelopmentProfile profile = null;
 

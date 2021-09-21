@@ -43,20 +43,9 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class MainSceneController implements Initializable, DevelopmentProfileProcessor {
 
-    private List<DevelopmentProfile> availableDevelopmentProfiles = new ArrayList<DevelopmentProfile>();
     private int currentlySelectedIndex = -1;
     
     @FXML private ListView<String> developmentProfileList;
-    
-    private DevelopmentProfile getDevelopmentProfile(String profileName) {
-        for (DevelopmentProfile profile : availableDevelopmentProfiles) {
-            if (profile.getName().equalsIgnoreCase(profileName)) {
-                return profile;
-            }
-        }
-        
-        return null;
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,7 +61,6 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         
         for (DevelopmentProfile profile : developmentProfiles) {
             developmentProfileItems.add(profile.getName());
-            availableDevelopmentProfiles.add(profile);
         }
         
         if (rememberSelectedDevelopmentProfile && selectedDevelopmentProfile > -1
@@ -92,7 +80,6 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             currentlySelectedIndex = -1;
         } else {
             developmentProfileItems.add(profileName);
-            availableDevelopmentProfiles.add(developmentProfile);
         }
     }
 
@@ -268,7 +255,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         
         try {
             String profileName = developmentProfileList.getItems().get(selectedIndex);
-            DevelopmentProfile profile = getDevelopmentProfile(profileName);
+            DevelopmentProfile profile = DevelopmentProfileHandler.getProfile(profileName);
             StageController<OpenDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.OPEN_DEVELOPMENT_PROFILE, "Open Development Profile");
             Stage stage = stageController.getStage();
             OpenDevelopmentProfileSceneController controller = stageController.getController();
@@ -325,7 +312,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
 
         try {
             String profileName = developmentProfileList.getItems().get(selectedIndex);
-            DevelopmentProfile profile = getDevelopmentProfile(profileName);
+            DevelopmentProfile profile = DevelopmentProfileHandler.getProfile(profileName);
 
             StageController<AddEditDevelopmentProfileSceneController> stageController = SceneUtil.getScene(SceneTypes.ADD_EDIT_DEVELOPMENT_PROFILE, "Edit Development Profile");
             Stage stage = stageController.getStage();
@@ -365,11 +352,10 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         
         if (result == ButtonType.YES) {
             String profileName = developmentProfileList.getItems().remove(selectedIndex);
-            DevelopmentProfile profile = getDevelopmentProfile(profileName);
+            DevelopmentProfile profile = DevelopmentProfileHandler.getProfile(profileName);
 
             profile.remove();
             DevelopmentProfileHandler.deleteProfile(profile.getId());
-            availableDevelopmentProfiles.remove(profile);
         }
     }
     
