@@ -53,10 +53,8 @@ public class AboutSceneController implements Initializable {
             desktop.browse(new URI(Configuration.SITE_URL));
         } catch (IOException | URISyntaxException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     

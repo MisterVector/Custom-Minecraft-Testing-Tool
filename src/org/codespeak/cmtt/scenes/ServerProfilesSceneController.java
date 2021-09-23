@@ -90,10 +90,8 @@ public class ServerProfilesSceneController implements Initializable {
             controller.setController(this);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -124,10 +122,8 @@ public class ServerProfilesSceneController implements Initializable {
             currentlySelectedIndex = selectedIndex;
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -201,10 +197,8 @@ public class ServerProfilesSceneController implements Initializable {
             desktop.open(profileLocation.toFile());
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     

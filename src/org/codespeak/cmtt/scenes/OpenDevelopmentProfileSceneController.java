@@ -198,10 +198,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             pb.start();
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -227,10 +225,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             desktop.browse(logPath.toUri());
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
-            
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -252,10 +248,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             desktop.browse(logsFolder.toUri());
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
             
@@ -439,10 +433,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             pb.start();
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
 

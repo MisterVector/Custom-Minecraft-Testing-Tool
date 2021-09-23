@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
@@ -131,7 +132,7 @@ public class CustomMinecraftTestingTool extends Application {
      * Logs a program error
      * @param ex exception to log
      */
-    public static void logError(ProgramException ex) {
+    public static void handleError(ProgramException ex) {
         Date nowDate = new Date();
         SimpleDateFormat logFolderSDF = new SimpleDateFormat("M-d-yyyy");
         String fileDateFormat = logFolderSDF.format(nowDate);
@@ -164,6 +165,10 @@ public class CustomMinecraftTestingTool extends Application {
         } catch (IOException ioe) {
             
         }
+        
+        Alert alert = ex.buildAlert();
+
+        alert.show();
     }
     
 }

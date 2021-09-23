@@ -81,10 +81,8 @@ public class JavaProfilesSceneController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
-            
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -115,10 +113,8 @@ public class JavaProfilesSceneController implements Initializable {
             controller.editProfile(profile);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
-            
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     

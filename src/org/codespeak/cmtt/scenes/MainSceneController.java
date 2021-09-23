@@ -134,10 +134,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
                 }
             } catch (ProgramException | IOException ex) {
                 ProgramException ex2 = ProgramException.fromException(ex);
-                Alert alert = ex2.buildAlert();
 
-                alert.show();
-                CustomMinecraftTestingTool.logError(ex2);
+                CustomMinecraftTestingTool.handleError(ex2);
             }
         }
     }
@@ -153,10 +151,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setControllerStage(stage);            
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
 
@@ -176,10 +172,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -194,10 +188,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -212,10 +204,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -230,10 +220,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setControllerStage(stage);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -265,10 +253,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.openProfile(profile);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
     
@@ -292,10 +278,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             controller.setProcessor(this);
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
 
@@ -326,10 +310,8 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             currentlySelectedIndex = selectedIndex;
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
-            Alert alert = ex2.buildAlert();
 
-            alert.show();
-            CustomMinecraftTestingTool.logError(ex2);
+            CustomMinecraftTestingTool.handleError(ex2);
         }
     }
 
