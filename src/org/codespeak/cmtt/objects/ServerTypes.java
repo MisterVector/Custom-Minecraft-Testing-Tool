@@ -10,6 +10,7 @@ public enum ServerTypes {
     BUKKIT("Bukkit", "--plugins", "--world", "--world-dir"),
     SPIGOT("Spigot", "--plugins", "--world", "--world-dir"),
     PAPER("Paper", "--plugins", "--world", "--world-dir"),
+    GLOWSTONE("Glowstone", "--plugins-dir", "--world-name", "--worlds-dir"),
     VANILLA("Vanilla", "", "--world", "--universe"),
     CUSTOM("Custom");
     
