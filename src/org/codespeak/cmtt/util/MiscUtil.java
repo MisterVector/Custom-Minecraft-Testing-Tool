@@ -45,8 +45,15 @@ public class MiscUtil {
             d.update(bytes);
             byte[] result = d.digest();
             d.reset();
-         
-            return DatatypeConverter.printHexBinary(result);            
+
+            String output = "";
+            
+            for (byte b : result) {
+                output += Character.toUpperCase(Character.forDigit((b >> 4) & 0xF, 16));
+                output += Character.toUpperCase(Character.forDigit(b & 0xF, 16));
+            }
+            
+            return output;
         } catch (IOException ex) {
             return "";
         }
