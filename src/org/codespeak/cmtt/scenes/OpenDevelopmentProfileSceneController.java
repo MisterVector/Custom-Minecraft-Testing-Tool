@@ -210,19 +210,27 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onOpenLatestLogMenuItemClick(ActionEvent event) {
-        Path logPath = serverProfile.getProfileLocation().resolve("logs").resolve("latest.log");
+        Path targetPath = serverProfile.getProfileLocation().resolve("logs").resolve("latest.log");
         
-        if (!logPath.toFile().exists()) {
-            Alert alert = AlertUtil.createAlert("The latest log file does not exist.");
-            alert.show();
+        if (!targetPath.toFile().exists()) {
+            Alert alert = AlertUtil.createAlert("The latest log file does not exist. The logs folder will be opened instead.");
+            alert.showAndWait();
             
-            return;
+            targetPath = targetPath.getParent();
+
+            if (!targetPath.toFile().exists()) {
+                alert = AlertUtil.createAlert("The logs folder could not be found.");
+                alert.showAndWait();
+
+                return;
+            }
         }
+        
         
         Desktop desktop = Desktop.getDesktop();
         
         try {
-            desktop.browse(logPath.toUri());
+            desktop.browse(targetPath.toUri());
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
