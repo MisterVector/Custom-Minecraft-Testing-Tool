@@ -71,7 +71,7 @@ public class CheckVersionResponse {
         try {
             url = new URL(Configuration.DISTRIBUTION_URL + "?query=check_program_version&slug=" + Configuration.PROGRAM_SLUG + "&current_version=" + Configuration.PROGRAM_VERSION);
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "CustomMinecraftTestingTool");
+            connection.setRequestProperty("User-Agent", "CustomMinecraftTestingTool/" + Configuration.PROGRAM_VERSION);
         } catch (IOException ex) {
             throw ProgramException.fromException(ex);
         }
