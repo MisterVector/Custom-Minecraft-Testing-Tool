@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -24,6 +23,7 @@ import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.Settings;
+import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.ServerTypes;
 import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
@@ -174,7 +174,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML
     public void onStartMinecraftLauncherMenuItemClick(ActionEvent event) {
         Settings settings = Configuration.getSettings();
-        String minecraftLauncherLocation = settings.getSetting(Settings.SettingFields.MINECRAFT_LAUNCHER_LOCATION);
+        String minecraftLauncherLocation = settings.getSetting(SettingFields.MINECRAFT_LAUNCHER_LOCATION);
         
         if (StringUtil.isNullOrEmpty(minecraftLauncherLocation)) {
             Alert alert = AlertUtil.createAlert("The Minecraft launcher location has not been set.");
@@ -225,7 +225,6 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                 return;
             }
         }
-        
         
         Desktop desktop = Desktop.getDesktop();
         
