@@ -85,8 +85,8 @@ public class MiscUtil {
      * @return EULA text used in eula.txt
      */
     public static String getEULAText() {
-        return "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n"
-             + "#" + new Date() + "\n"
+        return "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." + System.lineSeparator()
+             + "#" + new Date() + System.lineSeparator()
              + "eula=true";
     }
     
