@@ -91,6 +91,108 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         return null;
     }
+
+    private List<String> getServerStartupArguments() {
+        List<String> commands = new ArrayList<String>();
+        
+        String lowerMemory = openedProfile.getLowerMemory();
+        String upperMemory = openedProfile.getUpperMemory();
+        String jvmFlagsString = openedProfile.getJVMFlagsString();
+        String OS = System.getProperty("os.name").toLowerCase();
+        String windowTitle = "Deveopment profile: " + openedProfile.getName() + " Selected server: " + serverProfile.getName();
+        
+        if (OS.indexOf("win") > -1) {
+            commands.add("cmd");
+            commands.add("/c");
+            commands.add("start");
+            commands.add(windowTitle);
+        } else {
+            commands.add("/bin/bash");
+            commands.add("-c");
+        }
+        
+        commands.add(javaProfile != null ? javaProfile.getJavaExecutablePath().toString() : "java");
+        
+        if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
+            List<String> flagList = StringUtil.splitStringToList(jvmFlagsString);
+            
+            commands.addAll(flagList);
+        }
+        
+        if (!StringUtil.isNullOrEmpty(lowerMemory)) {
+            commands.add("-Xms" + lowerMemory);
+        }
+        
+        if (!StringUtil.isNullOrEmpty(upperMemory)) {
+            commands.add("-Xmx" + upperMemory);
+        }
+
+        ServerTypes serverType = serverProfile.getServerType();
+        
+        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT)) {
+            commands.add("-DIReallyKnowWhatIAmDoingISwear");
+        }
+        
+        commands.add("-jar");
+        commands.add("server.jar");
+        
+        String minecraftServerArguments = openedProfile.getMinecraftServerArguments();
+        
+        if (!StringUtil.isNullOrEmpty(minecraftServerArguments)) {
+            List<String> args = StringUtil.splitStringToList(minecraftServerArguments);
+            
+            for (String arg : args) {
+                commands.add(arg);
+            }
+        }
+        
+        String customWorldNameArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldNameArgument() : serverType.getWorldNameArgument());
+        String customServerWorldName = openedProfile.getCustomServerWorldName();
+        
+        if (!StringUtil.isNullOrEmpty(customWorldNameArgument) && !StringUtil.isNullOrEmpty((customServerWorldName))) {
+            commands.add(customWorldNameArgument);
+            commands.add(customServerWorldName);            
+        }
+
+        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
+
+        if (!StringUtil.isNullOrEmpty(worldsArgument) && !openedProfile.isUsingServerWorlds()) {
+            commands.add(worldsArgument);
+
+            Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
+            File fileWorldsLocation = worldsLocation.toFile();
+
+            if (!fileWorldsLocation.exists()) {
+                fileWorldsLocation.mkdirs();
+            }
+
+            commands.add(worldsLocation.toString());
+        }            
+
+        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        
+        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
+            List<Plugin> plugins = openedProfile.getPlugins();
+            Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
+            
+            if (!plugins.isEmpty()) {
+                for (Plugin plugin : plugins) {
+                    if (!plugin.hasPluginFile(pluginsLocation) || (openedProfile.isUpdatingOutdatedPluginsAutomatically() && plugin.canUpdate())) {
+                        plugin.update(pluginsLocation);                        
+                    }
+                }
+
+                commands.add(pluginsArgument);
+                commands.add(pluginsLocation.toString());
+            }
+        }
+
+        if (!openedProfile.isUsingServerGUI()) {
+            commands.add("nogui");
+        }
+        
+        return commands;
+    }
     
     /**
      * Initializes the controller class.
@@ -322,12 +424,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onStartServerButtonClick(ActionEvent event) {
-        List<String> commands = new ArrayList<String>();
         Path serverProfileLocation = serverProfile.getProfileLocation();
-        String lowerMemory = openedProfile.getLowerMemory();
-        String upperMemory = openedProfile.getUpperMemory();
-        String jvmFlagsString = openedProfile.getJVMFlagsString();
-        String OS = System.getProperty("os.name").toLowerCase();
 
         Alert checkAlert = getFailedStartAlert();
         
@@ -340,98 +437,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
             serverProfile.update();
         }
-        
-        String windowTitle = "Deveopment profile: " + openedProfile.getName() + " Selected server: " + serverProfile.getName();
-        
-        if (OS.indexOf("win") > -1) {
-            commands.add("cmd");
-            commands.add("/c");
-            commands.add("start");
-            commands.add(windowTitle);
-        } else {
-            commands.add("/bin/bash");
-            commands.add("-c");
-        }
-        
-        commands.add(javaProfile != null ? javaProfile.getJavaExecutablePath().toString() : "java");
-        
-        if (!StringUtil.isNullOrEmpty(jvmFlagsString)) {
-            List<String> flagList = StringUtil.splitStringToList(jvmFlagsString);
-            
-            commands.addAll(flagList);
-        }
-        
-        if (!StringUtil.isNullOrEmpty(lowerMemory)) {
-            commands.add("-Xms" + lowerMemory);
-        }
-        
-        if (!StringUtil.isNullOrEmpty(upperMemory)) {
-            commands.add("-Xmx" + upperMemory);
-        }
 
-        ServerTypes serverType = serverProfile.getServerType();
-        
-        if (serverType.is(ServerTypes.BUKKIT, ServerTypes.SPIGOT)) {
-            commands.add("-DIReallyKnowWhatIAmDoingISwear");
-        }
-        
-        commands.add("-jar");
-        commands.add("server.jar");
-        
-        String minecraftServerArguments = openedProfile.getMinecraftServerArguments();
-        
-        if (!StringUtil.isNullOrEmpty(minecraftServerArguments)) {
-            List<String> args = StringUtil.splitStringToList(minecraftServerArguments);
-            
-            for (String arg : args) {
-                commands.add(arg);
-            }
-        }
-        
-        String customWorldNameArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldNameArgument() : serverType.getWorldNameArgument());
-        String customServerWorldName = openedProfile.getCustomServerWorldName();
-        
-        if (!StringUtil.isNullOrEmpty(customWorldNameArgument) && !StringUtil.isNullOrEmpty((customServerWorldName))) {
-            commands.add(customWorldNameArgument);
-            commands.add(customServerWorldName);            
-        }
-
-        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
-
-        if (!StringUtil.isNullOrEmpty(worldsArgument) && !openedProfile.isUsingServerWorlds()) {
-            commands.add(worldsArgument);
-
-            Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
-            File fileWorldsLocation = worldsLocation.toFile();
-
-            if (!fileWorldsLocation.exists()) {
-                fileWorldsLocation.mkdirs();
-            }
-
-            commands.add(worldsLocation.toString());
-        }            
-
-        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
-        
-        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
-            List<Plugin> plugins = openedProfile.getPlugins();
-            Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
-            
-            if (!plugins.isEmpty()) {
-                for (Plugin plugin : plugins) {
-                    if (!plugin.hasPluginFile(pluginsLocation) || (openedProfile.isUpdatingOutdatedPluginsAutomatically() && plugin.canUpdate())) {
-                        plugin.update(pluginsLocation);                        
-                    }
-                }
-
-                commands.add(pluginsArgument);
-                commands.add(pluginsLocation.toString());
-            }
-        }
-
-        if (!openedProfile.isUsingServerGUI()) {
-            commands.add("nogui");
-        }
+        List<String> commands = getServerStartupArguments();
         
         try {
             ProcessBuilder pb = new ProcessBuilder(commands);
