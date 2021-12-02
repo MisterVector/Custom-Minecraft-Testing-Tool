@@ -192,9 +192,15 @@ public class ServerProfile extends Profile {
      */
     public boolean hasNecessaryFiles() {
         Path serverLocation = getServerLocation();
+        boolean serverExists = serverLocation.toFile().exists();
+        
+        if (serverType == ServerTypes.GLOWSTONE) {
+            return serverExists;
+        }
+        
         Path eulaLocation = getEULALocation();
         
-        return serverLocation.toFile().exists() && eulaLocation.toFile().exists();
+        return serverExists && eulaLocation.toFile().exists();
     }
     
     /**
@@ -225,7 +231,6 @@ public class ServerProfile extends Profile {
     public void update() {
         File fileProfileLocation = getProfileLocation().toFile();
         Path serverFile = getServerLocation();
-        Path eulaFile = getEULALocation();
         
         if (!fileProfileLocation.exists()) {
             fileProfileLocation.mkdirs();
@@ -235,11 +240,15 @@ public class ServerProfile extends Profile {
             Files.copy(serverPath, serverFile, StandardCopyOption.REPLACE_EXISTING);
             
             checksum = MiscUtil.getChecksum(serverPath);
-            
-            if (!eulaFile.toFile().exists()) {
-                String eulaText = MiscUtil.getEULAText();
 
-                Files.write(eulaFile, eulaText.getBytes());
+            if (serverType != ServerTypes.GLOWSTONE) {
+                Path eulaFile = getEULALocation();
+
+                if (!eulaFile.toFile().exists()) {
+                    String eulaText = MiscUtil.getEULAText();
+
+                    Files.write(eulaFile, eulaText.getBytes());
+                }
             }
         } catch (IOException ex) {
 
