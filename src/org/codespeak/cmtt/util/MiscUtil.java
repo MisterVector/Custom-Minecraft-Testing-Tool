@@ -82,10 +82,17 @@ public class MiscUtil {
     
     /**
      * Generates EULA text used in eula.txt
+     * @param customServer If the EULA text generated is for a custom server
      * @return EULA text used in eula.txt
      */
-    public static String getEULAText() {
-        return "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." + System.lineSeparator()
+    public static String getEULAText(boolean customServer) {
+        String text = "";
+        
+        if (customServer) {
+            text = "#If this server is using vanilla Minecraft code, the EULA below applies" + System.lineSeparator();
+        }
+        
+        return text + "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." + System.lineSeparator()
              + "#" + new Date() + System.lineSeparator()
              + "eula=true";
     }

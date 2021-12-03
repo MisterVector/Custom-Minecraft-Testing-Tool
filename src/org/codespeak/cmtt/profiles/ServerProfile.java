@@ -243,9 +243,10 @@ public class ServerProfile extends Profile {
 
             if (serverType != ServerTypes.GLOWSTONE) {
                 Path eulaFile = getEULALocation();
+                boolean customServer = serverType == ServerTypes.CUSTOM;
 
                 if (!eulaFile.toFile().exists()) {
-                    String eulaText = MiscUtil.getEULAText();
+                    String eulaText = MiscUtil.getEULAText(customServer);
 
                     Files.write(eulaFile, eulaText.getBytes());
                 }
