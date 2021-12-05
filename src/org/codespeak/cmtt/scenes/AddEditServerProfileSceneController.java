@@ -195,6 +195,17 @@ public class AddEditServerProfileSceneController implements Initializable {
         ServerProfile profile = null;
         
         if (editMode) {
+            ServerTypes oldServerType = editedServerProfile.getServerType();
+            
+            if (oldServerType != serverType) {
+                Path eulaPath = editedServerProfile.getEULALocation();
+                File eulaFile = eulaPath.toFile();
+                
+                if (eulaFile.exists()) {
+                    eulaFile.delete();
+                }
+            }
+            
             editedServerProfile.setName(profileName);
             editedServerProfile.setMinecraftVersion(minecraftVersion);
             editedServerProfile.setServerType(serverType);
