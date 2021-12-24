@@ -106,6 +106,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add("/c");
             commands.add("start");
             commands.add(windowTitle);
+            commands.add("cmd");
+            commands.add("/c");
         } else {
             commands.add("/bin/bash");
             commands.add("-c");
