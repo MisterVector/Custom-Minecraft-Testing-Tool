@@ -99,9 +99,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         String upperMemory = openedProfile.getUpperMemory();
         String jvmFlagsString = openedProfile.getJVMFlagsString();
         String OS = System.getProperty("os.name").toLowerCase();
+        boolean isWindows = OS.indexOf("win") > -1;
         String windowTitle = "Deveopment profile: " + openedProfile.getName() + " Selected server: " + serverProfile.getName();
         
-        if (OS.indexOf("win") > -1) {
+        if (isWindows) {
             commands.add("cmd");
             commands.add("/c");
             commands.add("start");
