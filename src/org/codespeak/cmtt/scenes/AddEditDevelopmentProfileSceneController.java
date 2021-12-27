@@ -45,6 +45,9 @@ import org.codespeak.cmtt.util.StringUtil;
  */
 public class AddEditDevelopmentProfileSceneController implements Initializable {
 
+    private static final long KIBIBYTE_SIZE = 1024L;
+    private static final long MIBIBYTE_SIZE = 1048576L;
+    private static final long GIBIBYTE_SIZE = 1073741824L;
     private static final long MIN_XMS = 1048576L;
     private static final long MIN_XMX = 1048576L;
     
@@ -144,13 +147,13 @@ public class AddEditDevelopmentProfileSceneController implements Initializable {
             
             switch (endChar) {
                 case 'K':
-                        val = (valueWithoutChar * 1024);
+                        val = (valueWithoutChar * KIBIBYTE_SIZE);
                         break;
                 case 'M':
-                        val = (valueWithoutChar * 1048576);
+                        val = (valueWithoutChar * MIBIBYTE_SIZE);
                         break;
                 case 'G':
-                        val = (valueWithoutChar * 1073741824);
+                        val = (valueWithoutChar * GIBIBYTE_SIZE);
                         break;
             }
         }
