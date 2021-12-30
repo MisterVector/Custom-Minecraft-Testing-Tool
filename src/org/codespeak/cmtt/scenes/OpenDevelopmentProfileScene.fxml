@@ -21,7 +21,10 @@
               <MenuItem mnemonicParsing="false" onAction="#onCloseMenuItemClick" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Profile" />
+          <Menu mnemonicParsing="false" text="Profile">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onDebugServerMenuItemClick" text="Debug Server" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Server">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#onOpenLatestLogMenuItemClick" text="Open Latest Log" />

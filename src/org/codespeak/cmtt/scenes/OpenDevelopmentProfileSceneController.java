@@ -92,7 +92,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         return null;
     }
 
-    private List<String> getServerStartupArguments() {
+    private List<String> getServerStartupArguments(boolean debugMode) {
         List<String> commands = new ArrayList<String>();
         
         String lowerMemory = openedProfile.getLowerMemory();
@@ -192,6 +192,13 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
         if (!openedProfile.isUsingServerGUI()) {
             commands.add("nogui");
+        }
+        
+        if (debugMode) {
+            if (isWindows) {
+                commands.add("^&");
+                commands.add("pause");
+            }
         }
         
         return commands;
@@ -313,6 +320,36 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         controllerStage.close();
     }
 
+    @FXML
+    public void onDebugServerMenuItemClick(ActionEvent event) {
+        Path serverProfileLocation = serverProfile.getProfileLocation();
+
+        Alert checkAlert = getFailedStartAlert();
+        
+        if (checkAlert != null) {
+            checkAlert.show();
+            
+            return;
+        }
+        
+        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
+            serverProfile.update();
+        }
+
+        List<String> commands = getServerStartupArguments(true);
+        
+        try {
+            ProcessBuilder pb = new ProcessBuilder(commands);
+            pb.directory(serverProfileLocation.toFile());
+
+            pb.start();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+
+            CustomMinecraftTestingTool.handleError(ex2);
+        }
+    }
+    
     @FXML
     public void onOpenLatestLogMenuItemClick(ActionEvent event) {
         Path targetPath = serverProfile.getProfileLocation().resolve("logs").resolve("latest.log");
@@ -441,7 +478,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             serverProfile.update();
         }
 
-        List<String> commands = getServerStartupArguments();
+        List<String> commands = getServerStartupArguments(false);
         
         try {
             ProcessBuilder pb = new ProcessBuilder(commands);
