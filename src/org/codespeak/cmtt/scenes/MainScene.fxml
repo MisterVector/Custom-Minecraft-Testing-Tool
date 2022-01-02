@@ -18,6 +18,8 @@
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#onSettingsMenuItemClick" text="Settings" />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenLogsFolderMenuItemClick" text="Open Logs Folder" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#onQuitMenuItemClick" text="Quit" />
             </items>
           </Menu>

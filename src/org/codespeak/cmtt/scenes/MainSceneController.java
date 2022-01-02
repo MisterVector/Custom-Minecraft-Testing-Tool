@@ -1,6 +1,7 @@
  package org.codespeak.cmtt.scenes;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -152,6 +153,28 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         }
     }
 
+    @FXML
+    public void onOpenLogsFolderMenuItemClick(ActionEvent event) {
+        File file = new File(Configuration.LOGS_FOLDER);
+        
+        if (!file.exists()) {
+            Alert alert = AlertUtil.createAlert("The logs folder does not exist.");
+            alert.show();
+            
+            return;
+        }
+
+        Desktop desktop = Desktop.getDesktop();
+        
+        try {
+            desktop.browse(file.toURI());
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+
+            CustomMinecraftTestingTool.handleError(ex2);
+        }
+    }
+    
     @FXML
     public void onQuitMenuItemClick(ActionEvent event) {
         Platform.exit();
