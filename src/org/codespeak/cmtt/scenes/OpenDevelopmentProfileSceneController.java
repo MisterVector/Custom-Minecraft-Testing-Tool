@@ -107,6 +107,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add("/c");
             commands.add("start");
             commands.add(windowTitle);
+            commands.add("/wait");
             commands.add("cmd");
             commands.add("/c");
         } else {
