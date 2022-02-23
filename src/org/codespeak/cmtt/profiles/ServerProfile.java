@@ -27,10 +27,10 @@ public class ServerProfile extends Profile {
     private Path serverPath;
     private String checksum;
     
-    public ServerProfile(String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldNameArgument,
-                         String customWorldsArgument, Path serverPath, String checksum) {
-        this(-1, name, minecraftVersion, serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
+    public ServerProfile(String name, ServerTypes serverType, String customPluginsArgument,
+                         String customWorldNameArgument, String customWorldsArgument,
+                         Path serverPath, String checksum) {
+        this(-1, name, "Unknown", serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
     }
     
     public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,

@@ -40,7 +40,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     
     @FXML private Label headerLabel;
     @FXML private TextField profileNameInput;
-    @FXML private TextField minecraftVersionInput;
+    @FXML private Label minecraftVersionLabel;
     @FXML private ComboBox<String> serverTypeChoices;
     @FXML private TextField customPluginsArgumentInput;
     @FXML private TextField customWorldNameArgumentInput;
@@ -81,7 +81,7 @@ public class AddEditServerProfileSceneController implements Initializable {
      */
     public void editServerProfile(ServerProfile profile) {
         profileNameInput.setText(profile.getName());
-        minecraftVersionInput.setText(profile.getMinecraftVersion());
+        minecraftVersionLabel.setText(profile.getMinecraftVersion());
         serverTypeChoices.getSelectionModel().select(profile.getServerType().getName());
         customPluginsArgumentInput.setText(profile.getCustomPluginsArgument());
         customWorldNameArgumentInput.setText(profile.getCustomWorldNameArgument());
@@ -157,7 +157,6 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML
     public void onOKButtonClick(ActionEvent event) {
         String profileName = profileNameInput.getText();
-        String minecraftVersion = minecraftVersionInput.getText();
         String serverTypeChosen = serverTypeChoices.getSelectionModel().getSelectedItem();
         String customPluginsArgument = customPluginsArgumentInput.getText();
         String customWorldNameArgument = customWorldNameArgumentInput.getText();
@@ -170,7 +169,6 @@ public class AddEditServerProfileSceneController implements Initializable {
 
         ConditionalAlert ca = new ConditionalAlert()
                         .addCondition(StringUtil.isNullOrEmpty(profileName), "Profile name is empty.")
-                        .addCondition(StringUtil.isNullOrEmpty(minecraftVersion), "Minecraft version is empty.")
                         .addCondition(serverType == null, "Server type has not been chosen.")
                         .addCondition(serverPath == null, "Select a file for the server.");
 
@@ -207,7 +205,6 @@ public class AddEditServerProfileSceneController implements Initializable {
             }
             
             editedServerProfile.setName(profileName);
-            editedServerProfile.setMinecraftVersion(minecraftVersion);
             editedServerProfile.setServerType(serverType);
             editedServerProfile.setCustomPluginsArgument(customPluginsArgument);
             editedServerProfile.setCustomWorldNameArgument(customWorldNameArgument);
@@ -221,7 +218,7 @@ public class AddEditServerProfileSceneController implements Initializable {
 
             profile = editedServerProfile;
         } else {
-            profile = new ServerProfile(profileName, minecraftVersion, serverType, customPluginsArgument,
+            profile = new ServerProfile(profileName, serverType, customPluginsArgument,
                                         customWorldNameArgument, customWorldsArgument, serverPath, "");
 
             ServerProfileHandler.addProfile(profile);

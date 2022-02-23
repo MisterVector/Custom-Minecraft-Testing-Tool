@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.codespeak.cmtt.Configuration;
 import org.codespeak.cmtt.CustomMinecraftTestingTool;
 import org.codespeak.cmtt.Settings;
@@ -29,6 +30,7 @@ import org.codespeak.cmtt.objects.handlers.ServerProfileHandler;
 import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.objects.Plugin;
 import org.codespeak.cmtt.objects.ProgramException;
+import org.codespeak.cmtt.objects.ReadServerInformationThread;
 import org.codespeak.cmtt.objects.handlers.JavaProfileHandler;
 import org.codespeak.cmtt.profiles.JavaProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
@@ -43,6 +45,8 @@ import org.codespeak.cmtt.util.StringUtil;
 public class OpenDevelopmentProfileSceneController implements Initializable {
 
     private Stage controllerStage = null;
+    private Process process = null;
+    private ReadServerInformationThread readThread = null;
     private DevelopmentProfile openedProfile = null;
     private ServerProfile serverProfile = null;
     private JavaProfile javaProfile = null;
@@ -235,6 +239,12 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
      */
     public void setControllerStage(Stage controllerStage) {
         this.controllerStage = controllerStage;
+
+        this.controllerStage.setOnHidden((WindowEvent windowEvent) -> {
+            if (readThread != null && readThread.isAlive()) {
+                readThread.interrupt();
+            }
+        });
     }
     
     /**
@@ -475,8 +485,12 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             return;
         }
         
+        boolean updated = false;
+        
         if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
             serverProfile.update();
+            
+            updated = true;
         }
 
         List<String> commands = getServerStartupArguments(false);
@@ -485,11 +499,19 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             ProcessBuilder pb = new ProcessBuilder(commands);
             pb.directory(serverProfileLocation.toFile());
 
-            pb.start();
+            process = pb.start();
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
             CustomMinecraftTestingTool.handleError(ex2);
+            
+            return;
+        }
+        
+        if (updated) {
+            readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel);
+
+            readThread.start();            
         }
     }
 
