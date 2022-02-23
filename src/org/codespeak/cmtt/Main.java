@@ -29,12 +29,12 @@ import org.json.JSONObject;
  *
  * @author Vector
  */
-public class CustomMinecraftTestingTool extends Application {
+public class Main extends Application {
     
-    private static CustomMinecraftTestingTool instance = null;
+    private static Main instance = null;
     private static MainSceneController mainSceneController = null;
     
-    public CustomMinecraftTestingTool() {
+    public Main() {
         instance = this;
     }
     
@@ -84,7 +84,7 @@ public class CustomMinecraftTestingTool extends Application {
      * Gets an instance of this class
      * @return instance of this class
      */
-    public static CustomMinecraftTestingTool getInstance() {
+    public static Main getInstance() {
         return instance;
     }
     

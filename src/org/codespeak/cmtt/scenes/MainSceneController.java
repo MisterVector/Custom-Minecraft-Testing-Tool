@@ -18,7 +18,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
-import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Main;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.CheckVersionResponse;
@@ -132,7 +132,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
             } catch (ProgramException | IOException ex) {
                 ProgramException ex2 = ProgramException.fromException(ex);
 
-                CustomMinecraftTestingTool.handleError(ex2);
+                Main.handleError(ex2);
             }
         }
     }
@@ -149,7 +149,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
 
@@ -171,7 +171,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -192,7 +192,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -208,7 +208,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -224,7 +224,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -240,7 +240,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -273,7 +273,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -298,7 +298,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
 
@@ -330,7 +330,7 @@ public class MainSceneController implements Initializable, DevelopmentProfilePro
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
 

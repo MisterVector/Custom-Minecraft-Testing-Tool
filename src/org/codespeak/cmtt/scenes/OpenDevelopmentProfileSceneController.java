@@ -22,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.codespeak.cmtt.Configuration;
-import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Main;
 import org.codespeak.cmtt.Settings;
 import org.codespeak.cmtt.Settings.SettingFields;
 import org.codespeak.cmtt.objects.ServerTypes;
@@ -322,7 +322,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -357,7 +357,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -386,7 +386,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -409,7 +409,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
             
@@ -503,7 +503,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
             
             return;
         }

@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Main;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.StageController;
 import org.codespeak.cmtt.profiles.JVMFlagsProfile;
@@ -84,7 +84,7 @@ public class JVMFlagsProfilesSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -116,7 +116,7 @@ public class JVMFlagsProfilesSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     

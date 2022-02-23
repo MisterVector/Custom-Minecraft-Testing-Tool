@@ -15,7 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.stage.Stage;
-import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Main;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.profiles.ServerProfile;
 import org.codespeak.cmtt.objects.StageController;
@@ -89,7 +89,7 @@ public class ServerProfilesSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -121,7 +121,7 @@ public class ServerProfilesSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
@@ -196,7 +196,7 @@ public class ServerProfilesSceneController implements Initializable {
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     

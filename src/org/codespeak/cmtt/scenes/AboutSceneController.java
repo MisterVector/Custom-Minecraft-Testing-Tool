@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.codespeak.cmtt.Configuration;
-import org.codespeak.cmtt.CustomMinecraftTestingTool;
+import org.codespeak.cmtt.Main;
 import org.codespeak.cmtt.objects.ProgramException;
 
 /**
@@ -52,7 +52,7 @@ public class AboutSceneController implements Initializable {
         } catch (IOException | URISyntaxException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 
-            CustomMinecraftTestingTool.handleError(ex2);
+            Main.handleError(ex2);
         }
     }
     
