@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.codespeak.cmtt.Configuration;
@@ -31,6 +32,7 @@ import org.codespeak.cmtt.profiles.DevelopmentProfile;
 import org.codespeak.cmtt.objects.Plugin;
 import org.codespeak.cmtt.objects.ProgramException;
 import org.codespeak.cmtt.objects.ReadServerInformationThread;
+import org.codespeak.cmtt.objects.RunAfterProcessThread;
 import org.codespeak.cmtt.objects.handlers.JavaProfileHandler;
 import org.codespeak.cmtt.profiles.JavaProfile;
 import org.codespeak.cmtt.profiles.ServerProfile;
@@ -46,18 +48,40 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     private Stage controllerStage = null;
     private Process process = null;
+    private RunAfterProcessThread afterThread = null;
     private ReadServerInformationThread readThread = null;
     private DevelopmentProfile openedProfile = null;
     private ServerProfile serverProfile = null;
     private JavaProfile javaProfile = null;
     
+    @FXML private MenuItem debugServerMenuItem;
+    @FXML private MenuItem deleteLocalWorldsMenuItem;
     @FXML private Label headerLabel;
     @FXML private ComboBox<String> serverProfileChoice;
+    @FXML private Button updateProfileButton;
     @FXML private ComboBox<String> javaProfileChoice;
     @FXML private Label minecraftVersionLabel;
     @FXML private Label serverTypeLabel;
+    @FXML private Button startServerButton;
     @FXML private Button updatePluginsButton;
     @FXML private Button updateServerButton;
+    
+    private void disableControls(boolean disabled) {
+        debugServerMenuItem.setDisable(disabled);
+        deleteLocalWorldsMenuItem.setDisable(disabled);
+        serverProfileChoice.setDisable(disabled);
+        updateProfileButton.setDisable(disabled);
+        javaProfileChoice.setDisable(disabled);
+        startServerButton.setDisable(disabled);
+        
+        if (!openedProfile.isUpdatingOutdatedServerAutomatically()) {
+            updateServerButton.setDisable(disabled);
+        }
+        
+        if (!openedProfile.isUpdatingOutdatedPluginsAutomatically()) {
+            updatePluginsButton.setDisable(disabled);
+        }
+    }
     
     private void selectServerProfile(ServerProfile serverProfile) {
         minecraftVersionLabel.setText(serverProfile.getMinecraftVersion());
@@ -241,6 +265,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         this.controllerStage = controllerStage;
 
         this.controllerStage.setOnHidden((WindowEvent windowEvent) -> {
+            if (afterThread != null && afterThread.isAlive()) {
+                afterThread.interrupt();
+            }
+            
             if (readThread != null && readThread.isAlive()) {
                 readThread.interrupt();
             }
@@ -507,6 +535,17 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             
             return;
         }
+
+        disableControls(true);
+        
+        afterThread = new RunAfterProcessThread(process) {
+            @Override
+            public void finished() {
+                disableControls(false);
+            }
+        };
+        
+        afterThread.start();
         
         if (updated) {
             readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel);
