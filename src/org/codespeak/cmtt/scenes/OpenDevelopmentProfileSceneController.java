@@ -361,7 +361,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onDebugServerMenuItemClick(ActionEvent event) {
-        Path serverProfileLocation = serverProfile.getProfileLocation();
+        Path profilePath = serverProfile.getProfilePath();
 
         Alert checkAlert = getFailedStartAlert();
         
@@ -379,7 +379,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         try {
             ProcessBuilder pb = new ProcessBuilder(commands);
-            pb.directory(serverProfileLocation.toFile());
+            pb.directory(profilePath.toFile());
 
             pb.start();
         } catch (IOException ex) {
@@ -391,7 +391,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     
     @FXML
     public void onOpenLatestLogMenuItemClick(ActionEvent event) {
-        Path targetPath = serverProfile.getProfileLocation().resolve("logs").resolve("latest.log");
+        Path targetPath = serverProfile.getProfilePath().resolve("logs").resolve("latest.log");
         
         if (!targetPath.toFile().exists()) {
             Alert alert = AlertUtil.createAlert("The latest log file does not exist. The logs folder will be opened instead.");
@@ -420,8 +420,8 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     
     @FXML
     public void onOpenLogsFolderMenuItemClick(ActionEvent event) {
-        Path profileLocation = serverProfile.getProfileLocation();
-        Path logsFolder = profileLocation.resolve("logs");
+        Path profilePath = serverProfile.getProfilePath();
+        Path logsFolder = profilePath.resolve("logs");
         
         if (!logsFolder.toFile().exists()) {
             Alert alert = AlertUtil.createAlert("Logs folder doesn't exist.");
@@ -503,7 +503,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onStartServerButtonClick(ActionEvent event) {
-        Path serverProfileLocation = serverProfile.getProfileLocation();
+        Path profilePath = serverProfile.getProfilePath();
 
         Alert checkAlert = getFailedStartAlert();
         
@@ -525,7 +525,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         try {
             ProcessBuilder pb = new ProcessBuilder(commands);
-            pb.directory(serverProfileLocation.toFile());
+            pb.directory(profilePath.toFile());
 
             process = pb.start();
         } catch (IOException ex) {

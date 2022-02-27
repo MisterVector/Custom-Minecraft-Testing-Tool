@@ -189,10 +189,10 @@ public class ServerProfilesSceneController implements Initializable {
         try {
             String serverName = selectionModel.getSelectedItem();
             ServerProfile serverProfile = ServerProfileHandler.getProfile(serverName);
-            Path profileLocation = serverProfile.getProfileLocation().toAbsolutePath();
+            Path profilePath = serverProfile.getProfilePath().toAbsolutePath();
             Desktop desktop = Desktop.getDesktop();
 
-            desktop.open(profileLocation.toFile());
+            desktop.open(profilePath.toFile());
         } catch (IOException ex) {
             ProgramException ex2 = ProgramException.fromException(ex);
 

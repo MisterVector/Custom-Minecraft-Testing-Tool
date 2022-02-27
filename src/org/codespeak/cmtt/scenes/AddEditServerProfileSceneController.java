@@ -181,7 +181,7 @@ public class AddEditServerProfileSceneController implements Initializable {
             ServerTypes oldServerType = editedServerProfile.getServerType();
             
             if (oldServerType != serverType) {
-                Path eulaPath = editedServerProfile.getEULALocation();
+                Path eulaPath = editedServerProfile.getProfileEULAPath();
                 File eulaFile = eulaPath.toFile();
                 
                 if (eulaFile.exists()) {

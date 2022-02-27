@@ -31,8 +31,8 @@ public class ReadServerInformationThread extends Thread {
     private List<String> quitStrings = new ArrayList<String>(Arrays.asList("Done", "Ready for connections."));
     private final Process process;
     private final ServerProfile serverProfile;
-    private final Path serverProfilePath;
-    private final Path minecraftServerPath;
+    private final Path profilePath;
+    private final Path profileServerPath;
     private final Label minecraftVersionLabel;
     
     private boolean isQuitString(String line) {
@@ -121,8 +121,8 @@ public class ReadServerInformationThread extends Thread {
         this.serverProfile = serverProfile;
         this.minecraftVersionLabel = minecraftVersionLabel;
         
-        this.serverProfilePath = serverProfile.getProfileLocation();
-        this.minecraftServerPath = serverProfile.getServerLocation();
+        this.profilePath = serverProfile.getProfilePath();
+        this.profileServerPath = serverProfile.getProfileServerPath();
     }
     
     @Override
@@ -133,10 +133,10 @@ public class ReadServerInformationThread extends Thread {
             return;
         }
 
-        String minecraftVersion = readMinecraftVersion(minecraftServerPath);
+        String minecraftVersion = readMinecraftVersion(profileServerPath);
         
         if (minecraftVersion.equals("Unknown")) {
-            Path logFilePath = getServerLogFile(serverProfilePath);
+            Path logFilePath = getServerLogFile(profilePath);
             
             if (logFilePath != null) {
                 try {

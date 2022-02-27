@@ -166,7 +166,7 @@ public class ServerProfile extends Profile {
      * Gets the path to the folder for this server profile
      * @return path to the folder for this server profile
      */
-    public Path getProfileLocation() {
+    public Path getProfilePath() {
         return Paths.get(Configuration.SERVERS_FOLDER + File.separator + super.getId());
     }
     
@@ -174,16 +174,16 @@ public class ServerProfile extends Profile {
      * Gets the path to the server.jar file for this server profile
      * @return path to the server.jar file for this server profile
      */
-    public Path getServerLocation() {
-        return getProfileLocation().resolve("server.jar");
+    public Path getProfileServerPath() {
+        return getProfilePath().resolve("server.jar");
     }
 
     /**
      * Gets the path to the eula.txt file for this server profile
-     * @return 
+     * @return
      */
-    public Path getEULALocation() {
-        return getProfileLocation().resolve("eula.txt");
+    public Path getProfileEULAPath() {
+        return getProfilePath().resolve("eula.txt");
     }
     
     /**
@@ -191,14 +191,14 @@ public class ServerProfile extends Profile {
      * @return if the server file in the profile directory is present
      */
     public boolean hasNecessaryFiles() {
-        Path serverLocation = getServerLocation();
+        Path serverLocation = getProfileServerPath();
         boolean serverExists = serverLocation.toFile().exists();
         
         if (serverType == ServerTypes.GLOWSTONE) {
             return serverExists;
         }
         
-        Path eulaLocation = getEULALocation();
+        Path eulaLocation = getProfileEULAPath();
         
         return serverExists && eulaLocation.toFile().exists();
     }
@@ -229,26 +229,26 @@ public class ServerProfile extends Profile {
      * Updates this server profile. Makes sure all files are in place as well
      */
     public void update() {
-        File fileProfileLocation = getProfileLocation().toFile();
-        Path serverFile = getServerLocation();
+        File fileProfilePath = getProfilePath().toFile();
+        Path profileServerPath = getProfileServerPath();
         
-        if (!fileProfileLocation.exists()) {
-            fileProfileLocation.mkdirs();
+        if (!fileProfilePath.exists()) {
+            fileProfilePath.mkdirs();
         }
         
         try {
-            Files.copy(serverPath, serverFile, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(serverPath, profileServerPath, StandardCopyOption.REPLACE_EXISTING);
             
             checksum = MiscUtil.getChecksum(serverPath);
 
             if (serverType != ServerTypes.GLOWSTONE) {
-                Path eulaFile = getEULALocation();
+                Path profileEulaPath = getProfileEULAPath();
                 boolean customServer = serverType == ServerTypes.CUSTOM;
 
-                if (!eulaFile.toFile().exists()) {
+                if (!profileEulaPath.toFile().exists()) {
                     String eulaText = MiscUtil.getEULAText(customServer);
 
-                    Files.write(eulaFile, eulaText.getBytes());
+                    Files.write(profileEulaPath, eulaText.getBytes());
                 }
             }
         } catch (IOException ex) {
@@ -260,11 +260,11 @@ public class ServerProfile extends Profile {
      * Removes this profile and all files associated with it
      */
     public void remove() {
-        Path profileFolder = getProfileLocation();
+        Path profilePath = getProfilePath();
 
-        if (profileFolder.toFile().exists()) {
+        if (profilePath.toFile().exists()) {
             try {
-                Files.walk(profileFolder)
+                Files.walk(profilePath)
                      .sorted(Comparator.reverseOrder())
                      .map(Path::toFile)
                      .forEach(File::delete);
