@@ -7,65 +7,75 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="264.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="365.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
    <children>
+      <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="57.0" prefHeight="27.0" prefWidth="730.0" text="Basic Information">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="100.0" text="Profile Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="profileNameInput" layoutX="142.0" layoutY="98.0" prefHeight="25.0" prefWidth="196.0" />
       <Label fx:id="headerLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="35.0" prefWidth="733.0" text="Add Server Profile">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="62.0" text="Profile Name">
+      <Label layoutX="15.0" layoutY="132.0" text="Server Type">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="profileNameInput" layoutX="141.0" layoutY="60.0" prefHeight="25.0" prefWidth="196.0" />
-      <Label layoutX="14.0" layoutY="92.0" text="Minecraft Version">
+      <ComboBox fx:id="serverTypeChoices" layoutX="142.0" layoutY="130.0" onAction="#onSelectServerType" prefHeight="25.0" prefWidth="196.0" />
+      <Label layoutX="362.0" layoutY="101.0" text="Custom Plugins Argument">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="minecraftVersionLabel" layoutX="141.0" layoutY="92.0" text="Unknown">
+      <TextField fx:id="customPluginsArgumentInput" disable="true" layoutX="570.0" layoutY="96.0" prefHeight="25.0" prefWidth="176.0" />
+      <Label layoutX="362.0" layoutY="132.0" text="Custom World Name Argument">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="123.0" text="Server Type">
+      <TextField fx:id="customWorldNameArgumentInput" disable="true" layoutX="570.0" layoutY="126.0" prefHeight="25.0" prefWidth="176.0" />
+      <Label layoutX="362.0" layoutY="163.0" text="Custom Worlds Argument">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="serverTypeChoices" layoutX="141.0" layoutY="118.0" onAction="#onSelectServerType" prefHeight="25.0" prefWidth="196.0" />
-      <Label layoutX="14.0" layoutY="154.0" text="Server File Location">
+      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="570.0" layoutY="156.0" prefHeight="25.0" prefWidth="176.0" />
+      <Label alignment="TOP_CENTER" layoutX="19.0" layoutY="191.0" prefHeight="27.0" prefWidth="730.0" text="Server Information">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="224.0" text="Server File Location">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#onSelectServerFileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Select File ..." />
-      <Label fx:id="serverPathLabel" layoutX="138.0" layoutY="189.0">
+      <Button layoutX="19.0" layoutY="256.0" mnemonicParsing="false" onAction="#onSelectServerFileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Select File ..." />
+      <Label fx:id="serverPathLabel" layoutX="143.0" layoutY="259.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="361.0" layoutY="63.0" text="Custom Plugins Argument">
+      <Label layoutX="19.0" layoutY="299.0" text="Minecraft Version">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customPluginsArgumentInput" disable="true" layoutX="569.0" layoutY="58.0" prefHeight="25.0" prefWidth="176.0" />
-      <Label layoutX="361.0" layoutY="94.0" text="Custom World Name Argument">
+      <Label fx:id="minecraftVersionLabel" layoutX="146.0" layoutY="299.0" text="Unknown">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="customWorldNameArgumentInput" disable="true" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="176.0" />
-      <Label layoutX="361.0" layoutY="125.0" text="Custom Worlds Argument">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="customWorldsArgumentInput" disable="true" layoutX="569.0" layoutY="118.0" prefHeight="25.0" prefWidth="176.0" />
-      <Button layoutX="545.0" layoutY="225.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="651.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
+      <Button layoutX="550.0" layoutY="326.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="656.0" layoutY="326.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>
