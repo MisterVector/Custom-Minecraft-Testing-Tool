@@ -234,6 +234,58 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         
         return commands;
     }
+
+    private void startServer(boolean debugMode) {
+        Path profilePath = serverProfile.getProfilePath();
+
+        Alert checkAlert = getFailedStartAlert();
+        
+        if (checkAlert != null) {
+            checkAlert.show();
+            
+            return;
+        }
+        
+        boolean updated = false;
+        
+        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
+            serverProfile.update();
+            
+            updated = true;
+        }
+
+        List<String> commands = getServerStartupArguments(debugMode);
+        
+        try {
+            ProcessBuilder pb = new ProcessBuilder(commands);
+            pb.directory(profilePath.toFile());
+
+            process = pb.start();
+        } catch (IOException ex) {
+            ProgramException ex2 = ProgramException.fromException(ex);
+
+            Main.handleError(ex2);
+            
+            return;
+        }
+
+        disableControls(true);
+        
+        afterThread = new RunAfterProcessThread(process) {
+            @Override
+            public void finished() {
+                disableControls(false);
+            }
+        };
+        
+        afterThread.start();
+        
+        if (!debugMode && updated) {
+            readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel, serverDetailsLabel);
+
+            readThread.start();            
+        }
+    }
     
     /**
      * Initializes the controller class.
@@ -363,32 +415,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onDebugServerMenuItemClick(ActionEvent event) {
-        Path profilePath = serverProfile.getProfilePath();
-
-        Alert checkAlert = getFailedStartAlert();
-        
-        if (checkAlert != null) {
-            checkAlert.show();
-            
-            return;
-        }
-        
-        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
-            serverProfile.update();
-        }
-
-        List<String> commands = getServerStartupArguments(true);
-        
-        try {
-            ProcessBuilder pb = new ProcessBuilder(commands);
-            pb.directory(profilePath.toFile());
-
-            pb.start();
-        } catch (IOException ex) {
-            ProgramException ex2 = ProgramException.fromException(ex);
-
-            Main.handleError(ex2);
-        }
+        startServer(true);
     }
     
     @FXML
@@ -505,55 +532,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
 
     @FXML
     public void onStartServerButtonClick(ActionEvent event) {
-        Path profilePath = serverProfile.getProfilePath();
-
-        Alert checkAlert = getFailedStartAlert();
-        
-        if (checkAlert != null) {
-            checkAlert.show();
-            
-            return;
-        }
-        
-        boolean updated = false;
-        
-        if (!serverProfile.hasNecessaryFiles() || (openedProfile.isUpdatingOutdatedServerAutomatically() && serverProfile.canUpdate())) {
-            serverProfile.update();
-            
-            updated = true;
-        }
-
-        List<String> commands = getServerStartupArguments(false);
-        
-        try {
-            ProcessBuilder pb = new ProcessBuilder(commands);
-            pb.directory(profilePath.toFile());
-
-            process = pb.start();
-        } catch (IOException ex) {
-            ProgramException ex2 = ProgramException.fromException(ex);
-
-            Main.handleError(ex2);
-            
-            return;
-        }
-
-        disableControls(true);
-        
-        afterThread = new RunAfterProcessThread(process) {
-            @Override
-            public void finished() {
-                disableControls(false);
-            }
-        };
-        
-        afterThread.start();
-        
-        if (updated) {
-            readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel, serverDetailsLabel);
-
-            readThread.start();            
-        }
+        startServer(false);
     }
 
     @FXML
