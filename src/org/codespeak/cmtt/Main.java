@@ -31,12 +31,7 @@ import org.json.JSONObject;
  */
 public class Main extends Application {
     
-    private static Main instance = null;
     private static MainSceneController mainSceneController = null;
-    
-    public Main() {
-        instance = this;
-    }
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -78,14 +73,6 @@ public class Main extends Application {
         }
 
         launch(args);
-    }
-    
-    /**
-     * Gets an instance of this class
-     * @return instance of this class
-     */
-    public static Main getInstance() {
-        return instance;
     }
     
     /**
