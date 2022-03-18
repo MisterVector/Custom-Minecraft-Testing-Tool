@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="315.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.OpenDevelopmentProfileSceneController">
    <children>
       <MenuBar layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="680.0">
         <menus>
@@ -63,19 +63,29 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="203.0" text="Server Type">
+      <Label layoutX="18.0" layoutY="201.0" text="Server Details">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="serverTypeLabel" layoutX="148.0" layoutY="203.0" text="\%t">
+      <Label fx:id="serverDetailsLabel" layoutX="148.0" layoutY="201.0" text="\%d">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="startServerButton" layoutX="19.0" layoutY="236.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Start Server" />
-      <Button fx:id="updateServerButton" layoutX="241.0" layoutY="236.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Server" />
-      <Button layoutX="558.0" layoutY="277.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
-      <Button fx:id="updatePluginsButton" layoutX="465.0" layoutY="236.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Plugins" />
+      <Label layoutX="18.0" layoutY="231.0" text="Server Type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="serverTypeLabel" layoutX="148.0" layoutY="231.0" text="\%t">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="startServerButton" layoutX="19.0" layoutY="264.0" mnemonicParsing="false" onAction="#onStartServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Start Server" />
+      <Button fx:id="updateServerButton" layoutX="241.0" layoutY="264.0" mnemonicParsing="false" onAction="#onUpdateServerButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Server" />
+      <Button layoutX="558.0" layoutY="305.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="109.0" text="Close" />
+      <Button fx:id="updatePluginsButton" layoutX="465.0" layoutY="264.0" mnemonicParsing="false" onAction="#onUpdatePluginsButtonClick" prefHeight="25.0" prefWidth="207.0" text="Update Plugins" />
    </children>
 </AnchorPane>

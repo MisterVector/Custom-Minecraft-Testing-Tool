@@ -40,6 +40,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private Label headerLabel;
     @FXML private TextField profileNameInput;
     @FXML private Label minecraftVersionLabel;
+    @FXML private Label serverDetailsLabel;
     @FXML private ComboBox<String> serverTypeChoices;
     @FXML private TextField customPluginsArgumentInput;
     @FXML private TextField customWorldNameArgumentInput;
@@ -81,6 +82,7 @@ public class AddEditServerProfileSceneController implements Initializable {
     public void editServerProfile(ServerProfile profile) {
         profileNameInput.setText(profile.getName());
         minecraftVersionLabel.setText(profile.getMinecraftVersion());
+        serverDetailsLabel.setText(profile.getServerDetails());
         serverTypeChoices.getSelectionModel().select(profile.getServerType().getName());
         customPluginsArgumentInput.setText(profile.getCustomPluginsArgument());
         customWorldNameArgumentInput.setText(profile.getCustomWorldNameArgument());

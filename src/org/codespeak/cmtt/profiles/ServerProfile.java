@@ -20,6 +20,7 @@ import org.json.JSONObject;
 public class ServerProfile extends Profile {
    
     private String minecraftVersion;
+    private String serverDetails;
     private ServerTypes serverType;
     private String customPluginsArgument;
     private String customWorldNameArgument;
@@ -30,15 +31,17 @@ public class ServerProfile extends Profile {
     public ServerProfile(String name, ServerTypes serverType, String customPluginsArgument,
                          String customWorldNameArgument, String customWorldsArgument,
                          Path serverPath, String checksum) {
-        this(-1, name, "Unknown", serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
+        this(-1, name, "Unknown", "Unknown", serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
     }
     
-    public ServerProfile(int id, String name, String minecraftVersion, ServerTypes serverType,
-                         String customPluginsArgument, String customWorldNameArgument,
-                         String customWorldsArgument, Path serverPath, String checksum) {
+    public ServerProfile(int id, String name, String minecraftVersion, String serverDetails,
+                         ServerTypes serverType, String customPluginsArgument,
+                         String customWorldNameArgument, String customWorldsArgument,
+                         Path serverPath, String checksum) {
         super(id, name);
 
         this.minecraftVersion = minecraftVersion;
+        this.serverDetails = serverDetails;
         this.serverPath = serverPath;
         this.checksum = checksum;
         this.serverType = serverType;
@@ -61,6 +64,22 @@ public class ServerProfile extends Profile {
      */
     public void setMinecraftVersion(String minecraftVersion) {
         this.minecraftVersion = minecraftVersion;
+    }
+    
+    /**
+     * Gets the details of this server
+     * @return details of this server
+     */
+    public String getServerDetails() {
+        return serverDetails;
+    }
+    
+    /**
+     * Sets the details of this server
+     * @param serverDetails details of this server
+     */
+    public void setServerDetails(String serverDetails) {
+        this.serverDetails = serverDetails;
     }
     
     /**
@@ -286,6 +305,7 @@ public class ServerProfile extends Profile {
         json.put("id", id);
         json.put("name", name);
         json.put("minecraft_version", minecraftVersion);
+        json.put("server_details", serverDetails);
         json.put("server_type", serverType.getName());
         json.put("custom_plugins_argument", customPluginsArgument);
         json.put("custom_world_name_argument", customWorldNameArgument);
@@ -305,6 +325,7 @@ public class ServerProfile extends Profile {
         int id = 0;
         String name = "";
         String minecraftVersion = "";
+        String serverDetails = "";
         ServerTypes serverType = ServerTypes.BUKKIT;
         String customPluginsArgument = "";
         String customWorldNameArgument = "";
@@ -322,6 +343,10 @@ public class ServerProfile extends Profile {
         
         if (json.has("minecraft_version")) {
             minecraftVersion = json.getString("minecraft_version");
+        }
+        
+        if (json.has("server_details")) {
+            serverDetails = json.getString("server_details");
         }
         
         if (json.has("server_type")) {
@@ -348,7 +373,7 @@ public class ServerProfile extends Profile {
             checksum = json.getString("checksum");
         }
         
-        return new ServerProfile(id, name, minecraftVersion, serverType, customPluginsArgument,
+        return new ServerProfile(id, name, minecraftVersion, serverDetails, serverType, customPluginsArgument,
                                  customWorldNameArgument, customWorldsArgument, serverPath, checksum);
     }
     

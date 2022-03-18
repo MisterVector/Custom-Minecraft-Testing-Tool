@@ -27,6 +27,7 @@ import org.json.JSONObject;
  */
 public class ReadServerInformationThread extends Thread {
     private final String MINECRAFT_VERSION_TEXT = "Starting minecraft server version ";
+    private final String SERVER_DETAILS_TEXT = "This server is running ";
     
     private List<String> quitStrings = new ArrayList<String>(Arrays.asList("Done", "Ready for connections."));
     private final Process process;
@@ -34,6 +35,7 @@ public class ReadServerInformationThread extends Thread {
     private final Path profilePath;
     private final Path profileServerPath;
     private final Label minecraftVersionLabel;
+    private final Label serverDetailsLabel;
     
     private boolean isQuitString(String line) {
         for (String quitString : quitStrings) {
@@ -116,10 +118,11 @@ public class ReadServerInformationThread extends Thread {
         return logFilePath;
     }
 
-    public ReadServerInformationThread(Process process, ServerProfile serverProfile, Label minecraftVersionLabel) {
+    public ReadServerInformationThread(Process process, ServerProfile serverProfile, Label minecraftVersionLabel, Label serverDetailsLabel) {
         this.process = process;
         this.serverProfile = serverProfile;
         this.minecraftVersionLabel = minecraftVersionLabel;
+        this.serverDetailsLabel = serverDetailsLabel;
         
         this.profilePath = serverProfile.getProfilePath();
         this.profileServerPath = serverProfile.getProfileServerPath();
@@ -134,39 +137,46 @@ public class ReadServerInformationThread extends Thread {
         }
 
         String minecraftVersion = readMinecraftVersion(profileServerPath);
-        
-        if (minecraftVersion.equals("Unknown")) {
-            Path logFilePath = getServerLogFile(profilePath);
-            
-            if (logFilePath != null) {
-                try {
-                    BufferedReader reader = new BufferedReader(new FileReader(logFilePath.toFile()));
-                    String line = null;
+        String serverDetails = "Unknown";
+        Path logFilePath = getServerLogFile(profilePath);
 
-                    while ((line = reader.readLine()) != null) {
-                        if (line.contains(MINECRAFT_VERSION_TEXT)) {
-                            int minecraftVersionIdx = line.indexOf(MINECRAFT_VERSION_TEXT) + MINECRAFT_VERSION_TEXT.length();
+        if (logFilePath != null) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(logFilePath.toFile()));
+                String line = null;
 
-                            minecraftVersion = line.substring(minecraftVersionIdx);
-                            
-                            break;
-                        }
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains(MINECRAFT_VERSION_TEXT) && minecraftVersion.equals("Unknown")) {
+                        int minecraftVersionIdx = line.indexOf(MINECRAFT_VERSION_TEXT) + MINECRAFT_VERSION_TEXT.length();
 
-                        if (isQuitString(line)) {
-                            break;
-                        }
+                        minecraftVersion = line.substring(minecraftVersionIdx);
+                    } else if (line.contains(SERVER_DETAILS_TEXT)) {
+                        int serverDetailsIdx = line.indexOf(SERVER_DETAILS_TEXT) + SERVER_DETAILS_TEXT.length();
+
+                        serverDetails = line.substring(serverDetailsIdx);
                     }
-                } catch (IOException ex) {
 
+                    if (isQuitString(line)) {
+                        break;
+                    }
+
+                    if (!minecraftVersion.equals("Unknown") && !serverDetails.equals("Unknown")) {
+                        break;
+                    }
                 }
+            } catch (IOException ex) {
+
             }
         }
-        
-        final String finalMinecraftVersion = minecraftVersion;
 
+        final String finalMinecraftVersion = minecraftVersion;
+        final String finalServerDetails = serverDetails;
+        
         Platform.runLater(() -> {
             serverProfile.setMinecraftVersion(finalMinecraftVersion);
+            serverProfile.setServerDetails(finalServerDetails);
             minecraftVersionLabel.setText(finalMinecraftVersion);
+            serverDetailsLabel.setText(finalServerDetails);
         });
     }
 

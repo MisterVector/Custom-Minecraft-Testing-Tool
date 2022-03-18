@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="365.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codespeak.cmtt.scenes.AddEditServerProfileSceneController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="57.0" prefHeight="27.0" prefWidth="730.0" text="Basic Information">
          <font>
@@ -75,7 +75,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="550.0" layoutY="326.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
-      <Button layoutX="656.0" layoutY="326.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
+      <Label layoutX="19.0" layoutY="330.0" text="Server Details">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="serverDetailsLabel" alignment="TOP_LEFT" layoutX="146.0" layoutY="330.0" prefHeight="47.0" prefWidth="600.0" text="Unknown" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="550.0" layoutY="381.0" mnemonicParsing="false" onAction="#onOKButtonClick" prefHeight="25.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="656.0" layoutY="381.0" mnemonicParsing="false" onAction="#onCloseButtonClick" prefHeight="25.0" prefWidth="92.0" text="Close" />
    </children>
 </AnchorPane>

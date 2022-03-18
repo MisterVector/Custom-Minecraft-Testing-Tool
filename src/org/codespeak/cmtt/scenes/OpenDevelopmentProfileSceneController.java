@@ -61,6 +61,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     @FXML private Button updateProfileButton;
     @FXML private ComboBox<String> javaProfileChoice;
     @FXML private Label minecraftVersionLabel;
+    @FXML private Label serverDetailsLabel;
     @FXML private Label serverTypeLabel;
     @FXML private Button startServerButton;
     @FXML private Button updatePluginsButton;
@@ -85,6 +86,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
     
     private void selectServerProfile(ServerProfile serverProfile) {
         minecraftVersionLabel.setText(serverProfile.getMinecraftVersion());
+        serverDetailsLabel.setText(serverProfile.getServerDetails());
         serverTypeLabel.setText(serverProfile.getServerType().getName());
         
         this.serverProfile = serverProfile;
@@ -548,7 +550,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         afterThread.start();
         
         if (updated) {
-            readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel);
+            readThread = new ReadServerInformationThread(process, serverProfile, minecraftVersionLabel, serverDetailsLabel);
 
             readThread.start();            
         }
