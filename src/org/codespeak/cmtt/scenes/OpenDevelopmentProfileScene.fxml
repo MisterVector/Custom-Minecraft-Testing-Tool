@@ -53,32 +53,32 @@
       </Label>
       <ComboBox fx:id="javaProfileChoice" layoutX="144.0" layoutY="133.0" onAction="#onSelectJavaProfile" prefWidth="150.0" />
       <Button fx:id="updateProfileButton" layoutX="552.0" layoutY="98.0" mnemonicParsing="false" onAction="#onUpdateProfileButtonClick" prefHeight="25.0" prefWidth="109.0" text="Update Profile" />
-      <Label layoutX="17.0" layoutY="171.0" text="Minecraft Version">
+      <Label layoutX="18.0" layoutY="170.0" text="Server Type">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="minecraftVersionLabel" layoutX="147.0" layoutY="171.0" text="\%v">
+      <Label fx:id="serverTypeLabel" layoutX="148.0" layoutY="170.0" text="\%t">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="201.0" text="Server Details">
+      <Label layoutX="17.0" layoutY="199.0" text="Minecraft Version">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="serverDetailsLabel" alignment="TOP_LEFT" layoutX="148.0" layoutY="201.0" prefHeight="41.0" prefWidth="520.0" text="\%d" wrapText="true">
+      <Label fx:id="minecraftVersionLabel" layoutX="147.0" layoutY="199.0" text="\%v">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="246.0" text="Server Type">
+      <Label layoutX="18.0" layoutY="228.0" text="Server Details">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="serverTypeLabel" layoutX="148.0" layoutY="246.0" text="\%t">
+      <Label fx:id="serverDetailsLabel" alignment="TOP_LEFT" layoutX="148.0" layoutY="228.0" prefHeight="41.0" prefWidth="520.0" text="\%d" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
