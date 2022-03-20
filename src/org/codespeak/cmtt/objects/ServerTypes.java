@@ -15,19 +15,19 @@ public enum ServerTypes {
     CUSTOM("Custom");
     
     private final String name;
-    private final String pluginsArgument;
+    private final String pluginsFolderArgument;
     private final String worldNameArgument;
-    private final String worldsArgument;
+    private final String worldsFolderArgument;
     
     private ServerTypes(String name) {
         this(name, "", "", "");
     }
     
-    private ServerTypes(String name, String pluginsArgument, String worldNameArgument, String worldsArgument) {
+    private ServerTypes(String name, String pluginsFolderArgument, String worldNameArgument, String worldsFolderArgument) {
         this.name = name;
-        this.pluginsArgument = pluginsArgument;
+        this.pluginsFolderArgument = pluginsFolderArgument;
         this.worldNameArgument = worldNameArgument;
-        this.worldsArgument = worldsArgument;
+        this.worldsFolderArgument = worldsFolderArgument;
     }
     
     /**
@@ -42,8 +42,8 @@ public enum ServerTypes {
      * Gets the name of the argument for changing the plugins folder
      * @return name of the argument for changing the plugins folder
      */
-    public String getPluginsArgument() {
-        return pluginsArgument;
+    public String getPluginsFolderArgument() {
+        return pluginsFolderArgument;
     }
     
     /**
@@ -58,8 +58,8 @@ public enum ServerTypes {
      * Gets the name of the argument for changing the worlds folder
      * @return name of the argument for changing the worlds folder
      */
-    public String getWorldsArgument() {
-        return worldsArgument;
+    public String getWorldsFolderArgument() {
+        return worldsFolderArgument;
     }
     
     /**

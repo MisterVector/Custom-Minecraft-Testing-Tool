@@ -102,9 +102,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
         }
 
         ServerTypes serverType = serverProfile.getServerType();
-        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        String pluginsFolderArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsFolderArgument() : serverType.getPluginsFolderArgument());
         
-        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
+        if (!StringUtil.isNullOrEmpty(pluginsFolderArgument)) {
             List<Plugin> plugins = openedProfile.getPlugins();
             Path pluginsFolderLocation = openedProfile.getPluginsLocation();
             
@@ -188,10 +188,10 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add(customServerWorldName);            
         }
 
-        String worldsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsArgument() : serverType.getWorldsArgument());
+        String worldsFolderArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomWorldsFolderArgument() : serverType.getWorldsFolderArgument());
 
-        if (!StringUtil.isNullOrEmpty(worldsArgument) && !openedProfile.isUsingServerWorlds()) {
-            commands.add(worldsArgument);
+        if (!StringUtil.isNullOrEmpty(worldsFolderArgument) && !openedProfile.isUsingServerWorlds()) {
+            commands.add(worldsFolderArgument);
 
             Path worldsLocation = openedProfile.getWorldLocation(serverProfile);
             File fileWorldsLocation = worldsLocation.toFile();
@@ -203,9 +203,9 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
             commands.add(worldsLocation.toString());
         }            
 
-        String pluginsArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsArgument() : serverType.getPluginsArgument());
+        String pluginsFolderArgument = (serverType == ServerTypes.CUSTOM ? serverProfile.getCustomPluginsFolderArgument() : serverType.getPluginsFolderArgument());
         
-        if (!StringUtil.isNullOrEmpty(pluginsArgument)) {
+        if (!StringUtil.isNullOrEmpty(pluginsFolderArgument)) {
             List<Plugin> plugins = openedProfile.getPlugins();
             Path pluginsLocation = openedProfile.getPluginsLocation().toAbsolutePath();
             
@@ -216,7 +216,7 @@ public class OpenDevelopmentProfileSceneController implements Initializable {
                     }
                 }
 
-                commands.add(pluginsArgument);
+                commands.add(pluginsFolderArgument);
                 commands.add(pluginsLocation.toString());
             }
         }

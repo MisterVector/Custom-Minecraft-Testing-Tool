@@ -42,9 +42,9 @@ public class AddEditServerProfileSceneController implements Initializable {
     @FXML private Label minecraftVersionLabel;
     @FXML private Label serverDetailsLabel;
     @FXML private ComboBox<String> serverTypeChoices;
-    @FXML private TextField customPluginsArgumentInput;
+    @FXML private TextField customPluginsFolderArgumentInput;
     @FXML private TextField customWorldNameArgumentInput;
-    @FXML private TextField customWorldsArgumentInput;
+    @FXML private TextField customWorldsFolderArgumentInput;
     @FXML private Label serverPathLabel;
     
     /**
@@ -84,9 +84,9 @@ public class AddEditServerProfileSceneController implements Initializable {
         minecraftVersionLabel.setText(profile.getMinecraftVersion());
         serverDetailsLabel.setText(profile.getServerDetails());
         serverTypeChoices.getSelectionModel().select(profile.getServerType().getName());
-        customPluginsArgumentInput.setText(profile.getCustomPluginsArgument());
+        customPluginsFolderArgumentInput.setText(profile.getCustomPluginsFolderArgument());
         customWorldNameArgumentInput.setText(profile.getCustomWorldNameArgument());
-        customWorldsArgumentInput.setText(profile.getCustomWorldsArgument());
+        customWorldsFolderArgumentInput.setText(profile.getCustomWorldsFolderArgument());
         serverPath = profile.getServerPath();
         serverPathLabel.setText(serverPath.toString());
 
@@ -102,9 +102,9 @@ public class AddEditServerProfileSceneController implements Initializable {
         ServerTypes currentServerType = ServerTypes.fromName(currentServerTypeChoice);
         boolean disableInput = currentServerType != ServerTypes.CUSTOM;
         
-        customPluginsArgumentInput.setDisable(disableInput);
+        customPluginsFolderArgumentInput.setDisable(disableInput);
         customWorldNameArgumentInput.setDisable(disableInput);
-        customWorldsArgumentInput.setDisable(disableInput);
+        customWorldsFolderArgumentInput.setDisable(disableInput);
     }
     
     @FXML
@@ -145,9 +145,9 @@ public class AddEditServerProfileSceneController implements Initializable {
     public void onOKButtonClick(ActionEvent event) {
         String profileName = profileNameInput.getText();
         String serverTypeChosen = serverTypeChoices.getSelectionModel().getSelectedItem();
-        String customPluginsArgument = customPluginsArgumentInput.getText();
+        String customPluginsFolderArgument = customPluginsFolderArgumentInput.getText();
         String customWorldNameArgument = customWorldNameArgumentInput.getText();
-        String customWorldsArgument = customWorldsArgumentInput.getText();
+        String customWorldsFolderArgument = customWorldsFolderArgumentInput.getText();
         ServerTypes serverType = null;
         
         if (!StringUtil.isNullOrEmpty(serverTypeChosen)) {
@@ -193,9 +193,9 @@ public class AddEditServerProfileSceneController implements Initializable {
             
             editedServerProfile.setName(profileName);
             editedServerProfile.setServerType(serverType);
-            editedServerProfile.setCustomPluginsArgument(customPluginsArgument);
+            editedServerProfile.setCustomPluginsFolderArgument(customPluginsFolderArgument);
             editedServerProfile.setCustomWorldNameArgument(customWorldNameArgument);
-            editedServerProfile.setCustomWorldsArgument(customWorldsArgument);
+            editedServerProfile.setCustomWorldsFolderArgument(customWorldsFolderArgument);
             editedServerProfile.setServerPath(serverPath);
 
             if (editedServerProfile.hasUpdate()) {
@@ -204,8 +204,8 @@ public class AddEditServerProfileSceneController implements Initializable {
 
             profile = editedServerProfile;
         } else {
-            profile = new ServerProfile(profileName, serverType, customPluginsArgument,
-                                        customWorldNameArgument, customWorldsArgument, serverPath, "");
+            profile = new ServerProfile(profileName, serverType, customPluginsFolderArgument,
+                                        customWorldNameArgument, customWorldsFolderArgument, serverPath, "");
 
             ServerProfileHandler.addProfile(profile);
         }

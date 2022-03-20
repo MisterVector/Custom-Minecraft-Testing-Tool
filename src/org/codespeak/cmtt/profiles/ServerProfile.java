@@ -22,21 +22,21 @@ public class ServerProfile extends Profile {
     private String minecraftVersion;
     private String serverDetails;
     private ServerTypes serverType;
-    private String customPluginsArgument;
+    private String customPluginsFolderArgument;
     private String customWorldNameArgument;
-    private String customWorldsArgument;
+    private String customWorldsFolderArgument;
     private Path serverPath;
     private String checksum;
     
-    public ServerProfile(String name, ServerTypes serverType, String customPluginsArgument,
-                         String customWorldNameArgument, String customWorldsArgument,
+    public ServerProfile(String name, ServerTypes serverType, String customPluginsFolderArgument,
+                         String customWorldNameArgument, String customWorldsFolderArgument,
                          Path serverPath, String checksum) {
-        this(-1, name, "Unknown", "Unknown", serverType, customPluginsArgument, customWorldNameArgument, customWorldsArgument, serverPath, checksum);
+        this(-1, name, "Unknown", "Unknown", serverType, customPluginsFolderArgument, customWorldNameArgument, customWorldsFolderArgument, serverPath, checksum);
     }
     
     public ServerProfile(int id, String name, String minecraftVersion, String serverDetails,
-                         ServerTypes serverType, String customPluginsArgument,
-                         String customWorldNameArgument, String customWorldsArgument,
+                         ServerTypes serverType, String customPluginsFolderArgument,
+                         String customWorldNameArgument, String customWorldsFolderArgument,
                          Path serverPath, String checksum) {
         super(id, name);
 
@@ -45,9 +45,9 @@ public class ServerProfile extends Profile {
         this.serverPath = serverPath;
         this.checksum = checksum;
         this.serverType = serverType;
-        this.customPluginsArgument = customPluginsArgument;
+        this.customPluginsFolderArgument = customPluginsFolderArgument;
         this.customWorldNameArgument = customWorldNameArgument;
-        this.customWorldsArgument = customWorldsArgument;
+        this.customWorldsFolderArgument = customWorldsFolderArgument;
     }
     
     /**
@@ -102,17 +102,17 @@ public class ServerProfile extends Profile {
      * Gets the name of the custom argument for changing the plugins folder
      * @return name of the custom argument for changing the plugins folder
      */
-    public String getCustomPluginsArgument() {
-        return customPluginsArgument;
+    public String getCustomPluginsFolderArgument() {
+        return customPluginsFolderArgument;
     }
     
     /**
      * Sets the name of the custom argument for changing the plugins folder
-     * @param customPluginsArgument name of the custom argument for changing the
+     * @param customPluginsFolderArgument name of the custom argument for changing the
      * plugins folder
      */
-    public void setCustomPluginsArgument(String customPluginsArgument) {
-        this.customPluginsArgument = customPluginsArgument;
+    public void setCustomPluginsFolderArgument(String customPluginsFolderArgument) {
+        this.customPluginsFolderArgument = customPluginsFolderArgument;
     }
     
     /**
@@ -136,17 +136,17 @@ public class ServerProfile extends Profile {
      * Gets the name of the custom argument for changing the worlds folder
      * @return name of the custom argument for changing the worlds folder
      */
-    public String getCustomWorldsArgument() {
-        return customWorldsArgument;
+    public String getCustomWorldsFolderArgument() {
+        return customWorldsFolderArgument;
     }
 
     /**
      * Sets the name of the custom argument for changing the worlds folder
-     * @param customWorldsArgument name of the custom argument for changing the
-     * worlds folder
+     * @param customWorldsFolderArgument name of the custom argument for
+     * changing the worlds folder
      */
-    public void setCustomWorldsArgument(String customWorldsArgument) {
-        this.customWorldsArgument = customWorldsArgument;
+    public void setCustomWorldsFolderArgument(String customWorldsFolderArgument) {
+        this.customWorldsFolderArgument = customWorldsFolderArgument;
     }
     
     /**
@@ -307,9 +307,9 @@ public class ServerProfile extends Profile {
         json.put("minecraft_version", minecraftVersion);
         json.put("server_details", serverDetails);
         json.put("server_type", serverType.getName());
-        json.put("custom_plugins_argument", customPluginsArgument);
+        json.put("custom_plugins_folder_argument", customPluginsFolderArgument);
         json.put("custom_world_name_argument", customWorldNameArgument);
-        json.put("custom_worlds_argument", customWorldsArgument);
+        json.put("custom_worlds_folder_argument", customWorldsFolderArgument);
         json.put("server_path", serverPath);
         json.put("checksum", checksum);
         
@@ -327,9 +327,9 @@ public class ServerProfile extends Profile {
         String minecraftVersion = "";
         String serverDetails = "";
         ServerTypes serverType = ServerTypes.BUKKIT;
-        String customPluginsArgument = "";
+        String customPluginsFolderArgument = "";
         String customWorldNameArgument = "";
-        String customWorldsArgument = "";
+        String customWorldsFolderArgument = "";
         Path serverPath = null;
         String checksum = "";
         
@@ -353,16 +353,16 @@ public class ServerProfile extends Profile {
             serverType = ServerTypes.fromName(json.getString("server_type"));
         }
         
-        if (json.has("custom_plugins_argument")) {
-            customPluginsArgument = json.getString("custom_plugins_argument");
+        if (json.has("custom_plugins_folder_argument")) {
+            customPluginsFolderArgument = json.getString("custom_plugins_folder_argument");
         }
         
         if (json.has("custom_world_name_argument")) {
             customWorldNameArgument = json.getString("custom_world_name_argument");
         }
         
-        if (json.has("custom_worlds_argument")) {
-            customWorldsArgument = json.getString("custom_worlds_argument");
+        if (json.has("custom_worlds_folder_argument")) {
+            customWorldsFolderArgument = json.getString("custom_worlds_folder_argument");
         }
 
         if (json.has("server_path")) {
@@ -373,8 +373,8 @@ public class ServerProfile extends Profile {
             checksum = json.getString("checksum");
         }
         
-        return new ServerProfile(id, name, minecraftVersion, serverDetails, serverType, customPluginsArgument,
-                                 customWorldNameArgument, customWorldsArgument, serverPath, checksum);
+        return new ServerProfile(id, name, minecraftVersion, serverDetails, serverType, customPluginsFolderArgument,
+                                 customWorldNameArgument, customWorldsFolderArgument, serverPath, checksum);
     }
     
 }
